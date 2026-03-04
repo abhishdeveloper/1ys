@@ -14,21 +14,21 @@ require_once __DIR__ . '/partials/header.php';
             <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
                 <div class="sm:text-center lg:text-left">
                     <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
-                        <span class="block xl:inline">Everything you need,</span>
-                        <span class="block text-primary xl:inline">delivered swiftly.</span>
+                        <span class="block xl:inline">Premium Ayurvedic</span>
+                        <span class="block text-primary xl:inline">Manufacturing.</span>
                     </h1>
                     <p class="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        Discover the latest trends in electronics, fashion, and home goods. Experience seamless shopping with blazing fast search and secure checkout.
+                        Discover nature's healing with AAYU CARE. We specialize in third-party manufacturing of high-quality Ayurvedic medicines, roll-ons, and natural care products.
                     </p>
                     <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                         <div class="rounded-md shadow">
-                            <a href="/products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 transition-colors">
-                                Shop Now
+                            <a href="/products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary_hover md:py-4 md:text-lg md:px-10 transition-colors">
+                                View Products
                             </a>
                         </div>
                         <div class="mt-3 sm:mt-0 sm:ml-3">
-                            <a href="/categories" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10 transition-colors">
-                                View Categories
+                            <a href="/categories" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary bg-green-100 hover:bg-green-200 md:py-4 md:text-lg md:px-10 transition-colors">
+                                Browse Categories
                             </a>
                         </div>
                     </div>
@@ -36,9 +36,9 @@ require_once __DIR__ . '/partials/header.php';
             </main>
         </div>
     </div>
-    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-gray-200 dark:bg-gray-700">
-        <!-- Placeholder hero image -->
-        <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full opacity-80" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80" alt="Shopping cart">
+    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-green-50 dark:bg-gray-700">
+        <!-- Hero image related to Ayurveda -->
+        <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full opacity-90" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Ayurvedic herbs and nature">
     </div>
 </div>
 

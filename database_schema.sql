@@ -62,10 +62,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `slug`, `description`, `status`) VALUES
-(1, 'Electronics', 'electronics', 'The latest gadgets and tech accessories.', 1),
-(2, 'Clothing', 'clothing', 'Apparel for all seasons and styles.', 1),
-(3, 'Home & Garden', 'home-garden', 'Everything you need to make your house a home.', 1),
-(4, 'Sports & Outdoors', 'sports-outdoors', 'Gear up for your next adventure.', 1);
+(1, 'Roll Ons', 'roll-ons', 'Ayurvedic fast-acting roll-ons for pain relief.', 1),
+(2, 'Lip Care', 'lip-care', 'Natural and herbal lip care products.', 1),
+(3, 'Herbal Oils', 'herbal-oils', 'Pure Ayurvedic massage and healing oils.', 1),
+(4, 'Wellness Supplements', 'wellness-supplements', 'Natural daily wellness boosters.', 1);
 
 -- --------------------------------------------------------
 
@@ -100,14 +100,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `seller_id`, `category_id`, `name`, `slug`, `description`, `price`, `weight_kg`, `stock_quantity`, `image_url`, `is_active`) VALUES
-(1, 1, 1, 'Premium Wireless Headphones', 'premium-wireless-headphones', 'Experience the ultimate sound quality with our premium wireless headphones. Features active noise cancellation, 40 hours of battery life, and plush ear cushions for all-day comfort.', 149.99, '0.45', 50, 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&q=80', 1),
-(2, 1, 1, 'Smart Watch Series X', 'smart-watch-series-x', 'Stay connected and track your fitness goals with the Smart Watch Series X. Includes heart rate monitoring, GPS, and a water-resistant design.', 199.50, '0.15', 30, 'https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=800&q=80', 1),
-(3, 1, 1, 'Portable Bluetooth Speaker', 'portable-bluetooth-speaker', 'Take your music anywhere with this rugged, waterproof portable Bluetooth speaker. Delivers 360-degree sound and deep bass.', 59.99, '0.80', 100, 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=800&q=80', 1),
-(4, 2, 2, 'Classic Cotton T-Shirt', 'classic-cotton-t-shirt', 'A wardrobe essential. Made from 100% organic cotton, this t-shirt is breathable, durable, and stylishly simple.', 19.99, '0.20', 200, 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&q=80', 1),
-(5, 2, 2, 'Denim Jacket', 'denim-jacket', 'A timeless classic. This vintage-wash denim jacket features a comfortable fit and durable construction.', 89.99, '1.20', 45, 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=800&q=80', 1),
-(6, 1, 3, 'Ceramic Coffee Mug', 'ceramic-coffee-mug', 'Start your morning right with this handcrafted ceramic coffee mug. Microwave and dishwasher safe.', 14.50, '0.40', 120, 'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&q=80', 1),
-(7, 1, 3, 'Indoor Potted Plant', 'indoor-potted-plant', 'Bring a touch of nature indoors. This low-maintenance potted plant is perfect for desks and shelves.', 34.00, '2.50', 25, 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=800&q=80', 1),
-(8, 2, 4, 'Yoga Mat', 'yoga-mat', 'Eco-friendly, non-slip yoga mat with alignment lines. Includes a carrying strap for easy transport.', 29.99, '1.10', 80, 'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=800&q=80', 1);
+(1, 1, 1, 'Rapid Relief Roll On', 'rapid-relief-roll-on', 'Fast-acting Ayurvedic roll-on for headaches, joint pain, and muscular aches. Made with pure essential oils.', 99.00, '0.05', 500, 'https://myaayucare.com/wp-content/uploads/2025/02/1-5.png', 1),
+(2, 1, 2, 'Kumkumadi Lip Balm', 'kumkumadi-lip-balm', 'Nourishing herbal lip balm infused with Kumkumadi tailam for soft, hydrated, and naturally pink lips.', 149.00, '0.02', 300, 'https://myaayucare.com/wp-content/uploads/2025/02/a1.png', 1),
+(3, 1, 3, 'Aayu Joint Pain Oil', 'aayu-joint-pain-oil', 'Traditional Ayurvedic massage oil for deep tissue relief and improved joint mobility.', 249.00, '0.12', 150, 'https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250224-WA0000.jpg', 1),
+(4, 2, 4, 'Amla Aloe Vera Juice', 'amla-aloe-vera-juice', 'Daily immunity booster packed with natural Vitamin C and antioxidants.', 199.00, '0.50', 200, 'https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250224-WA0010.jpg', 1);
 
 -- --------------------------------------------------------
 

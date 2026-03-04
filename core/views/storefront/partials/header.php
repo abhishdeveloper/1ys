@@ -18,7 +18,8 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#4f46e5', // Indigo-600
+                        primary: '#166534', // Green-800 (Ayurvedic theme)
+                        primary_hover: '#14532d', // Green-900
                         secondary: '#1f2937', // Gray-800
                     }
                 }
@@ -39,18 +40,21 @@
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
 
+<!-- Top Banner -->
+<div class="bg-primary text-white text-center py-2 text-sm font-medium tracking-wide">
+    Free Delivery above order value 299/-
+</div>
+
 <!-- Navigation Bar -->
-<nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+<nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50 border-b-2 border-primary">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
 
             <!-- Logo & Brand -->
             <div class="flex items-center">
                 <a href="/" class="flex-shrink-0 flex items-center gap-2">
-                    <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    <span class="font-bold text-xl tracking-tight text-gray-900 dark:text-white">ShopSwift</span>
+                    <img class="h-10 w-auto" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+                    <span class="font-bold text-xl tracking-tight text-primary dark:text-white">AAYU CARE</span>
                 </a>
             </div>
 
@@ -125,7 +129,7 @@
                     </div>
                 <?php else: ?>
                     <a href="/login" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary">Login</a>
-                    <a href="/register" class="hidden sm:inline-block text-sm font-medium bg-primary text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors">Sign Up</a>
+                    <a href="/register" class="hidden sm:inline-block text-sm font-medium bg-primary text-white px-4 py-2 rounded-md hover:bg-primary_hover transition-colors">Sign Up</a>
                 <?php endif; ?>
             </div>
         </div>

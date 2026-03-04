@@ -9,6 +9,18 @@ $role = $_SESSION['role'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo $pageTitle ?? 'Admin Panel'; ?></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#166534', // Green-800 (Ayurvedic theme)
+                        primary_hover: '#14532d', // Green-900
+                    }
+                }
+            }
+        }
+    </script>
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
 <body class="h-full">
@@ -18,7 +30,7 @@ $role = $_SESSION['role'] ?? '';
     <div class="hidden md:flex md:w-64 md:flex-col">
         <div class="flex flex-col flex-grow pt-5 overflow-y-auto bg-gray-800">
             <div class="flex items-center flex-shrink-0 px-4">
-                <span class="text-white text-xl font-bold tracking-wider">ShopSwift Admin</span>
+                <span class="text-white text-xl font-bold tracking-wider">AAYU CARE Admin</span>
             </div>
             <div class="mt-5 flex-1 flex flex-col">
                 <nav class="flex-1 px-2 pb-4 space-y-1">

@@ -9,13 +9,11 @@
         <div class="xl:grid xl:grid-cols-3 xl:gap-8">
             <div class="space-y-8 xl:col-span-1">
                 <a href="/" class="flex items-center gap-2">
-                    <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    <span class="font-bold text-2xl tracking-tight text-gray-900 dark:text-white">ShopSwift</span>
+                    <img class="h-12 w-auto" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+                    <span class="font-bold text-2xl tracking-tight text-primary dark:text-white">AAYU CARE</span>
                 </a>
                 <p class="text-gray-500 dark:text-gray-400 text-base">
-                    Making the world a better place through constructing elegant, high-performance shopping experiences.
+                    An Ayurvedic pharma medicine manufacturing company dedicated to providing high-quality, natural health solutions.
                 </p>
                 <div class="flex space-x-6">
                     <!-- Social Links -->
@@ -47,7 +45,7 @@
             </div>
         </div>
         <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8">
-            <p class="text-base text-gray-400 xl:text-center">&copy; <?php echo date('Y'); ?> ShopSwift, Inc. All rights reserved.</p>
+            <p class="text-base text-gray-400 xl:text-center">&copy; <?php echo date('Y'); ?> AAYU CARE. All rights reserved.</p>
         </div>
     </div>
 </footer>

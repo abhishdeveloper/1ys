@@ -28,8 +28,35 @@ try {
 
     switch ($route) {
         case 'home':
-            // TODO: Create a HomeController
-            echo "Welcome to the E-commerce Homepage.";
+            require_once __DIR__ . '/core/controllers/HomeController.php';
+            $home = new HomeController($db);
+            $home->index();
+            break;
+
+        case 'products':
+            require_once __DIR__ . '/core/controllers/ProductController.php';
+            $productCtrl = new ProductController($db);
+            $productCtrl->index();
+            break;
+
+        case 'api/search':
+            require_once __DIR__ . '/core/controllers/ProductController.php';
+            $productCtrl = new ProductController($db);
+            $productCtrl->search();
+            break;
+
+        case 'categories':
+            require_once __DIR__ . '/core/controllers/CategoryController.php';
+            $categoryCtrl = new CategoryController($db);
+            $categoryCtrl->index();
+            break;
+
+        case 'cart':
+        case 'contact':
+        case 'faq':
+            // Placeholder routes for upcoming features
+            $pageTitle = ucfirst($route) . " | ShopSwift";
+            require_once __DIR__ . '/core/views/storefront/coming_soon.php';
             break;
 
         case 'login':
@@ -74,8 +101,25 @@ try {
             break;
 
         default:
+            // Dynamic routing for categories and products
+            // Expected format: /category/slug or /product/slug
+            $routeParts = explode('/', $route);
+            if (count($routeParts) == 2) {
+                require_once __DIR__ . '/core/controllers/ProductController.php';
+                $productCtrl = new ProductController($db);
+
+                if ($routeParts[0] === 'category') {
+                    $productCtrl->index($routeParts[1]);
+                    break;
+                } elseif ($routeParts[0] === 'product') {
+                    $productCtrl->show($routeParts[1]);
+                    break;
+                }
+            }
+
+            // If no dynamic route matched, show 404
             http_response_code(404);
-            echo "404 Page Not Found";
+            require_once __DIR__ . '/core/views/storefront/404.php';
             break;
     }
 } catch (Exception $e) {

@@ -102,8 +102,12 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `seller_id`, `category_id`, `name`, `slug`, `description`, `price`, `weight_kg`, `stock_quantity`, `image_url`, `is_active`) VALUES
 (1, 1, 1, 'Rapid Relief Roll On', 'rapid-relief-roll-on', 'Fast-acting Ayurvedic roll-on for headaches, joint pain, and muscular aches. Made with pure essential oils.', 99.00, '0.05', 500, 'https://myaayucare.com/wp-content/uploads/2025/02/1-5.png', 1),
 (2, 1, 2, 'Kumkumadi Lip Balm', 'kumkumadi-lip-balm', 'Nourishing herbal lip balm infused with Kumkumadi tailam for soft, hydrated, and naturally pink lips.', 149.00, '0.02', 300, 'https://myaayucare.com/wp-content/uploads/2025/02/a1.png', 1),
-(3, 1, 3, 'Aayu Joint Pain Oil', 'aayu-joint-pain-oil', 'Traditional Ayurvedic massage oil for deep tissue relief and improved joint mobility.', 249.00, '0.12', 150, 'https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250224-WA0000.jpg', 1),
-(4, 2, 4, 'Amla Aloe Vera Juice', 'amla-aloe-vera-juice', 'Daily immunity booster packed with natural Vitamin C and antioxidants.', 199.00, '0.50', 200, 'https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250224-WA0010.jpg', 1);
+(3, 1, 3, 'Aayu Joint Pain Oil', 'aayu-joint-pain-oil', 'Traditional Ayurvedic massage oil for deep tissue relief and improved joint mobility.', 249.00, '0.12', 150, 'https://myaayucare.com/wp-content/uploads/2025/02/msg-oil.png', 1),
+(4, 2, 4, 'Arogyam Immunity Booster', 'arogyam-immunity-booster', 'Daily wellness supplement packed with natural Vitamin C and antioxidants. Boost your immunity naturally.', 199.00, '0.50', 200, 'https://myaayucare.com/wp-content/uploads/2025/02/arogyam.png', 1),
+(5, 1, 2, 'Strawberry Lip Balm', 'strawberry-lip-balm', 'Fruity and soothing strawberry extracts for dry, chapped lips.', 129.00, '0.02', 150, 'https://myaayucare.com/wp-content/uploads/2025/02/lip-balm.png', 1),
+(6, 1, 3, 'Aayu Face Scrub', 'aayu-face-scrub', 'Gentle exfoliating face scrub with natural herbs for glowing, clear skin.', 189.00, '0.10', 80, 'https://myaayucare.com/wp-content/uploads/2025/02/face-scrub-1.png', 1),
+(7, 2, 4, 'Lavangadi Vati', 'lavangadi-vati', 'Ayurvedic remedy for cough, cold, and throat irritation. Naturally soothes the respiratory tract.', 110.00, '0.05', 300, 'https://myaayucare.com/wp-content/uploads/2025/02/Lavangadi-vati.png', 1),
+(8, 2, 3, 'Aayu Face Cream Gel', 'aayu-face-cream-gel', 'Lightweight, non-greasy herbal face gel for all-day hydration.', 220.00, '0.08', 120, 'https://myaayucare.com/wp-content/uploads/2025/02/face-cream-gel.png', 1);
 
 -- --------------------------------------------------------
 

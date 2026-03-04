@@ -21,6 +21,21 @@
                         primary: '#166534', // Green-800 (Ayurvedic theme)
                         primary_hover: '#14532d', // Green-900
                         secondary: '#1f2937', // Gray-800
+                        accent: '#FBBF24', // Yellow-400 for accents/buttons
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
                     }
                 }
             }
@@ -29,24 +44,46 @@
 
     <!-- Main Styles -->
     <style>
-        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
         .dark ::-webkit-scrollbar-track { background: #1f2937; }
-        ::-webkit-scrollbar-thumb { background: #888; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #555; }
+        ::-webkit-scrollbar-thumb { background: #166534; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #14532d; }
+
+        /* Floating Animation for Hero Images */
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+        .dark .glass {
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
+<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white">
 
 <!-- Top Banner -->
-<div class="bg-primary text-white text-center py-2 text-sm font-medium tracking-wide">
-    Free Delivery above order value 299/-
+<div class="bg-gradient-to-r from-primary to-green-600 text-white text-center py-2 text-sm font-medium tracking-wide shadow-inner">
+    ✨ Free Delivery above order value ₹299/-
 </div>
 
 <!-- Navigation Bar -->
-<nav class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50 border-b-2 border-primary">
+<nav class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-700 transition-all duration-300">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
 
@@ -136,11 +173,11 @@
         </div>
 
         <!-- Mobile Search Bar (Visible only on small screens) -->
-        <div class="sm:hidden pb-4 relative">
+        <div class="sm:hidden pb-4 relative px-2">
             <form action="/search" method="GET" class="relative w-full">
-                <input type="text" id="mobile-search" name="q" placeholder="Search..."
+                <input type="text" id="mobile-search" name="q" placeholder="Search Ayurveda..."
                     value="<?php echo isset($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                    class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600">
+                    class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
                 <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -156,7 +193,7 @@
 </nav>
 
 <!-- Main Content Area -->
-<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
 
     <!-- Display Global Flash Messages -->
     <?php

@@ -3,42 +3,48 @@
 require_once __DIR__ . '/partials/header.php';
 ?>
 
-<!-- Hero Section -->
-<div class="relative bg-white dark:bg-gray-800 overflow-hidden rounded-2xl shadow-sm mb-12 border dark:border-gray-700">
+<!-- SaaS/Ayurvedic Style Hero Section -->
+<div class="relative bg-gradient-to-b from-green-50 to-white dark:from-gray-800 dark:to-gray-900 overflow-hidden rounded-3xl shadow-lg mb-16 border border-green-100 dark:border-gray-700 animate-slide-up">
     <div class="max-w-7xl mx-auto">
-        <div class="relative z-10 pb-8 bg-white dark:bg-gray-800 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32">
-            <svg class="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white dark:text-gray-800 transform translate-x-1/2" fill="currentColor" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                <polygon points="50,0 100,0 50,100 0,100" />
-            </svg>
-
-            <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
-                <div class="sm:text-center lg:text-left">
-                    <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
-                        <span class="block xl:inline">Premium Ayurvedic</span>
-                        <span class="block text-primary xl:inline">Manufacturing.</span>
-                    </h1>
-                    <p class="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                        Discover nature's healing with AAYU CARE. We specialize in third-party manufacturing of high-quality Ayurvedic medicines, roll-ons, and natural care products.
-                    </p>
-                    <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                        <div class="rounded-md shadow">
-                            <a href="/products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-primary hover:bg-primary_hover md:py-4 md:text-lg md:px-10 transition-colors">
-                                View Products
-                            </a>
-                        </div>
-                        <div class="mt-3 sm:mt-0 sm:ml-3">
-                            <a href="/categories" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-primary bg-green-100 hover:bg-green-200 md:py-4 md:text-lg md:px-10 transition-colors">
-                                Browse Categories
-                            </a>
-                        </div>
+        <div class="relative z-10 pb-8 sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 px-4 sm:px-6 lg:px-8 mt-10 sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
+            <div class="sm:text-center lg:text-left">
+                <span class="inline-block py-1 px-3 rounded-full bg-green-100 text-green-800 text-xs font-semibold tracking-wide uppercase mb-4 shadow-sm border border-green-200">100% Pure & Natural</span>
+                <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl md:text-6xl leading-tight">
+                    <span class="block xl:inline">Authentic Ayurvedic</span>
+                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-green-500 xl:inline">Healing & Care.</span>
+                </h1>
+                <p class="mt-3 text-base text-gray-600 dark:text-gray-300 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0 font-light">
+                    Rooted in ancient wisdom, meticulously manufactured for modern wellness. We specialize in premium third-party Ayurvedic medicine, skincare, and pain-relief formulations.
+                </p>
+                <div class="mt-8 sm:flex sm:justify-center lg:justify-start gap-4">
+                    <div class="rounded-full shadow-lg">
+                        <a href="/products" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-full text-white bg-primary hover:bg-primary_hover md:py-4 md:text-lg md:px-10 transition-all transform hover:-translate-y-1 hover:shadow-xl">
+                            Shop Collections
+                        </a>
+                    </div>
+                    <div class="mt-3 sm:mt-0 rounded-full shadow-sm">
+                        <a href="/categories" class="w-full flex items-center justify-center px-8 py-3 border border-green-200 text-base font-medium rounded-full text-primary bg-white hover:bg-green-50 md:py-4 md:text-lg md:px-10 transition-all transform hover:-translate-y-1">
+                            Explore Categories
+                        </a>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
-    <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-green-50 dark:bg-gray-700">
-        <!-- Hero image related to Ayurveda -->
-        <img class="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full opacity-90" src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="Ayurvedic herbs and nature">
+    <div class="hidden lg:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 p-8">
+        <!-- Floating organic style hero images -->
+        <div class="h-full w-full relative">
+            <div class="absolute inset-0 bg-green-200 dark:bg-green-900/40 rounded-full blur-3xl opacity-50 animate-pulse" style="animation-duration: 8s;"></div>
+            <img class="relative z-10 w-full h-full object-cover rounded-2xl shadow-2xl animate-float border-4 border-white dark:border-gray-800" src="https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250204-WA0009.jpg" alt="AAYU CARE Products">
+            <!-- Decorative floating badge -->
+            <div class="absolute bottom-10 left-[-20px] z-20 glass rounded-xl p-4 shadow-xl flex items-center gap-3 animate-float" style="animation-delay: 1s;">
+                <div class="bg-green-100 p-2 rounded-full"><svg class="w-6 h-6 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg></div>
+                <div>
+                    <p class="text-sm font-bold text-gray-900 dark:text-white">Quality Tested</p>
+                    <p class="text-xs text-gray-500">GMP Certified</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

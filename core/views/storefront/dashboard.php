@@ -75,11 +75,15 @@ require_once __DIR__ . '/partials/header.php';
                                 </div>
                             </div>
 
-                            <!-- View Details Link (Expanding order items can be added later, for now just link to the success receipt page) -->
-                            <div class="p-4 sm:p-6 bg-white dark:bg-gray-800">
+                            <!-- View Details Link -->
+                            <div class="p-4 sm:p-6 bg-white dark:bg-gray-800 flex justify-between items-center">
                                 <a href="/order/success?id=<?php echo $order['id']; ?>" class="text-sm font-medium text-primary hover:text-indigo-500 flex items-center">
-                                    View Receipt & Details
+                                    View Receipt
                                     <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </a>
+                                <a href="/order/invoice?id=<?php echo $order['id']; ?>" target="_blank" class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white flex items-center">
+                                    <svg class="mr-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                                    Invoice PDF
                                 </a>
                             </div>
                         </div>

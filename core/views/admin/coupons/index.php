@@ -9,7 +9,7 @@ require_once __DIR__ . '/../partials/header.php';
         <p class="mt-2 text-sm text-gray-700">Manage store-wide discount codes and their usage limits.</p>
     </div>
     <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-        <button type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none sm:w-auto">Add coupon</button>
+        <a href="/admin/coupons/add" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none sm:w-auto">Add coupon</a>
     </div>
 </div>
 
@@ -25,6 +25,7 @@ require_once __DIR__ . '/../partials/header.php';
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Min Order</th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Usage</th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
+                            <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6"><span class="sr-only">Edit</span></th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
@@ -49,6 +50,9 @@ require_once __DIR__ . '/../partials/header.php';
                                 <?php else: ?>
                                     <span class="inline-flex rounded-full bg-red-100 px-2 text-xs font-semibold leading-5 text-red-800">Inactive</span>
                                 <?php endif; ?>
+                            </td>
+                            <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                                <a href="/admin/coupons/edit?id=<?php echo $c['id']; ?>" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>

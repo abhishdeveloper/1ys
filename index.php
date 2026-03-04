@@ -117,6 +117,13 @@ try {
             $checkoutCtrl->success();
             break;
 
+        case 'order/invoice':
+            require_once __DIR__ . '/core/controllers/InvoiceController.php';
+            $invoiceCtrl = new InvoiceController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $invoiceCtrl->generate($id);
+            break;
+
         case 'contact':
         case 'faq':
             // Placeholder routes for upcoming features
@@ -202,7 +209,19 @@ try {
             $adminCouponCtrl->index();
             break;
 
-        // Note: For brevity in iteration, add product is a similar implementation to edit.
+        case 'admin/coupons/add':
+            require_once __DIR__ . '/core/controllers/AdminCouponController.php';
+            $adminCouponCtrl = new AdminCouponController($db);
+            $adminCouponCtrl->create();
+            break;
+
+        case 'admin/coupons/edit':
+            require_once __DIR__ . '/core/controllers/AdminCouponController.php';
+            $adminCouponCtrl = new AdminCouponController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminCouponCtrl->edit($id);
+            break;
+
 
         default:
             // Dynamic routing for categories and products

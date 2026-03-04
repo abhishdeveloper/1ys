@@ -51,6 +51,12 @@ try {
             $productCtrl->index();
             break;
 
+        case 'search':
+            require_once __DIR__ . '/core/controllers/ProductController.php';
+            $productCtrl = new ProductController($db);
+            $productCtrl->searchResults();
+            break;
+
         case 'api/search':
             require_once __DIR__ . '/core/controllers/ProductController.php';
             $productCtrl = new ProductController($db);

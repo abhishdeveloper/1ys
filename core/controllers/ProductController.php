@@ -80,6 +80,26 @@ class ProductController {
     }
 
     /**
+     * Display a full page of search results
+     */
+    public function searchResults() {
+        $query = $_GET['q'] ?? '';
+        $filters = [];
+
+        if (!empty($query)) {
+            $filters['search'] = sanitize($query);
+        }
+
+        $categories = $this->categoryModel->getAllActive();
+        $products = $this->productModel->getProducts($filters);
+
+        $pageTitle = "Search Results | ShopSwift";
+
+        // We reuse the product catalog index view
+        require_once __DIR__ . '/../views/storefront/products/index.php';
+    }
+
+    /**
      * AJAX Endpoint for the intelligent search bar
      */
     public function search() {

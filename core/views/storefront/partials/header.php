@@ -60,19 +60,20 @@
 
             <!-- Intelligent AJAX Search Bar (Desktop) -->
             <div class="hidden sm:flex flex-1 items-center justify-center px-8 relative">
-                <div class="w-full max-w-lg relative">
-                    <input type="text" id="desktop-search" placeholder="Search for products..."
+                <form action="/search" method="GET" class="w-full max-w-lg relative">
+                    <input type="text" id="desktop-search" name="q" placeholder="Search for products..."
+                        value="<?php echo isset($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
                         class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-colors">
-                    <div class="absolute left-3 top-2.5 text-gray-400">
+                    <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
-                    </div>
+                    </button>
                     <!-- Search Results Dropdown -->
                     <div id="search-results" class="absolute w-full mt-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-xl hidden z-50 max-h-96 overflow-y-auto">
                         <!-- Results injected via JS -->
                     </div>
-                </div>
+                </form>
             </div>
 
             <!-- Right side elements (Theme Toggle, Cart, Profile) -->
@@ -136,15 +137,16 @@
 
         <!-- Mobile Search Bar (Visible only on small screens) -->
         <div class="sm:hidden pb-4 relative">
-            <div class="relative w-full">
-                <input type="text" id="mobile-search" placeholder="Search..."
+            <form action="/search" method="GET" class="relative w-full">
+                <input type="text" id="mobile-search" name="q" placeholder="Search..."
+                    value="<?php echo isset($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
                     class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-md py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600">
-                <div class="absolute left-3 top-2.5 text-gray-400">
+                <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
-                </div>
-            </div>
+                </button>
+            </form>
             <!-- Mobile Search Results Dropdown -->
             <div id="mobile-search-results" class="absolute w-full mt-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-xl hidden z-50 max-h-96 overflow-y-auto">
                 <!-- Results injected via JS -->

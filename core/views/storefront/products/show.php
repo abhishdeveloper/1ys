@@ -17,7 +17,7 @@ require_once __DIR__ . '/../partials/header.php';
                 </li>
                 <li>
                     <div class="flex items-center">
-                        <a href="/category/<?php echo sanitize($product['category_name'] ?? 'uncategorized'); ?>" class="mr-2 text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
+                        <a href="/category/<?php echo sanitize($product['category_slug'] ?? 'uncategorized'); ?>" class="mr-2 text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
                             <?php echo sanitize($product['category_name'] ?? 'Uncategorized'); ?>
                         </a>
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300 dark:text-gray-600">

@@ -31,6 +31,29 @@ require_once __DIR__ . '/../partials/header.php';
             </ol>
         </nav>
 
+        <!-- JSON-LD Structured Data for Google Rich Snippets -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org/",
+            "@type": "Product",
+            "name": "<?php echo sanitize($product['name']); ?>",
+            "image": "<?php echo sanitize($product['image_url'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'); ?>",
+            "description": "<?php echo sanitize($product['description']); ?>",
+            "sku": "<?php echo sanitize($product['slug']); ?>",
+            "brand": {
+                "@type": "Brand",
+                "name": "AAYU CARE"
+            },
+            "offers": {
+                "@type": "Offer",
+                "url": "<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>",
+                "priceCurrency": "USD",
+                "price": "<?php echo number_format($product['price'], 2, '.', ''); ?>",
+                "availability": "<?php echo $product['stock_quantity'] > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock'; ?>"
+            }
+        }
+        </script>
+
         <div class="mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 lg:grid lg:grid-cols-2 lg:gap-x-12">
 
             <!-- Product Gallery -->

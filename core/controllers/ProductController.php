@@ -29,7 +29,8 @@ class ProductController {
             $currentCategory = $this->categoryModel->findBySlug($categorySlug);
             if ($currentCategory) {
                 $filters['category_id'] = $currentCategory['id'];
-                $pageTitle = sanitize($currentCategory['name']) . " | ShopSwift";
+                $pageTitle = sanitize($currentCategory['name']) . " | AAYU CARE";
+                $metaDescription = "Explore our premium Ayurvedic range of " . sanitize($currentCategory['name']) . ". " . sanitize($currentCategory['description']);
             } else {
                 // Category not found
                 http_response_code(404);
@@ -38,7 +39,8 @@ class ProductController {
                 exit();
             }
         } else {
-            $pageTitle = "All Products | ShopSwift";
+            $pageTitle = "All Ayurvedic Products | AAYU CARE";
+            $metaDescription = "Browse our complete catalog of authentic Ayurvedic medicines, herbal oils, and natural skincare products.";
         }
 
         // Fetch products based on filters
@@ -65,7 +67,9 @@ class ProductController {
             exit();
         }
 
-        $pageTitle = sanitize($product['name']) . " | ShopSwift";
+        $pageTitle = sanitize($product['name']) . " | AAYU CARE";
+        $metaDescription = mb_strimwidth(sanitize($product['description']), 0, 150, "...");
+        $ogImage = sanitize($product['image_url']);
 
         // Fetch related products (same category)
         $relatedProducts = $this->productModel->getProducts(['category_id' => $product['category_id']]);
@@ -87,7 +91,7 @@ class ProductController {
         $filters = [];
 
         if (!empty($query)) {
-            $filters['search'] = sanitize($query);
+            $filters['search'] = $query; // Do not sanitize before DB query
         }
 
         $categories = $this->categoryModel->getAllActive();

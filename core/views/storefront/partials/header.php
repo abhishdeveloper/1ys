@@ -6,7 +6,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle ?? 'Custom E-Commerce Platform'; ?></title>
+
+    <!-- Dynamic SEO Meta Tags -->
+    <title><?php echo $pageTitle ?? 'AAYU CARE | Premium Ayurvedic Manufacturing'; ?></title>
+    <meta name="description" content="<?php echo $metaDescription ?? 'Discover nature\'s healing with AAYU CARE. We specialize in high-quality Ayurvedic medicines, roll-ons, and natural care products.'; ?>">
+    <meta name="keywords" content="<?php echo $metaKeywords ?? 'Ayurveda, herbal medicine, natural care, third party manufacturing, roll ons, lip balm, health'; ?>">
+    <link rel="canonical" href="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>" />
+
+    <!-- Open Graph for Social Sharing -->
+    <meta property="og:title" content="<?php echo $pageTitle ?? 'AAYU CARE | Premium Ayurvedic Manufacturing'; ?>" />
+    <meta property="og:description" content="<?php echo $metaDescription ?? 'Discover nature\'s healing with AAYU CARE. High-quality Ayurvedic medicines and natural care products.'; ?>" />
+    <meta property="og:image" content="<?php echo $ogImage ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'; ?>" />
+    <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>" />
+    <meta property="og:type" content="<?php echo isset($product) ? 'product' : 'website'; ?>" />
 
     <!-- Tailwind CSS (CDN for simple deployment) -->
     <script src="https://cdn.tailwindcss.com"></script>

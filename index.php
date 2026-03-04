@@ -142,6 +142,10 @@ try {
             $pageCtrl->faq();
             break;
 
+        case 'sitemap.xml':
+            require_once __DIR__ . '/sitemap.php';
+            break;
+
         case 'login':
             require_once __DIR__ . '/core/models/User.php';
             require_once __DIR__ . '/core/controllers/AuthController.php';

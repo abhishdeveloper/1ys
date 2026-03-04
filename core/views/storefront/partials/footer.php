@@ -81,8 +81,109 @@
     }
 </style>
 
+<!-- Floating WhatsApp Button -->
+<a href="https://wa.me/910000000000" target="_blank" class="fixed bottom-20 right-6 sm:bottom-6 z-[60] bg-green-500 text-white p-3 rounded-full shadow-2xl hover:bg-green-600 transition-all transform hover:scale-110 flex items-center justify-center animate-bounce shadow-green-500/50" aria-label="Chat on WhatsApp">
+    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01a1.08 1.08 0 00-.792.372c-.297.322-1.139 1.115-1.139 2.716s1.164 3.146 1.327 3.369c.163.223 2.296 3.504 5.56 4.908 2.128.917 2.911 1.002 3.966.839 1.206-.188 3.708-1.516 4.228-2.979.52-1.462.52-2.716.366-2.979-.153-.263-.57-.411-.867-.56zM11.996 22C6.483 22 2 17.517 2 12S6.483 2 11.996 2s10.004 4.483 10.004 10-4.49 10-10.004 10z"></path>
+    </svg>
+</a>
+
+<!-- Promotional Popup -->
+<div id="promo-popup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50 hidden opacity-0 transition-opacity duration-500">
+    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-sm mx-4 transform scale-95 transition-transform duration-500" id="promo-popup-content">
+        <button id="close-popup" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <div class="text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
+                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to AAYU CARE</h3>
+            <p class="text-gray-500 dark:text-gray-400 mb-6">Get 10% off your first order of premium Ayurvedic medicines and natural care products!</p>
+            <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-6 border border-dashed border-gray-300 dark:border-gray-500">
+                <span class="text-xl font-mono font-bold tracking-widest text-primary dark:text-green-400">WELCOME10</span>
+            </div>
+            <button id="copy-code" class="w-full bg-primary text-white font-medium py-3 px-4 rounded-full shadow-lg hover:bg-primary_hover transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                Copy Code & Shop Now
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Global Scripts -->
 <script>
+    // ----- Promotional Popup Logic -----
+    document.addEventListener('DOMContentLoaded', () => {
+        const popup = document.getElementById('promo-popup');
+        const popupContent = document.getElementById('promo-popup-content');
+        const closeBtn = document.getElementById('close-popup');
+        const copyBtn = document.getElementById('copy-code');
+
+        // Show after 5 seconds if not seen before
+        if (!localStorage.getItem('promo_seen')) {
+            setTimeout(() => {
+                popup.classList.remove('hidden');
+                // Trigger reflow for transition
+                void popup.offsetWidth;
+                popup.classList.remove('opacity-0');
+                popup.classList.add('opacity-100');
+                popupContent.classList.remove('scale-95');
+                popupContent.classList.add('scale-100');
+            }, 5000);
+        }
+
+        const closePopup = () => {
+            popup.classList.remove('opacity-100');
+            popup.classList.add('opacity-0');
+            popupContent.classList.remove('scale-100');
+            popupContent.classList.add('scale-95');
+            setTimeout(() => popup.classList.add('hidden'), 500);
+            localStorage.setItem('promo_seen', 'true');
+        };
+
+        closeBtn.addEventListener('click', closePopup);
+
+        popup.addEventListener('click', (e) => {
+            if (e.target === popup) closePopup();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('WELCOME10').then(() => {
+                copyBtn.innerHTML = 'Copied! <svg class="w-5 h-5 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                copyBtn.classList.replace('bg-primary', 'bg-green-600');
+                setTimeout(() => closePopup(), 1500);
+            });
+        });
+    });
+
+    // ----- Scroll Reveal Animation Logic -----
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-slide-up');
+                    entry.target.classList.remove('opacity-0');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Select elements to animate (e.g., product cards, category boxes)
+        const revealElements = document.querySelectorAll('.group.relative, .bg-white.dark\\:bg-gray-800.rounded-xl.shadow-sm');
+        revealElements.forEach(el => {
+            if (!el.closest('#promo-popup')) {
+                el.classList.add('opacity-0');
+                observer.observe(el);
+            }
+        });
+    });
+
     // ----- Theme Toggling Logic -----
     const themeToggleBtn = document.getElementById('theme-toggle');
     const darkIcon = document.getElementById('theme-toggle-dark-icon');

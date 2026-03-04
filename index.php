@@ -17,6 +17,18 @@ startSession();
 
 // Setup minimal routing mapping paths to controllers/methods
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
+// Handle subdirectories: remove the script's directory path from the URI
+$scriptName = dirname($_SERVER['SCRIPT_NAME']);
+if ($scriptName !== '/' && $scriptName !== '\\') {
+    if (strpos($requestUri, $scriptName) === 0) {
+        $requestUri = substr($requestUri, strlen($scriptName));
+    }
+}
+
+// Strip out any trailing 'index.php' if it was explicitly typed
+$requestUri = str_replace('/index.php', '', $requestUri);
+
 $route = trim($requestUri, '/');
 if (empty($route)) {
     $route = 'home';

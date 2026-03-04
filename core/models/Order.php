@@ -59,8 +59,8 @@ class Order {
             // Update product stock
             $stockStmt = $this->db->prepare("
                 UPDATE products
-                SET stock_quantity = stock_quantity - :quantity
-                WHERE id = :id AND stock_quantity >= :quantity
+                SET stock_quantity = stock_quantity - :quantity1
+                WHERE id = :id AND stock_quantity >= :quantity2
             ");
 
             foreach ($cartItems as $item) {
@@ -74,7 +74,8 @@ class Order {
                 ]);
 
                 $stockStmt->execute([
-                    'quantity' => $item['quantity'],
+                    'quantity1' => $item['quantity'],
+                    'quantity2' => $item['quantity'],
                     'id' => $item['product']['id']
                 ]);
 

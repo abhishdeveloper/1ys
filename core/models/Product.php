@@ -44,8 +44,9 @@ class Product {
 
         // Search text
         if (!empty($filters['search'])) {
-            $query .= " AND (p.name LIKE :search OR p.description LIKE :search)";
-            $params['search'] = '%' . $filters['search'] . '%';
+            $query .= " AND (p.name LIKE :search1 OR p.description LIKE :search2)";
+            $params['search1'] = '%' . $filters['search'] . '%';
+            $params['search2'] = '%' . $filters['search'] . '%';
         }
 
         $query .= " ORDER BY p.created_at DESC";

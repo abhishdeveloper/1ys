@@ -87,7 +87,8 @@ class ProductController {
      * Display a full page of search results
      */
     public function searchResults() {
-        $query = $_GET['q'] ?? '';
+        // Enforce string type to prevent array-injection TypeError in sanitize() or PDO
+        $query = isset($_GET['q']) && is_string($_GET['q']) ? $_GET['q'] : '';
         $filters = [];
 
         if (!empty($query)) {
@@ -97,7 +98,7 @@ class ProductController {
         $categories = $this->categoryModel->getAllActive();
         $products = $this->productModel->getProducts($filters);
 
-        $pageTitle = "Search Results | ShopSwift";
+        $pageTitle = "Search Results | AAYU CARE";
 
         // We reuse the product catalog index view
         require_once __DIR__ . '/../views/storefront/products/index.php';
@@ -110,7 +111,7 @@ class ProductController {
         // Output JSON
         header('Content-Type: application/json');
 
-        $query = $_GET['q'] ?? '';
+        $query = isset($_GET['q']) && is_string($_GET['q']) ? $_GET['q'] : '';
 
         if (strlen($query) < 2) {
             echo json_encode([]);
@@ -125,12 +126,15 @@ class ProductController {
         $stmt = $this->db->prepare("
             SELECT id, name, slug, price, image_url
             FROM products
-            WHERE (name LIKE :search OR description LIKE :search)
+            WHERE (name LIKE :search1 OR description LIKE :search2)
             AND is_active = 1
             ORDER BY name ASC
             LIMIT 5
         ");
-        $stmt->execute(['search' => $searchParam]);
+        $stmt->execute([
+            'search1' => $searchParam,
+            'search2' => $searchParam
+        ]);
         $results = $stmt->fetchAll();
 
         // Sanitize output

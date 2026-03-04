@@ -111,7 +111,7 @@
             <div class="hidden sm:flex flex-1 items-center justify-center px-8 relative">
                 <form action="/search" method="GET" class="w-full max-w-lg relative">
                     <input type="text" id="desktop-search" name="q" placeholder="Search for products..."
-                        value="<?php echo isset($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
+                        value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
                         class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-colors">
                     <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -188,7 +188,7 @@
         <div class="sm:hidden pb-4 relative px-2">
             <form action="/search" method="GET" class="relative w-full">
                 <input type="text" id="mobile-search" name="q" placeholder="Search Ayurveda..."
-                    value="<?php echo isset($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
+                    value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
                     class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
                 <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -5,7 +5,7 @@
  * Clean user input to prevent XSS
  */
 function sanitize($string) {
-    return htmlspecialchars(trim($string), ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars(trim((string)($string ?? '')), ENT_QUOTES, 'UTF-8');
 }
 
 /**

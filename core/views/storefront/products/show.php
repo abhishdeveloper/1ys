@@ -90,7 +90,8 @@ require_once __DIR__ . '/../partials/header.php';
                     </div>
                 </div>
 
-                <form class="mt-8">
+                <form action="/cart/add" method="POST" class="mt-8">
+                    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                     <!-- Quantity & Add to Cart -->
                     <div class="flex sm:flex-row mt-8 items-center gap-4">
                         <div class="w-24">
@@ -99,7 +100,7 @@ require_once __DIR__ . '/../partials/header.php';
                                 class="w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md py-3 px-4 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
                         </div>
 
-                        <button type="button" <?php echo $product['stock_quantity'] <= 0 ? 'disabled' : ''; ?>
+                        <button type="submit" <?php echo $product['stock_quantity'] <= 0 ? 'disabled' : ''; ?>
                             class="max-w-xs flex-1 bg-primary border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-primary sm:w-full transition-colors <?php echo $product['stock_quantity'] <= 0 ? 'opacity-50 cursor-not-allowed' : ''; ?>">
                             Add to bag
                         </button>

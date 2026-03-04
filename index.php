@@ -64,6 +64,47 @@ try {
             break;
 
         case 'cart':
+            require_once __DIR__ . '/core/controllers/CartController.php';
+            $cartCtrl = new CartController($db);
+            $cartCtrl->index();
+            break;
+
+        case 'cart/add':
+            require_once __DIR__ . '/core/controllers/CartController.php';
+            $cartCtrl = new CartController($db);
+            $cartCtrl->add();
+            break;
+
+        case 'cart/update':
+            require_once __DIR__ . '/core/controllers/CartController.php';
+            $cartCtrl = new CartController($db);
+            $cartCtrl->update();
+            break;
+
+        case 'cart/remove':
+            require_once __DIR__ . '/core/controllers/CartController.php';
+            $cartCtrl = new CartController($db);
+            $cartCtrl->remove();
+            break;
+
+        case 'checkout':
+            require_once __DIR__ . '/core/controllers/CheckoutController.php';
+            $checkoutCtrl = new CheckoutController($db);
+            $checkoutCtrl->index();
+            break;
+
+        case 'checkout/process':
+            require_once __DIR__ . '/core/controllers/CheckoutController.php';
+            $checkoutCtrl = new CheckoutController($db);
+            $checkoutCtrl->process();
+            break;
+
+        case 'order/success':
+            require_once __DIR__ . '/core/controllers/CheckoutController.php';
+            $checkoutCtrl = new CheckoutController($db);
+            $checkoutCtrl->success();
+            break;
+
         case 'contact':
         case 'faq':
             // Placeholder routes for upcoming features
@@ -93,12 +134,9 @@ try {
             break;
 
         case 'dashboard':
-            // Simple check to ensure user is logged in
-            if (!isset($_SESSION['user_id'])) {
-                redirect('/login');
-            }
-            echo "Welcome to your dashboard, " . htmlspecialchars($_SESSION['name']) . "!";
-            echo "<br><a href='/logout'>Logout</a>";
+            require_once __DIR__ . '/core/controllers/DashboardController.php';
+            $dashboardCtrl = new DashboardController($db);
+            $dashboardCtrl->index();
             break;
 
         case 'admin':

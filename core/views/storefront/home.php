@@ -95,9 +95,13 @@ require_once __DIR__ . '/partials/header.php';
                         <div class="mt-4 flex items-center justify-between">
                             <p class="text-xl font-bold text-gray-900 dark:text-white">$<?php echo number_format($product['price'], 2); ?></p>
                             <!-- Simple add to cart icon button (z-10 to be clickable over the absolute link) -->
-                            <button class="relative z-10 p-2 rounded-full bg-indigo-50 text-primary hover:bg-primary hover:text-white transition-colors focus:outline-none">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                            </button>
+                            <form action="/cart/add" method="POST" class="relative z-10">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="p-2 rounded-full bg-indigo-50 text-primary hover:bg-primary hover:text-white transition-colors focus:outline-none">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>

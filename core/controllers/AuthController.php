@@ -87,6 +87,11 @@ class AuthController {
             $userId = $this->userModel->create($name, $email, $password);
 
             if ($userId) {
+                // Attempt to send welcome email (fail silently if SMTP is not configured)
+                require_once __DIR__ . '/../helpers/Mailer.php';
+                $mailer = new Mailer();
+                $mailer->sendAccountCreationEmail($email, $name);
+
                 // Log the user in immediately after registration
                 regenerateSession();
                 $_SESSION['user_id'] = $userId;
@@ -102,6 +107,64 @@ class AuthController {
         } else {
             // Load the registration view
             require_once __DIR__ . '/../views/storefront/register.php';
+        }
+    }
+
+    /**
+     * Logout a user and destroy the session
+     */
+    /**
+     * Process password change request for logged-in user
+     */
+    public function changePassword() {
+        if (!isset($_SESSION['user_id'])) {
+            redirect('/login');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $currentPassword = $_POST['current_password'] ?? '';
+            $newPassword = $_POST['new_password'] ?? '';
+            $confirmPassword = $_POST['confirm_password'] ?? '';
+
+            if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+                setFlashMessage('error', 'All fields are required.');
+                redirect('/change-password');
+            }
+
+            if ($newPassword !== $confirmPassword) {
+                setFlashMessage('error', 'New passwords do not match.');
+                redirect('/change-password');
+            }
+
+            if (strlen($newPassword) < 8) {
+                setFlashMessage('error', 'New password must be at least 8 characters long.');
+                redirect('/change-password');
+            }
+
+            $user = $this->userModel->findById($_SESSION['user_id']);
+
+            if ($user && password_verify($currentPassword, $user['password_hash'])) {
+                if ($this->userModel->updatePassword($user['id'], $newPassword)) {
+
+                    // Attempt to send email notification
+                    require_once __DIR__ . '/../helpers/Mailer.php';
+                    $mailer = new Mailer();
+                    $mailer->sendPasswordChangeEmail($user['email'], $user['name']);
+
+                    setFlashMessage('success', 'Your password has been successfully updated.');
+                    redirect('/dashboard');
+                } else {
+                    setFlashMessage('error', 'Failed to update password. Please try again.');
+                    redirect('/change-password');
+                }
+            } else {
+                setFlashMessage('error', 'Incorrect current password.');
+                redirect('/change-password');
+            }
+        } else {
+            // Load the view
+            $pageTitle = "Change Password | ShopSwift";
+            require_once __DIR__ . '/../views/storefront/change_password.php';
         }
     }
 

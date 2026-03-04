@@ -97,6 +97,19 @@ class AdminOrderController {
             try {
                 $stmt = $this->db->prepare("UPDATE orders SET order_status = :status, delivery_instructions = :instructions WHERE id = :id");
                 $stmt->execute(['status' => $status, 'instructions' => $instructions, 'id' => $id]);
+
+                // If the status changed, send an email update
+                if ($status !== $order['order_status']) {
+                    require_once __DIR__ . '/../helpers/Mailer.php';
+                    $mailer = new Mailer();
+                    $mailer->sendOrderStatusUpdateEmail(
+                        $order['customer_email'],
+                        $order['customer_name'],
+                        $order['order_number'],
+                        $status
+                    );
+                }
+
                 setFlashMessage('success', 'Order updated successfully.');
                 redirect('/admin/orders/show?id=' . $id);
             } catch (Exception $e) {

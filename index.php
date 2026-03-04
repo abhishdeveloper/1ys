@@ -145,6 +145,13 @@ try {
             $auth->logout();
             break;
 
+        case 'change-password':
+            require_once __DIR__ . '/core/models/User.php';
+            require_once __DIR__ . '/core/controllers/AuthController.php';
+            $auth = new AuthController($db);
+            $auth->changePassword();
+            break;
+
         case 'dashboard':
             require_once __DIR__ . '/core/controllers/DashboardController.php';
             $dashboardCtrl = new DashboardController($db);
@@ -161,6 +168,12 @@ try {
             require_once __DIR__ . '/core/controllers/AdminProductController.php';
             $adminProductCtrl = new AdminProductController($db);
             $adminProductCtrl->index();
+            break;
+
+        case 'admin/products/add':
+            require_once __DIR__ . '/core/controllers/AdminProductController.php';
+            $adminProductCtrl = new AdminProductController($db);
+            $adminProductCtrl->create();
             break;
 
         case 'admin/products/edit':

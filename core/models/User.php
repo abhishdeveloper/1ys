@@ -32,6 +32,24 @@ class User {
      * @param string $address Optional address
      * @return int|false Returns the new user's ID or false on failure
      */
+    /**
+     * Update a user's password
+     */
+    public function updatePassword($userId, $newPassword) {
+        $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+        $stmt = $this->db->prepare("UPDATE users SET password_hash = :hash WHERE id = :id");
+        return $stmt->execute(['hash' => $hash, 'id' => $userId]);
+    }
+
+    /**
+     * Find user by ID
+     */
+    public function findById($id) {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = :id LIMIT 1");
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch();
+    }
+
     public function create($name, $email, $password, $phone = null, $address = null) {
         // Hash the password securely using PHP's native function
         $hash = password_hash($password, PASSWORD_DEFAULT);

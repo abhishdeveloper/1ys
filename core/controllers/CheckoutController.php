@@ -107,6 +107,22 @@ class CheckoutController {
         $orderId = $this->orderModel->create($_SESSION['user_id'], $orderData, $cartItems);
 
         if ($orderId) {
+            // Attempt to send order confirmation email
+            require_once __DIR__ . '/../helpers/Mailer.php';
+            $mailer = new Mailer();
+
+            // Retrieve actual order details including the generated order_number
+            $createdOrder = $this->orderModel->findById($orderId, $_SESSION['user_id']);
+
+            // We need the user's email to send the confirmation. Fetch it from the session or DB.
+            $stmt = $this->db->prepare("SELECT email, name FROM users WHERE id = :id");
+            $stmt->execute(['id' => $_SESSION['user_id']]);
+            $user = $stmt->fetch();
+
+            if ($user && $createdOrder) {
+                $mailer->sendOrderConfirmationEmail($user['email'], $user['name'], $createdOrder);
+            }
+
             // Clear cart
             $_SESSION['cart'] = [];
 

@@ -115,8 +115,9 @@
                         <!-- Dropdown -->
                         <div class="absolute right-0 w-48 mt-2 py-2 bg-white dark:bg-gray-800 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border dark:border-gray-700">
                             <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">My Orders</a>
-                            <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
-                                <a href="/admin" class="block px-4 py-2 text-sm text-primary font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">Admin Panel</a>
+                            <a href="/change-password" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Change Password</a>
+                            <?php if(isset($_SESSION['role']) && in_array($_SESSION['role'], ['admin', 'seller'])): ?>
+                                <a href="/admin" class="block px-4 py-2 text-sm text-primary font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">Management Panel</a>
                             <?php endif; ?>
                             <div class="border-t dark:border-gray-700 my-1"></div>
                             <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>

@@ -31,7 +31,25 @@ class CheckoutController {
         $cartItems = $this->getCartDetails();
         $subtotal = array_sum(array_column($cartItems, 'total'));
         $shipping = 10.00; // Flat rate for demo
-        $total = $subtotal + $shipping;
+
+        $discountAmount = 0;
+
+        // Calculate coupon discount
+        if (isset($_SESSION['coupon'])) {
+            require_once __DIR__ . '/../models/Coupon.php';
+            $couponModel = new Coupon($this->db);
+            $coupon = $_SESSION['coupon'];
+            $discountAmount = $couponModel->calculateDiscount($coupon, $subtotal);
+
+            // If the subtotal dropped below the min_order_value due to cart changes, remove the coupon
+            if ($subtotal < $coupon['min_order_value']) {
+                unset($_SESSION['coupon']);
+                $discountAmount = 0;
+                setFlashMessage('error', 'The coupon was removed because your subtotal dropped below the minimum required order value.');
+            }
+        }
+
+        $total = max(0, ($subtotal - $discountAmount) + $shipping);
 
         $pageTitle = "Checkout | ShopSwift";
         require_once __DIR__ . '/../views/storefront/checkout.php';
@@ -55,11 +73,31 @@ class CheckoutController {
         $cartItems = $this->getCartDetails();
         $subtotal = array_sum(array_column($cartItems, 'total'));
         $shipping = 10.00;
-        $total = $subtotal + $shipping;
+
+        $discountAmount = 0;
+        $couponId = null;
+
+        if (isset($_SESSION['coupon'])) {
+            require_once __DIR__ . '/../models/Coupon.php';
+            $couponModel = new Coupon($this->db);
+            $coupon = $_SESSION['coupon'];
+            $discountAmount = $couponModel->calculateDiscount($coupon, $subtotal);
+
+            if ($subtotal >= $coupon['min_order_value']) {
+                $couponId = $coupon['id'];
+            } else {
+                $discountAmount = 0;
+                unset($_SESSION['coupon']);
+            }
+        }
+
+        $total = max(0, ($subtotal - $discountAmount) + $shipping);
 
         $orderData = [
             'total_amount' => $total,
             'shipping_cost' => $shipping,
+            'discount_amount' => $discountAmount,
+            'coupon_id' => $couponId,
             'shipping_address' => $fullAddress,
             'payment_method' => 'dummy_card',
             'payment_status' => 'paid', // Simulating successful immediate payment for demo
@@ -71,6 +109,12 @@ class CheckoutController {
         if ($orderId) {
             // Clear cart
             $_SESSION['cart'] = [];
+
+            // Also clear any applied coupon
+            if (isset($_SESSION['coupon'])) {
+                unset($_SESSION['coupon']);
+            }
+
             setFlashMessage('success', 'Thank you! Your order has been placed successfully.');
             redirect('/order/success?id=' . $orderId);
         } else {

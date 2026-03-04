@@ -99,6 +99,18 @@ try {
             $checkoutCtrl->process();
             break;
 
+        case 'coupon/apply':
+            require_once __DIR__ . '/core/controllers/CouponController.php';
+            $couponCtrl = new CouponController($db);
+            $couponCtrl->apply();
+            break;
+
+        case 'coupon/remove':
+            require_once __DIR__ . '/core/controllers/CouponController.php';
+            $couponCtrl = new CouponController($db);
+            $couponCtrl->remove();
+            break;
+
         case 'order/success':
             require_once __DIR__ . '/core/controllers/CheckoutController.php';
             $checkoutCtrl = new CheckoutController($db);
@@ -140,15 +152,44 @@ try {
             break;
 
         case 'admin':
-            // Check admin role
-            if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-                http_response_code(403);
-                echo "Access Denied.";
-                exit();
-            }
-            echo "Welcome to the Admin Panel!";
-            echo "<br><a href='/logout'>Logout</a>";
+            require_once __DIR__ . '/core/controllers/AdminController.php';
+            $adminCtrl = new AdminController($db);
+            $adminCtrl->index();
             break;
+
+        case 'admin/products':
+            require_once __DIR__ . '/core/controllers/AdminProductController.php';
+            $adminProductCtrl = new AdminProductController($db);
+            $adminProductCtrl->index();
+            break;
+
+        case 'admin/products/edit':
+            require_once __DIR__ . '/core/controllers/AdminProductController.php';
+            $adminProductCtrl = new AdminProductController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminProductCtrl->edit($id);
+            break;
+
+        case 'admin/orders':
+            require_once __DIR__ . '/core/controllers/AdminOrderController.php';
+            $adminOrderCtrl = new AdminOrderController($db);
+            $adminOrderCtrl->index();
+            break;
+
+        case 'admin/orders/show':
+            require_once __DIR__ . '/core/controllers/AdminOrderController.php';
+            $adminOrderCtrl = new AdminOrderController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminOrderCtrl->show($id);
+            break;
+
+        case 'admin/coupons':
+            require_once __DIR__ . '/core/controllers/AdminCouponController.php';
+            $adminCouponCtrl = new AdminCouponController($db);
+            $adminCouponCtrl->index();
+            break;
+
+        // Note: For brevity in iteration, add product is a similar implementation to edit.
 
         default:
             // Dynamic routing for categories and products

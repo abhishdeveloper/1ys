@@ -38,6 +38,14 @@ require_once __DIR__ . '/partials/header.php';
                     <dt class="text-sm text-gray-600 dark:text-gray-400">Shipping Estimate</dt>
                     <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($shipping, 2); ?></dd>
                 </div>
+                <?php if (isset($discountAmount) && $discountAmount > 0): ?>
+                <div class="flex items-center justify-between">
+                    <dt class="text-sm text-green-600 dark:text-green-400">
+                        Discount (<?php echo sanitize($_SESSION['coupon']['code']); ?>)
+                    </dt>
+                    <dd class="text-sm font-medium text-green-600 dark:text-green-400">-$<?php echo number_format($discountAmount, 2); ?></dd>
+                </div>
+                <?php endif; ?>
                 <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
                     <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
                     <dd class="text-base font-bold text-gray-900 dark:text-white">$<?php echo number_format($total, 2); ?></dd>
@@ -48,6 +56,37 @@ require_once __DIR__ . '/partials/header.php';
         <!-- Checkout Form Column -->
         <div class="lg:col-span-7 order-1 lg:order-2">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-8">Checkout</h1>
+
+            <!-- Coupon Code Section -->
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-8">
+                <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Have a Coupon?</h2>
+                <?php if (isset($_SESSION['coupon'])): ?>
+                    <div class="flex items-center justify-between bg-green-50 dark:bg-green-900/30 p-4 rounded-md border border-green-200 dark:border-green-800">
+                        <div class="flex items-center">
+                            <svg class="h-5 w-5 text-green-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span class="text-green-800 dark:text-green-300 font-medium">
+                                <?php echo sanitize($_SESSION['coupon']['code']); ?> applied!
+                            </span>
+                        </div>
+                        <form action="/coupon/remove" method="POST">
+                            <button type="submit" class="text-sm text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 font-medium focus:outline-none">
+                                Remove
+                            </button>
+                        </form>
+                    </div>
+                <?php else: ?>
+                    <form action="/coupon/apply" method="POST" class="flex gap-4">
+                        <input type="hidden" name="subtotal" value="<?php echo $subtotal; ?>">
+                        <input type="text" name="coupon_code" placeholder="Enter coupon code (e.g., WELCOME10)" required
+                            class="flex-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm uppercase">
+                        <button type="submit" class="bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-white px-4 py-2 border border-gray-300 dark:border-gray-500 rounded-md shadow-sm hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-medium text-sm">
+                            Apply
+                        </button>
+                    </form>
+                <?php endif; ?>
+            </div>
 
             <form action="/checkout/process" method="POST" class="space-y-8">
                 <!-- Shipping Details -->

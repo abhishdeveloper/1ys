@@ -20,14 +20,16 @@ class Order {
             $stmt = $this->db->prepare("
                 INSERT INTO orders (
                     user_id, order_number, total_amount, shipping_cost, discount_amount,
-                    coupon_id, payment_method, payment_status, order_status, shipping_address
+                    coupon_id, payment_method, payment_status, order_status, shipping_address, delivery_instructions
                 ) VALUES (
                     :user_id, :order_number, :total_amount, :shipping_cost, :discount_amount,
-                    :coupon_id, :payment_method, :payment_status, :order_status, :shipping_address
+                    :coupon_id, :payment_method, :payment_status, :order_status, :shipping_address, :delivery_instructions
                 )
             ");
 
             $orderNumber = 'ORD-' . strtoupper(uniqid());
+
+            $couponId = !empty($orderData['coupon_id']) ? $orderData['coupon_id'] : null;
 
             $stmt->execute([
                 'user_id' => $userId,
@@ -35,11 +37,12 @@ class Order {
                 'total_amount' => $orderData['total_amount'],
                 'shipping_cost' => $orderData['shipping_cost'] ?? 0,
                 'discount_amount' => $orderData['discount_amount'] ?? 0,
-                'coupon_id' => $orderData['coupon_id'] ?? null,
+                'coupon_id' => $couponId,
                 'payment_method' => $orderData['payment_method'] ?? 'dummy',
                 'payment_status' => $orderData['payment_status'] ?? 'pending',
                 'order_status' => 'pending',
-                'shipping_address' => $orderData['shipping_address']
+                'shipping_address' => $orderData['shipping_address'],
+                'delivery_instructions' => $orderData['delivery_instructions'] ?? null
             ]);
 
             $orderId = $this->db->lastInsertId();
@@ -78,6 +81,12 @@ class Order {
                 if ($stockStmt->rowCount() === 0) {
                     throw new Exception("Insufficient stock for product ID: " . $item['product']['id']);
                 }
+            }
+
+            // Note: If a coupon was applied, update its usage count
+            if (!empty($orderData['coupon_id'])) {
+                $couponStmt = $this->db->prepare("UPDATE coupons SET times_used = times_used + 1 WHERE id = :id");
+                $couponStmt->execute(['id' => $orderData['coupon_id']]);
             }
 
             $this->db->commit();

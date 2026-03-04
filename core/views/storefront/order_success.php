@@ -39,6 +39,12 @@ require_once __DIR__ . '/partials/header.php';
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Shipping Address</dt>
                     <dd class="mt-1 text-sm text-gray-900 dark:text-white font-medium"><?php echo sanitize($order['shipping_address']); ?></dd>
                 </div>
+                <?php if (!empty($order['delivery_instructions'])): ?>
+                <div class="sm:col-span-2 border-t dark:border-gray-700 pt-4 mt-2">
+                    <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Delivery Instructions</dt>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white"><?php echo nl2br(sanitize($order['delivery_instructions'])); ?></dd>
+                </div>
+                <?php endif; ?>
             </dl>
 
             <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">

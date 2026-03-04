@@ -103,11 +103,17 @@ class Mailer {
                 $body .= "<li><strong>Delivery Instructions:</strong> {$orderData['delivery_instructions']}</li>";
             }
             $body .= "</ul>";
+            $body .= "<p>We have attached a copy of your invoice to this email for your records.</p>";
             $body .= "<p>We will notify you once your order has shipped.</p>";
             $body .= "<br><p><strong>The ShopSwift Team</strong></p>";
 
             $mail->Body = $body;
             $mail->AltBody = "Thank you for your order! Order number: {$orderData['order_number']}. Total: $" . number_format($orderData['total_amount'], 2);
+
+            // Generate and attach PDF invoice
+            require_once __DIR__ . '/InvoiceGenerator.php';
+            $pdfContent = InvoiceGenerator::generate($orderData, 'S'); // 'S' returns the document as a string
+            $mail->addStringAttachment($pdfContent, 'Invoice_' . $orderData['order_number'] . '.pdf', 'base64', 'application/pdf');
 
             return $mail->send();
         } catch (Exception $e) {

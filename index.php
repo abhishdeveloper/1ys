@@ -125,10 +125,15 @@ try {
             break;
 
         case 'contact':
+            require_once __DIR__ . '/core/controllers/PageController.php';
+            $pageCtrl = new PageController();
+            $pageCtrl->contact();
+            break;
+
         case 'faq':
-            // Placeholder routes for upcoming features
-            $pageTitle = ucfirst($route) . " | ShopSwift";
-            require_once __DIR__ . '/core/views/storefront/coming_soon.php';
+            require_once __DIR__ . '/core/controllers/PageController.php';
+            $pageCtrl = new PageController();
+            $pageCtrl->faq();
             break;
 
         case 'login':

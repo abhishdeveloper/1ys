@@ -85,17 +85,29 @@
             background: rgba(31, 41, 55, 0.8);
             border: 1px solid rgba(255,255,255,0.05);
         }
+
+        /* Sticky Header Transition */
+        #main-nav.scrolled {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .dark #main-nav.scrolled {
+            background: rgba(31, 41, 55, 0.95);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+        }
     </style>
 </head>
 <body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white">
 
 <!-- Top Banner -->
-<div class="bg-gradient-to-r from-primary to-green-600 text-white text-center py-2 text-sm font-medium tracking-wide shadow-inner">
+<div id="top-banner" class="bg-gradient-to-r from-primary to-green-600 text-white text-center py-2 text-sm font-medium tracking-wide shadow-inner transition-all duration-300">
     ✨ Free Delivery above order value ₹299/-
 </div>
 
 <!-- Navigation Bar -->
-<nav class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-700 transition-all duration-300">
+<nav id="main-nav" class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-700 transition-all duration-300 py-2">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
 
@@ -108,18 +120,25 @@
             </div>
 
             <!-- Intelligent AJAX Search Bar (Desktop) -->
-            <div class="hidden sm:flex flex-1 items-center justify-center px-8 relative">
-                <form action="/search" method="GET" class="w-full max-w-lg relative">
-                    <input type="text" id="desktop-search" name="q" placeholder="Search for products..."
+            <div class="hidden sm:flex flex-1 items-center justify-center px-8 relative group">
+                <form action="/search" method="GET" class="w-full max-w-2xl relative">
+                    <input type="text" id="desktop-search" name="q" placeholder="Search for products, categories, or keywords..." autocomplete="off"
                         value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                        class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-colors">
-                    <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
+                        class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2.5 pl-12 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
+                    <button type="submit" class="absolute left-4 top-3 text-gray-400 hover:text-primary transition-colors">
                         <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
+                    <!-- Loading Spinner -->
+                    <div id="desktop-search-spinner" class="absolute right-4 top-3 text-primary hidden animate-spin">
+                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
                     <!-- Search Results Dropdown -->
-                    <div id="search-results" class="absolute w-full mt-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-xl hidden z-50 max-h-96 overflow-y-auto">
+                    <div id="search-results" class="absolute w-full mt-3 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-2xl hidden z-50 max-h-[80vh] overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
                         <!-- Results injected via JS -->
                     </div>
                 </form>
@@ -185,19 +204,25 @@
         </div>
 
         <!-- Mobile Search Bar (Visible only on small screens) -->
-        <div class="sm:hidden pb-4 relative px-2">
+        <div class="sm:hidden pb-4 relative px-2 z-50">
             <form action="/search" method="GET" class="relative w-full">
-                <input type="text" id="mobile-search" name="q" placeholder="Search Ayurveda..."
+                <input type="text" id="mobile-search" name="q" placeholder="Search Ayurveda..." autocomplete="off"
                     value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                    class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-4 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
+                    class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
                 <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </button>
+                <div id="mobile-search-spinner" class="absolute right-3 top-2.5 text-primary hidden animate-spin">
+                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                </div>
             </form>
             <!-- Mobile Search Results Dropdown -->
-            <div id="mobile-search-results" class="absolute w-full mt-2 bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-lg shadow-xl hidden z-50 max-h-96 overflow-y-auto">
+            <div id="mobile-search-results" class="absolute w-full mt-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-2xl hidden z-[60] max-h-96 overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
                 <!-- Results injected via JS -->
             </div>
         </div>

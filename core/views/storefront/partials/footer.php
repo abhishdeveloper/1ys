@@ -44,12 +44,30 @@
                 </div>
             </div>
         </div>
-        <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8 lg:flex lg:items-center lg:justify-between">
+            <div>
+                <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Subscribe to our newsletter</h3>
+                <p class="mt-2 text-base text-gray-500">The latest news, articles, and resources, sent to your inbox weekly.</p>
+            </div>
+            <form class="mt-4 sm:flex sm:max-w-md lg:mt-0" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
+                <label for="email-address" class="sr-only">Email address</label>
+                <input type="email" name="email-address" id="email-address" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary focus:placeholder-gray-400 sm:max-w-xs" placeholder="Enter your email">
+                <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
+                    <button type="submit" class="w-full bg-primary flex items-center justify-center border border-transparent rounded-md py-2 px-4 text-base font-medium text-white hover:bg-primary_hover focus:ring-2 focus:ring-offset-2 focus:ring-primary">Subscribe</button>
+                </div>
+            </form>
+        </div>
+        <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p class="text-base text-gray-400">&copy; <?php echo date('Y'); ?> AAYU CARE. All rights reserved.</p>
             <p class="text-sm text-gray-400 mt-4 md:mt-0">Designed and developed by <a href="https://abhish.in/" target="_blank" class="text-primary hover:underline">abhish.in</a></p>
         </div>
     </div>
 </footer>
+
+<!-- Back to Top Button -->
+<button id="back-to-top" class="fixed bottom-24 right-6 sm:bottom-20 z-50 bg-gray-900 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-all transform translate-y-20 opacity-0 focus:outline-none" aria-label="Back to top">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+</button>
 
 <!-- Mobile Bottom App-like Navigation Bar -->
 <div class="sm:hidden fixed bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 px-6 py-3 flex justify-between items-center pb-safe">
@@ -184,6 +202,34 @@
         });
     });
 
+    // ----- Sticky Header & Scroll Effects Logic -----
+    document.addEventListener('scroll', () => {
+        const nav = document.getElementById('main-nav');
+        const banner = document.getElementById('top-banner');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        if (window.scrollY > 40) {
+            nav.classList.add('scrolled');
+            if(banner) banner.classList.add('hidden');
+        } else {
+            nav.classList.remove('scrolled');
+            if(banner) banner.classList.remove('hidden');
+        }
+
+        // Back to top button visibility
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.remove('opacity-0', 'translate-y-20');
+            backToTopBtn.classList.add('opacity-100', 'translate-y-0');
+        } else {
+            backToTopBtn.classList.remove('opacity-100', 'translate-y-0');
+            backToTopBtn.classList.add('opacity-0', 'translate-y-20');
+        }
+    });
+
+    document.getElementById('back-to-top').addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
     // ----- Theme Toggling Logic -----
     const themeToggleBtn = document.getElementById('theme-toggle');
     const darkIcon = document.getElementById('theme-toggle-dark-icon');
@@ -230,6 +276,8 @@
     const mobileSearch = document.getElementById('mobile-search');
     const desktopResults = document.getElementById('search-results');
     const mobileResults = document.getElementById('mobile-search-results');
+    const desktopSpinner = document.getElementById('desktop-search-spinner');
+    const mobileSpinner = document.getElementById('mobile-search-spinner');
 
     // Debounce function to limit API calls
     function debounce(func, wait) {
@@ -242,11 +290,14 @@
     }
 
     // Function to fetch and display results
-    const fetchSearchResults = debounce(async (query, resultsContainer) => {
+    const fetchSearchResults = debounce(async (query, resultsContainer, spinner) => {
         if (!query || query.length < 2) {
-            resultsContainer.classList.add('hidden');
+            resultsContainer.classList.add('opacity-0', 'translate-y-2');
+            setTimeout(() => resultsContainer.classList.add('hidden'), 200);
             return;
         }
+
+        if (spinner) spinner.classList.remove('hidden');
 
         try {
             const response = await fetch('/api/search?q=' + encodeURIComponent(query));
@@ -255,18 +306,18 @@
             const data = await response.json();
 
             if (data.length > 0) {
-                let html = '<ul class="divide-y divide-gray-200 dark:divide-gray-700">';
+                let html = '<ul class="divide-y divide-gray-100 dark:divide-gray-700">';
                 data.forEach(product => {
                     html += `
                         <li>
-                            <a href="/product/${product.slug}" class="block hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors p-4">
+                            <a href="/product/${product.slug}" class="block hover:bg-green-50 dark:hover:bg-gray-700 transition-colors p-4 group">
                                 <div class="flex items-center">
-                                    <div class="flex-shrink-0 h-10 w-10 bg-gray-200 rounded-md overflow-hidden">
-                                        <img class="h-10 w-10 object-cover" src="${product.image_url || '/assets/images/placeholder.jpg'}" alt="">
+                                    <div class="flex-shrink-0 h-12 w-12 bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm group-hover:border-green-200 transition-colors">
+                                        <img class="h-12 w-12 object-contain p-1" src="${product.image_url || '/assets/images/placeholder.jpg'}" alt="">
                                     </div>
                                     <div class="ml-4 flex-1">
-                                        <div class="text-sm font-medium text-gray-900 dark:text-white truncate">${product.name}</div>
-                                        <div class="text-sm text-gray-500 dark:text-gray-400">$${product.price}</div>
+                                        <div class="text-sm font-semibold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors">${product.name}</div>
+                                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">$${product.price}</div>
                                     </div>
                                 </div>
                             </a>
@@ -274,31 +325,58 @@
                     `;
                 });
                 html += '</ul>';
+                // Add a "view all" link
+                html += `<div class="p-3 bg-gray-50 dark:bg-gray-750 text-center border-t border-gray-100 dark:border-gray-700 rounded-b-xl"><a href="/search?q=${encodeURIComponent(query)}" class="text-sm font-medium text-primary hover:text-primary_hover">View all results &rarr;</a></div>`;
+
                 resultsContainer.innerHTML = html;
-                resultsContainer.classList.remove('hidden');
             } else {
-                resultsContainer.innerHTML = '<div class="p-4 text-sm text-gray-500">No products found.</div>';
-                resultsContainer.classList.remove('hidden');
+                resultsContainer.innerHTML = `
+                    <div class="p-8 text-center">
+                        <svg class="mx-auto h-8 w-8 text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">No products found.</p>
+                        <p class="text-xs text-gray-500 mt-1">Try adjusting your search terms.</p>
+                    </div>`;
             }
+
+            resultsContainer.classList.remove('hidden');
+            // small delay for transition
+            setTimeout(() => resultsContainer.classList.remove('opacity-0', 'translate-y-2'), 10);
+
         } catch (error) {
             console.error('Search error:', error);
+        } finally {
+            if (spinner) spinner.classList.add('hidden');
         }
     }, 300);
 
     if (desktopSearch && desktopResults) {
-        desktopSearch.addEventListener('input', (e) => fetchSearchResults(e.target.value, desktopResults));
+        desktopSearch.addEventListener('input', (e) => fetchSearchResults(e.target.value, desktopResults, desktopSpinner));
+        desktopSearch.addEventListener('focus', (e) => {
+            if (e.target.value.length >= 2) {
+                desktopResults.classList.remove('hidden');
+                setTimeout(() => desktopResults.classList.remove('opacity-0', 'translate-y-2'), 10);
+            }
+        });
         document.addEventListener('click', (e) => {
             if (!desktopSearch.contains(e.target) && !desktopResults.contains(e.target)) {
-                desktopResults.classList.add('hidden');
+                desktopResults.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => desktopResults.classList.add('hidden'), 200);
             }
         });
     }
 
     if (mobileSearch && mobileResults) {
-        mobileSearch.addEventListener('input', (e) => fetchSearchResults(e.target.value, mobileResults));
+        mobileSearch.addEventListener('input', (e) => fetchSearchResults(e.target.value, mobileResults, mobileSpinner));
+        mobileSearch.addEventListener('focus', (e) => {
+            if (e.target.value.length >= 2) {
+                mobileResults.classList.remove('hidden');
+                setTimeout(() => mobileResults.classList.remove('opacity-0', 'translate-y-2'), 10);
+            }
+        });
         document.addEventListener('click', (e) => {
             if (!mobileSearch.contains(e.target) && !mobileResults.contains(e.target)) {
-                mobileResults.classList.add('hidden');
+                mobileResults.classList.add('opacity-0', 'translate-y-2');
+                setTimeout(() => mobileResults.classList.add('hidden'), 200);
             }
         });
     }

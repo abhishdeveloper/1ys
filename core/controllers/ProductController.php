@@ -140,6 +140,9 @@ class ProductController {
         // Sanitize output
         foreach ($results as &$result) {
             $result['name'] = sanitize($result['name']);
+            if (!empty($result['image_url'])) {
+                $result['image_url'] = sanitize($result['image_url']);
+            }
         }
 
         echo json_encode($results);

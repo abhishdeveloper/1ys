@@ -50,7 +50,9 @@ class AdminProductController {
                 $uploadDir = __DIR__ . '/../../uploads/';
                 if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
-                $fileName = time() . '_' . basename($_FILES['image']['name']);
+                // Sanitize filename to prevent XSS/Path Traversal
+                $safeFileName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', basename($_FILES['image']['name']));
+                $fileName = time() . '_' . $safeFileName;
                 $targetFile = $uploadDir . $fileName;
 
                 $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
@@ -111,7 +113,9 @@ class AdminProductController {
             // Handle file upload
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
                 $uploadDir = __DIR__ . '/../../uploads/';
-                $fileName = time() . '_' . basename($_FILES['image']['name']);
+                // Sanitize filename to prevent XSS/Path Traversal
+                $safeFileName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', basename($_FILES['image']['name']));
+                $fileName = time() . '_' . $safeFileName;
                 $targetFile = $uploadDir . $fileName;
 
                 $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));

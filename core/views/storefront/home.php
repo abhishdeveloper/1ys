@@ -49,23 +49,52 @@ require_once __DIR__ . '/partials/header.php';
 </div>
 
 <!-- Shop by Category -->
-<div class="mb-16">
-    <h2 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-8">Shop by Category</h2>
+<div class="mb-20 pt-8 border-t border-gray-100 dark:border-gray-800">
+    <div class="text-center mb-10">
+        <h2 class="text-sm text-primary font-bold tracking-widest uppercase mb-2">Curated for You</h2>
+        <h3 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Shop by Category</h3>
+    </div>
     <?php if (empty($categories)): ?>
-        <p class="text-gray-500 dark:text-gray-400">No categories found. Start by adding some in the admin panel.</p>
+        <p class="text-gray-500 dark:text-gray-400 text-center">No categories found. Start by adding some in the admin panel.</p>
     <?php else: ?>
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-6">
             <?php foreach ($categories as $category): ?>
-                <a href="/category/<?php echo sanitize($category['slug']); ?>" class="group flex flex-col items-center justify-center p-6 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-md transition-all hover:-translate-y-1">
-                    <div class="w-16 h-16 rounded-full bg-indigo-50 dark:bg-gray-700 flex items-center justify-center mb-4 group-hover:bg-indigo-100 dark:group-hover:bg-gray-600 transition-colors">
-                        <!-- Generic category icon -->
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                <a href="/category/<?php echo sanitize($category['slug']); ?>" class="group flex flex-col items-center justify-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 hover:shadow-xl hover:border-green-200 dark:hover:border-green-800 transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-20 h-20 rounded-full bg-green-50 dark:bg-gray-700 flex items-center justify-center mb-6 group-hover:bg-green-100 dark:group-hover:bg-gray-600 transition-colors shadow-inner">
+                        <svg class="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     </div>
-                    <span class="text-sm font-medium text-gray-900 dark:text-white text-center"><?php echo sanitize($category['name']); ?></span>
+                    <span class="text-base font-bold text-gray-900 dark:text-white text-center group-hover:text-primary transition-colors"><?php echo sanitize($category['name']); ?></span>
                 </a>
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
+</div>
+
+<!-- Testimonial / Features Section -->
+<div class="mb-20 bg-green-50 dark:bg-gray-800 rounded-3xl p-8 sm:p-12 border border-green-100 dark:border-gray-700">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="flex flex-col items-center p-4">
+            <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md mb-4 text-primary">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">100% Authentic</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Pure Ayurvedic formulations sourced from nature.</p>
+        </div>
+        <div class="flex flex-col items-center p-4">
+            <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md mb-4 text-primary">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Lab Tested</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Rigorously tested for quality, safety, and efficacy.</p>
+        </div>
+        <div class="flex flex-col items-center p-4">
+            <div class="w-16 h-16 bg-white dark:bg-gray-700 rounded-full flex items-center justify-center shadow-md mb-4 text-primary">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            </div>
+            <h4 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Fast Delivery</h4>
+            <p class="text-sm text-gray-600 dark:text-gray-300">Prompt and secure shipping straight to your doorstep.</p>
+        </div>
+    </div>
 </div>
 
 <!-- Featured Products -->

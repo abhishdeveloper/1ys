@@ -85,30 +85,35 @@ require_once __DIR__ . '/partials/header.php';
 </div>
 
 <!-- Shop by Curated Categories -->
-<div class="mb-24 px-4">
-    <div class="text-center mb-16">
-        <h2 class="font-serif italic text-accent text-xl mb-2">Curated With Care</h2>
-        <h3 class="text-3xl font-serif font-bold tracking-widest text-primary dark:text-white uppercase">The Collections</h3>
-        <div class="flex items-center justify-center mt-6">
-            <div class="h-px w-16 bg-accent"></div>
-            <svg class="w-4 h-4 mx-3 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
-            <div class="h-px w-16 bg-accent"></div>
+<div class="mb-32 mt-16 px-4">
+    <div class="text-center mb-20">
+        <h2 class="font-serif italic text-accent text-xl mb-3 font-light tracking-wide">Curated With Care</h2>
+        <h3 class="text-2xl md:text-3xl font-serif font-medium tracking-[0.2em] text-primary dark:text-white uppercase">The Collections</h3>
+        <div class="flex items-center justify-center mt-8">
+            <div class="h-[1px] w-12 md:w-20 bg-accent/60"></div>
+            <div class="w-1.5 h-1.5 rounded-full bg-accent/60 mx-4"></div>
+            <div class="h-[1px] w-12 md:w-20 bg-accent/60"></div>
         </div>
     </div>
 
     <?php if (empty($categories)): ?>
-        <p class="text-gray-500 text-center font-light">The collections are currently being prepared for you.</p>
+        <p class="text-gray-400 text-center font-light tracking-widest">The collections are currently being prepared for you.</p>
     <?php else: ?>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-10 max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 max-w-6xl mx-auto px-4 sm:px-8">
             <?php foreach ($categories as $category): ?>
-                <a href="/category/<?php echo sanitize($category['slug']); ?>" class="group flex flex-col items-center text-center transition-all duration-500">
-                    <div class="w-full aspect-w-1 aspect-h-1 rounded-full border border-gray-200 dark:border-gray-700 p-2 group-hover:border-accent transition-colors mb-4 relative overflow-hidden bg-secondary dark:bg-gray-800">
-                        <!-- Simulated inner image area -->
-                        <div class="w-full h-full rounded-full bg-primary/5 flex items-center justify-center">
-                            <span class="font-serif text-3xl text-accent opacity-50 group-hover:scale-110 transition-transform duration-700">✧</span>
+                <a href="/category/<?php echo sanitize($category['slug']); ?>" class="group flex flex-col items-center text-center transition-all duration-700 hover:-translate-y-2">
+                    <div class="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full border border-gray-200/50 dark:border-gray-800 p-1 mb-6 relative overflow-hidden bg-transparent group-hover:border-accent/50 transition-colors duration-500">
+                        <!-- Inner Container -->
+                        <div class="w-full h-full rounded-full bg-[#f9f8f6] dark:bg-gray-900 flex flex-col items-center justify-center border border-transparent group-hover:bg-accent/5 transition-all duration-500">
+                            <!-- Custom SVG Icon for Categories (Botanical Theme) -->
+                            <svg class="w-10 h-10 sm:w-12 sm:h-12 text-primary dark:text-gray-400 group-hover:text-accent transition-colors duration-500 mb-2 stroke-[1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1.5.5 2 2s-.5 2-2 2h-.5c-.276 0-.5.224-.5.5v2c0 .276.224.5.5.5h2z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1.5.5 2 2s-.5 2-2 2h-.5c-.276 0-.5.224-.5.5v2c0 .276.224.5.5.5h2z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21v-8" />
+                            </svg>
                         </div>
                     </div>
-                    <span class="text-sm font-semibold text-primary dark:text-white uppercase tracking-widest group-hover:text-accent transition-colors"><?php echo sanitize($category['name']); ?></span>
+                    <span class="text-[11px] sm:text-xs font-medium text-primary dark:text-gray-300 uppercase tracking-[0.2em] group-hover:text-accent transition-colors duration-500"><?php echo sanitize($category['name']); ?></span>
                 </a>
             <?php endforeach; ?>
         </div>
@@ -116,64 +121,75 @@ require_once __DIR__ . '/partials/header.php';
 </div>
 
 <!-- Royal Features Section -->
-<div class="mb-24 bg-primary text-secondary py-16 px-4 relative overflow-hidden border-y-[6px] border-accent/20">
+<div class="mb-32 bg-[#172a20] text-secondary py-24 px-4 relative overflow-hidden border-y border-accent/30 shadow-[0_0_50px_rgba(0,0,0,0.2)]">
     <!-- Detailed background pattern -->
-    <div class="absolute inset-0 opacity-[0.04] bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')]"></div>
-    <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')]"></div>
+    <div class="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')] mix-blend-overlay"></div>
 
-    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
+    <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 text-center relative z-10">
         <div class="flex flex-col items-center p-4 group">
-            <span class="text-accent text-4xl mb-4 group-hover:-translate-y-2 transition-transform duration-300">✦</span>
-            <h4 class="font-serif text-lg tracking-widest uppercase text-accent mb-3">Pure Ingredients</h4>
-            <p class="text-sm text-gray-300 font-light leading-relaxed max-w-xs mx-auto">Sourced from the pristine valleys of the Himalayas, preserving the life force of every herb.</p>
+            <div class="w-16 h-16 rounded-full border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors duration-500">
+                <svg class="w-8 h-8 text-accent stroke-[1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+            </div>
+            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4">Pure Ingredients</h4>
+            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto">Sourced from the pristine valleys of the Himalayas, preserving the life force of every herb.</p>
         </div>
         <div class="flex flex-col items-center p-4 group">
-            <span class="text-accent text-4xl mb-4 group-hover:-translate-y-2 transition-transform duration-300">✦</span>
-            <h4 class="font-serif text-lg tracking-widest uppercase text-accent mb-3">Time-Honored Recipes</h4>
-            <p class="text-sm text-gray-300 font-light leading-relaxed max-w-xs mx-auto">Authentic formulations passed down through generations of Ayurvedic masters.</p>
+            <div class="w-16 h-16 rounded-full border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors duration-500">
+                <svg class="w-8 h-8 text-accent stroke-[1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+            </div>
+            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4">Time-Honored Recipes</h4>
+            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto">Authentic formulations passed down through generations of Ayurvedic masters.</p>
         </div>
         <div class="flex flex-col items-center p-4 group">
-            <span class="text-accent text-4xl mb-4 group-hover:-translate-y-2 transition-transform duration-300">✦</span>
-            <h4 class="font-serif text-lg tracking-widest uppercase text-accent mb-3">Modern Elegance</h4>
-            <p class="text-sm text-gray-300 font-light leading-relaxed max-w-xs mx-auto">Ancient wisdom meticulously crafted to meet the exacting standards of luxury skincare.</p>
+            <div class="w-16 h-16 rounded-full border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors duration-500">
+                <svg class="w-8 h-8 text-accent stroke-[1]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                </svg>
+            </div>
+            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4">Modern Elegance</h4>
+            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto">Ancient wisdom meticulously crafted to meet the exacting standards of luxury skincare.</p>
         </div>
     </div>
 </div>
 
 <!-- Featured Bestsellers -->
-<div class="mb-24">
-    <div class="text-center mb-16">
-        <h2 class="font-serif italic text-accent text-xl mb-2">Discover Our</h2>
-        <h3 class="text-3xl font-serif font-bold tracking-widest text-primary dark:text-white uppercase">Bestsellers</h3>
-        <div class="flex items-center justify-center mt-6">
-            <div class="h-px w-16 bg-accent"></div>
-            <svg class="w-4 h-4 mx-3 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
-            <div class="h-px w-16 bg-accent"></div>
+<div class="mb-32 px-4">
+    <div class="text-center mb-20">
+        <h2 class="font-serif italic text-accent text-xl mb-3 font-light tracking-wide">Discover Our</h2>
+        <h3 class="text-2xl md:text-3xl font-serif font-medium tracking-[0.2em] text-primary dark:text-white uppercase">Bestsellers</h3>
+        <div class="flex items-center justify-center mt-8">
+            <div class="h-[1px] w-12 md:w-20 bg-accent/60"></div>
+            <div class="w-1.5 h-1.5 rounded-full bg-accent/60 mx-4"></div>
+            <div class="h-[1px] w-12 md:w-20 bg-accent/60"></div>
         </div>
     </div>
 
     <?php if (empty($featuredProducts)): ?>
-        <p class="text-gray-500 text-center font-light">No exquisite products available at the moment.</p>
+        <p class="text-gray-400 text-center font-light tracking-widest">No exquisite products available at the moment.</p>
     <?php else: ?>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 max-w-7xl mx-auto">
             <?php foreach ($featuredProducts as $product): ?>
-                <div class="group relative flex flex-col items-center text-center transition-all duration-300">
+                <div class="group relative flex flex-col items-center text-center transition-all duration-500">
                     <!-- Image -->
-                    <div class="w-full aspect-w-4 aspect-h-5 mb-6 overflow-hidden border border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 relative shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-full aspect-w-4 aspect-h-5 mb-8 overflow-hidden border border-gray-100 dark:border-gray-800 bg-[#f9f8f6] dark:bg-gray-900 relative">
                         <?php if ($product['image_url']): ?>
-                            <img src="<?php echo sanitize($product['image_url']); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
+                            <img src="<?php echo sanitize($product['image_url']); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-1000 ease-out">
                         <?php else: ?>
-                            <div class="w-full h-full flex items-center justify-center text-gray-300 bg-secondary dark:bg-gray-900">
-                                <span class="font-serif italic">Aayu Care</span>
+                            <div class="w-full h-full flex items-center justify-center text-gray-300 bg-[#f9f8f6] dark:bg-gray-900">
+                                <span class="font-serif italic text-2xl opacity-50">Aayu Care</span>
                             </div>
                         <?php endif; ?>
 
                         <!-- Quick Add Overlay (Hover) -->
-                        <div class="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
-                            <form action="/cart/add" method="POST" class="w-3/4">
+                        <div class="absolute inset-0 bg-primary/30 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-8">
+                            <form action="/cart/add" method="POST" class="w-5/6">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="w-full py-3 bg-white text-primary text-xs font-bold uppercase tracking-widest hover:bg-accent hover:text-white transition-colors border border-transparent hover:border-accent">
+                                <button type="submit" class="w-full py-3.5 bg-white text-primary text-[11px] font-medium uppercase tracking-[0.2em] hover:bg-accent hover:text-white transition-colors duration-300 shadow-xl">
                                     Add to Bag
                                 </button>
                             </form>
@@ -181,25 +197,25 @@ require_once __DIR__ . '/partials/header.php';
                     </div>
 
                     <!-- Details -->
-                    <div class="flex-grow flex flex-col justify-between w-full">
+                    <div class="flex-grow flex flex-col justify-between w-full px-2">
                         <div>
-                            <p class="text-xs text-accent uppercase tracking-widest mb-2 font-semibold"><?php echo sanitize($product['category_name'] ?? 'Uncategorized'); ?></p>
-                            <h3 class="text-base font-serif font-medium text-primary dark:text-gray-200 mb-2 leading-snug">
-                                <a href="/product/<?php echo sanitize($product['slug']); ?>" class="hover:text-accent transition-colors">
+                            <p class="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-[0.2em] mb-3"><?php echo sanitize($product['category_name'] ?? 'Uncategorized'); ?></p>
+                            <h3 class="text-[15px] font-serif font-medium text-primary dark:text-gray-200 mb-3 leading-relaxed">
+                                <a href="/product/<?php echo sanitize($product['slug']); ?>" class="hover:text-accent transition-colors duration-300">
                                     <?php echo sanitize($product['name']); ?>
                                 </a>
                             </h3>
                         </div>
-                        <div class="mt-2">
-                            <p class="text-sm text-gray-600 dark:text-gray-400 font-light tracking-wider">₹<?php echo number_format($product['price'], 2); ?></p>
+                        <div class="mt-3">
+                            <p class="text-[13px] text-accent font-medium tracking-wider">₹<?php echo number_format($product['price'], 2); ?></p>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
         </div>
 
-        <div class="mt-16 text-center">
-            <a href="/products" class="inline-block border-b-2 border-accent text-sm font-semibold uppercase tracking-widest text-primary dark:text-gray-300 hover:text-accent pb-1 transition-colors">
+        <div class="mt-20 text-center">
+            <a href="/products" class="inline-block border border-accent/50 text-[11px] font-medium uppercase tracking-[0.2em] text-primary dark:text-gray-300 hover:bg-accent hover:text-white px-8 py-3.5 transition-all duration-300">
                 View All Products
             </a>
         </div>

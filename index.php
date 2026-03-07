@@ -146,6 +146,10 @@ try {
             require_once __DIR__ . '/sitemap.php';
             break;
 
+        case 'lang':
+            require_once __DIR__ . '/core/controllers/lang.php';
+            break;
+
         case 'login':
             require_once __DIR__ . '/core/models/User.php';
             require_once __DIR__ . '/core/controllers/AuthController.php';

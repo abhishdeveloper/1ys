@@ -62,4 +62,26 @@ function getFlashMessages() {
     }
     return [];
 }
+
+/**
+ * Handle Language Settings & Translations
+ */
+function __($key, $default = null) {
+    startSession();
+    $lang = $_SESSION['lang'] ?? 'en';
+
+    // Simple caching for translations to avoid multiple file reads per request
+    static $translations = [];
+    if (!isset($translations[$lang])) {
+        $langFile = __DIR__ . '/../lang/' . $lang . '.php';
+        if (file_exists($langFile)) {
+            $translations[$lang] = require $langFile;
+        } else {
+            // fallback to en
+            $translations[$lang] = require __DIR__ . '/../lang/en.php';
+        }
+    }
+
+    return $translations[$lang][$key] ?? ($default ?? ucfirst(str_replace('_', ' ', $key)));
+}
 ?>

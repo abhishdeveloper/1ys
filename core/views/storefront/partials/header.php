@@ -120,65 +120,48 @@
 <div class="fixed inset-0 pointer-events-none z-[-1] opacity-40 mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] dark:hidden"></div>
 
 <!-- Top Banner -->
-<div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30">
+<div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50">
     ✨ Free Delivery above order value ₹299/- ✨
 </div>
 
 <!-- Navigation Bar -->
-<nav id="main-nav" class="bg-secondary dark:bg-gray-900 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 transition-all duration-300 py-2">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<?php
+// Check if we are on the home page for transparent header logic
+$isHome = ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/home');
+$navClasses = $isHome
+    ? 'bg-secondary/70 dark:bg-gray-900/70 backdrop-blur-md absolute w-full z-40 border-b border-white/20'
+    : 'bg-secondary dark:bg-gray-900 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800';
+?>
 
+<nav id="main-nav" class="<?php echo $navClasses; ?> transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
+
+        <!-- Row 1: Logo, Brand Text, and Menu -->
         <div class="flex justify-between items-center h-16">
 
-            <!-- Left Navigation (Desktop) -->
-            <div class="hidden md:flex space-x-8">
-                <a href="/products" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors">Shop</a>
-                <a href="/categories" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors">Collections</a>
-            </div>
-
-            <!-- Logo & Brand (Centered) -->
-            <div class="flex-1 flex justify-center md:flex-none md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
-                <a href="/" class="flex flex-col items-center">
-                    <img class="h-12 w-auto mb-1" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+            <!-- Logo & Brand (Left) -->
+            <div class="flex items-center space-x-3">
+                <a href="/" class="flex items-center space-x-3">
+                    <img class="h-10 w-auto" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
                     <span class="font-serif font-bold text-xl tracking-widest text-primary dark:text-white uppercase">Aayu Care</span>
                 </a>
             </div>
 
-            <!-- Right side elements (Search, Theme Toggle, Cart, Profile) -->
-            <div class="flex items-center space-x-4 md:space-x-6">
+            <!-- Main Menu (Right/Center) -->
+            <div class="hidden md:flex space-x-8">
+                <a href="/" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors"><?php echo __('home'); ?></a>
+                <a href="/products" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors"><?php echo __('shop'); ?></a>
+                <a href="/categories" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors"><?php echo __('categories'); ?></a>
+            </div>
 
-                <!-- Desktop Search Trigger (Expands) -->
-                <div class="hidden sm:block relative group">
-                    <form action="/search" method="GET" class="relative flex items-center">
-                        <input type="text" id="desktop-search" name="q" placeholder="Search..." autocomplete="off"
-                            value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                            class="w-48 focus:w-64 bg-transparent border-b border-gray-300 dark:border-gray-600 text-primary dark:text-white py-1 px-2 focus:outline-none focus:border-accent transition-all duration-300 text-sm placeholder-gray-400">
-                        <button type="submit" class="absolute right-2 text-gray-400 hover:text-accent transition-colors">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                        <!-- Loading Spinner -->
-                        <div id="desktop-search-spinner" class="absolute right-8 text-accent hidden animate-spin">
-                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                            </svg>
-                        </div>
-                        <!-- Search Results Dropdown -->
-                        <div id="search-results" class="absolute right-0 top-full mt-4 w-80 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded shadow-xl hidden z-50 max-h-[70vh] overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
-                            <!-- Results injected via JS -->
-                        </div>
-                    </form>
-                </div>
+            <!-- Right Actions (Cart, Profile, Theme) -->
+            <div class="flex items-center space-x-4">
 
                 <!-- Theme Toggle Button -->
                 <button id="theme-toggle" class="text-primary hover:text-accent dark:text-gray-300 dark:hover:text-accent focus:outline-none transition-colors">
-                    <!-- Sun Icon -->
                     <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 3.22a1 1 0 011.415 0l.708.707a1 1 0 01-1.414 1.414l-.708-.707a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.364a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.22-1.22a1 1 0 01-1.415 0l-.708-.707a1 1 0 011.414-1.414l.708.707a1 1 0 010 1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm1.22-4.22a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path>
                     </svg>
-                    <!-- Moon Icon -->
                     <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
                     </svg>
@@ -188,7 +171,7 @@
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <div class="relative group">
                         <button class="flex items-center text-primary dark:text-gray-300 hover:text-accent font-medium focus:outline-none uppercase tracking-widest text-xs transition-colors">
-                            <span>Account</span>
+                            <span><?php echo __('dashboard'); ?></span>
                         </button>
                         <!-- Dropdown -->
                         <div class="absolute right-0 w-48 mt-4 py-2 bg-white dark:bg-gray-800 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100 dark:border-gray-700">
@@ -202,12 +185,11 @@
                         </div>
                     </div>
                 <?php else: ?>
-                    <a href="/login" class="text-xs font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors">Sign In</a>
+                    <a href="/login" class="text-xs font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors"><?php echo __('login'); ?></a>
                 <?php endif; ?>
 
                 <!-- Shopping Cart -->
                 <?php
-                // Calculate total items in cart
                 $cartCount = 0;
                 if (isset($_SESSION['cart'])) {
                     $cartCount = array_sum($_SESSION['cart']);
@@ -223,44 +205,63 @@
                     </span>
                     <?php endif; ?>
                 </a>
-
             </div>
         </div>
 
-        <!-- Mobile Search Bar (Visible only on small screens) -->
-        <div class="sm:hidden mt-2 relative z-50">
-            <form action="/search" method="GET" class="relative w-full">
-                <input type="text" id="mobile-search" name="q" placeholder="Search Ayurveda..." autocomplete="off"
-                    value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-primary dark:text-white rounded py-2 pl-10 pr-10 focus:outline-none focus:border-accent transition-all shadow-sm text-sm">
-                <button type="submit" class="absolute left-3 top-2 text-gray-400 hover:text-accent transition-colors">
-                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                </button>
-                <div id="mobile-search-spinner" class="absolute right-3 top-2 text-accent hidden animate-spin">
-                    <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
-                </div>
-            </form>
-            <!-- Mobile Search Results Dropdown -->
-            <div id="mobile-search-results" class="absolute w-full mt-1 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-2xl hidden z-[60] max-h-96 overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
-                <!-- Results injected via JS -->
+        <!-- Row 2: Search Bar and Language Toggle -->
+        <div class="flex justify-between items-center py-3 border-t border-gray-200 dark:border-gray-700/50 mt-1">
+
+            <!-- Search Bar -->
+            <div class="w-full max-w-2xl relative">
+                <form action="/search" method="GET" class="relative flex items-center w-full">
+                    <input type="text" id="desktop-search" name="q" placeholder="<?php echo __('search_placeholder'); ?>" autocomplete="off"
+                        value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
+                        class="w-full bg-white/80 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-600 text-primary dark:text-white py-2 px-4 rounded-full focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-300 text-sm placeholder-gray-500 shadow-sm backdrop-blur-sm">
+                    <button type="submit" class="absolute right-3 text-gray-500 hover:text-accent transition-colors">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                    </button>
+                    <!-- Loading Spinner -->
+                    <div id="desktop-search-spinner" class="absolute right-10 text-accent hidden animate-spin">
+                        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </div>
+                    <!-- Search Results Dropdown -->
+                    <div id="search-results" class="absolute left-0 top-full mt-2 w-full bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-lg shadow-xl hidden z-50 max-h-[70vh] overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
+                        <!-- Results injected via JS -->
+                    </div>
+                </form>
             </div>
+
+            <!-- Language Toggle -->
+            <div class="ml-4 shrink-0">
+                <?php $currentLang = $_SESSION['lang'] ?? 'en'; ?>
+                <a href="/lang?lang=<?php echo $currentLang === 'en' ? 'hi' : 'en'; ?>"
+                   class="inline-flex items-center px-4 py-2 border border-accent text-accent hover:bg-accent hover:text-white text-xs font-semibold rounded-full transition-colors uppercase tracking-wider backdrop-blur-sm">
+                   <?php echo __('switch_lang'); ?>
+                </a>
+            </div>
+
         </div>
+
     </div>
 </nav>
 
 <!-- Main Content Area -->
-<main class="flex-grow w-full py-8 animate-fade-in pb-16">
+<?php
+// Adjust top padding if not on home to account for fixed header
+$mainClasses = $isHome ? 'w-full animate-fade-in pb-16' : 'flex-grow w-full py-8 animate-fade-in pb-16';
+?>
+<main class="<?php echo $mainClasses; ?>">
 
     <!-- Display Global Flash Messages -->
     <?php
     $messages = getFlashMessages();
     foreach ($messages as $type => $message): ?>
-        <div class="mb-6 p-4 rounded-lg shadow-sm <?php echo $type === 'error' ? 'bg-red-50 text-red-800 border-l-4 border-red-500 dark:bg-red-900/30 dark:text-red-300' : 'bg-green-50 text-green-800 border-l-4 border-green-500 dark:bg-green-900/30 dark:text-green-300'; ?>">
+        <div class="mb-6 p-4 rounded-lg shadow-sm max-w-7xl mx-auto mt-4 <?php echo $type === 'error' ? 'bg-red-50 text-red-800 border-l-4 border-red-500 dark:bg-red-900/30 dark:text-red-300' : 'bg-green-50 text-green-800 border-l-4 border-green-500 dark:bg-green-900/30 dark:text-green-300'; ?>">
             <?php echo sanitize($message); ?>
         </div>
     <?php endforeach; ?>

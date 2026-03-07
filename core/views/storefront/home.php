@@ -4,69 +4,66 @@ require_once __DIR__ . '/partials/header.php';
 ?>
 
 <!-- Royal Ayurvedic Hero Slider Section -->
-<div class="relative bg-secondary dark:bg-gray-900 overflow-hidden mb-20 shadow-sm border-b-4 border-accent">
+<div class="relative bg-secondary dark:bg-gray-900 overflow-hidden mb-20 shadow-sm border-b-4 border-accent -mt-24 z-0">
 
     <!-- Slider Container -->
-    <div id="hero-slider" class="relative w-full h-[600px] md:h-[700px] overflow-hidden group">
+    <div id="hero-slider" class="relative w-full h-[700px] md:h-[800px] overflow-hidden group">
 
         <!-- Slide 1 -->
-        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 flex flex-col lg:flex-row items-center">
-            <!-- Text Content -->
-            <div class="relative z-10 w-full lg:w-1/2 px-6 py-16 sm:py-24 lg:px-16 text-center lg:text-left flex flex-col justify-center h-full bg-secondary/90 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none">
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 flex flex-col items-center justify-center text-center">
+            <!-- Full Background Image -->
+            <div class="absolute inset-0 z-0">
+                <img class="w-full h-full object-cover object-center transform scale-105 transition-transform duration-[10000ms] slide-img" src="https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250204-WA0009.jpg" alt="Luxurious Ayurvedic Products">
+                <!-- Overlay to ensure text readability -->
+                <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+            </div>
+
+            <!-- Text Content (Centered over image) -->
+            <div class="relative z-20 w-full max-w-4xl px-6 pt-32 pb-16 flex flex-col justify-center items-center h-full">
                 <div class="mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-                    <span class="font-serif italic text-accent text-lg tracking-widest">Discover Luxurious Ayurveda</span>
-                    <div class="h-px w-24 bg-accent mx-auto lg:mx-0 mt-3 mb-2"></div>
+                    <span class="font-serif italic text-accent text-xl tracking-widest drop-shadow-md">Discover Luxurious Ayurveda</span>
+                    <div class="h-px w-24 bg-accent mx-auto mt-3 mb-2"></div>
                 </div>
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-primary dark:text-white leading-tight mb-6 animate-slide-up" style="animation-delay: 0.3s;">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6 animate-slide-up drop-shadow-lg" style="animation-delay: 0.3s;">
                     Pure, Potent <br>
                     <span class="text-accent italic font-normal">&amp; Time-Honored</span>
                 </h1>
-                <p class="text-base text-gray-700 dark:text-gray-300 sm:text-lg mb-10 font-light leading-relaxed max-w-lg mx-auto lg:mx-0 animate-slide-up" style="animation-delay: 0.5s;">
+                <p class="text-base text-gray-100 sm:text-xl mb-10 font-light leading-relaxed max-w-2xl mx-auto animate-slide-up drop-shadow-md" style="animation-delay: 0.5s;">
                     Crafted with nature's rarest botanicals, our artisanal formulations deliver profound healing and radiant vitality rooted in ancient wisdom.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-slide-up" style="animation-delay: 0.7s;">
-                    <a href="/products" class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-lg shadow-primary/30">
+                <div class="flex justify-center animate-slide-up" style="animation-delay: 0.7s;">
+                    <a href="/products" class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-xl hover:shadow-2xl">
                         Explore Collection
                     </a>
                 </div>
             </div>
-            <!-- Image -->
-            <div class="absolute inset-0 lg:relative lg:w-1/2 h-full z-0">
-                <div class="absolute inset-4 lg:inset-8 border border-accent/40 z-20 pointer-events-none"></div>
-                <img class="w-full h-full object-cover object-center transform scale-105 transition-transform duration-[10000ms] slide-img" src="https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250204-WA0009.jpg" alt="Luxurious Ayurvedic Products">
-                <div class="absolute inset-0 bg-gradient-to-r from-secondary dark:from-gray-900 via-transparent to-transparent z-10 lg:hidden pointer-events-none"></div>
-                <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-secondary dark:to-gray-900 z-10 hidden lg:block pointer-events-none"></div>
-            </div>
         </div>
 
         <!-- Slide 2 -->
-        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 flex flex-col lg:flex-row items-center">
-            <div class="relative z-10 w-full lg:w-1/2 px-6 py-16 sm:py-24 lg:px-16 text-center lg:text-left flex flex-col justify-center h-full bg-secondary/90 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none">
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 flex flex-col items-center justify-center text-center pointer-events-none">
+
+            <div class="absolute inset-0 z-0">
+                <img class="w-full h-full object-cover object-center transform scale-105 transition-transform duration-[10000ms] slide-img" src="https://myaayucare.com/wp-content/uploads/2025/02/banner2.jpg" onerror="this.src='https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=1200';" alt="Wellness Supplements">
+                <div class="absolute inset-0 bg-black/40 z-10 pointer-events-none"></div>
+            </div>
+
+            <div class="relative z-20 w-full max-w-4xl px-6 pt-32 pb-16 flex flex-col justify-center items-center h-full">
                 <div class="mb-6">
-                    <span class="font-serif italic text-accent text-lg tracking-widest">The Art of Wellness</span>
-                    <div class="h-px w-24 bg-accent mx-auto lg:mx-0 mt-3 mb-2"></div>
+                    <span class="font-serif italic text-accent text-xl tracking-widest drop-shadow-md">The Art of Wellness</span>
+                    <div class="h-px w-24 bg-accent mx-auto mt-3 mb-2"></div>
                 </div>
-                <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-primary dark:text-white leading-tight mb-6">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-lg">
                     Nourish Your <br>
                     <span class="text-accent italic font-normal">Mind, Body &amp; Soul</span>
                 </h1>
-                <p class="text-base text-gray-700 dark:text-gray-300 sm:text-lg mb-10 font-light leading-relaxed max-w-lg mx-auto lg:mx-0">
+                <p class="text-base text-gray-100 sm:text-xl mb-10 font-light leading-relaxed max-w-2xl mx-auto drop-shadow-md">
                     Experience the ultimate indulgence with our exquisite range of natural wellness supplements and herbal oils.
                 </p>
-                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                    <a href="/category/herbal-oils" class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-lg shadow-primary/30">
+                <div class="flex justify-center pointer-events-auto">
+                    <a href="/category/herbal-oils" class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-xl hover:shadow-2xl">
                         Shop Herbal Oils
                     </a>
                 </div>
-            </div>
-            <div class="absolute inset-0 lg:relative lg:w-1/2 h-full z-0">
-                <div class="absolute inset-4 lg:inset-8 border border-accent/40 z-20 pointer-events-none"></div>
-                <!-- Placeholder for second slide image -->
-                <div class="w-full h-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center transform scale-105 transition-transform duration-[10000ms] slide-img">
-                    <img class="w-full h-full object-cover" src="https://myaayucare.com/wp-content/uploads/2025/02/banner2.jpg" onerror="this.src='https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=1200';">
-                </div>
-                <div class="absolute inset-0 bg-gradient-to-r from-secondary dark:from-gray-900 via-transparent to-transparent z-10 lg:hidden pointer-events-none"></div>
-                <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-secondary dark:to-gray-900 z-10 hidden lg:block pointer-events-none"></div>
             </div>
         </div>
 

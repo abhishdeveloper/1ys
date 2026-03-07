@@ -119,21 +119,25 @@
 <!-- Elegant subtle textured background overlaid on body -->
 <div class="fixed inset-0 pointer-events-none z-[-1] opacity-40 mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] dark:hidden"></div>
 
-<!-- Top Banner -->
-<div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50">
-    ✨ Free Delivery above order value ₹299/- ✨
-</div>
-
-<!-- Navigation Bar -->
 <?php
 // Check if we are on the home page for transparent header logic
 $isHome = ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/home');
+
+// Wrap both Top Banner and Nav in a single container for homepage to handle absolute positioning properly
+$headerContainerClasses = $isHome ? 'absolute w-full z-40' : 'sticky top-0 z-50';
 $navClasses = $isHome
-    ? 'bg-secondary/40 dark:bg-gray-900/40 backdrop-blur-lg absolute w-full z-40 border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
-    : 'bg-secondary dark:bg-gray-900 shadow-sm sticky top-0 z-50 border-b border-gray-200/50 dark:border-gray-800/50';
+    ? 'bg-secondary/60 dark:bg-gray-900/60 backdrop-blur-lg border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
+    : 'bg-secondary dark:bg-gray-900 shadow-sm border-b border-gray-200/50 dark:border-gray-800/50';
 ?>
 
-<nav id="main-nav" class="<?php echo $navClasses; ?> transition-all duration-500 font-light">
+<div class="<?php echo $headerContainerClasses; ?>">
+    <!-- Top Banner -->
+    <div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50">
+        ✨ Free Delivery above order value ₹299/- ✨
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="main-nav" class="<?php echo $navClasses; ?> transition-all duration-500 font-light">
     <div class="max-w-7xl mx-auto px-4 sm:px-8 py-4 md:py-6">
 
         <!-- Row 1: Logo, Brand Text, and Menu -->
@@ -248,7 +252,8 @@ $navClasses = $isHome
         </div>
 
     </div>
-</nav>
+    </nav>
+</div>
 
 <!-- Main Content Area -->
 <?php

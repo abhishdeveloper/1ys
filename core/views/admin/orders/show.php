@@ -23,7 +23,7 @@ require_once __DIR__ . '/../partials/header.php';
             <ul role="list" class="divide-y divide-gray-200">
                 <?php foreach ($items as $item): ?>
                     <li class="p-4 sm:px-6 flex items-center">
-                        <img src="<?php echo sanitize($item['image_url'] ?? 'https://via.placeholder.com/50'); ?>" alt="" class="w-16 h-16 rounded-md object-cover">
+                        <img src="<?php echo sanitize($item['image_url'] ?? '/assets/images/placeholder.svg'); ?>" alt="" class="w-16 h-16 rounded-md object-cover">
                         <div class="ml-4 flex-1">
                             <p class="text-sm font-medium text-gray-900"><?php echo sanitize($item['product_name']); ?></p>
                             <p class="text-sm text-gray-500">Qty: <?php echo $item['quantity']; ?></p>

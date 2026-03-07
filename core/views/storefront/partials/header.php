@@ -115,11 +115,13 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white">
+<body class="bg-[#fcfaf7] text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white relative">
+<!-- Elegant subtle textured background overlaid on body -->
+<div class="fixed inset-0 pointer-events-none z-[-1] opacity-40 mix-blend-multiply bg-[url('https://www.transparenttextures.com/patterns/cream-paper.png')] dark:hidden"></div>
 
 <!-- Top Banner -->
-<div id="top-banner" class="bg-gradient-to-r from-primary to-green-600 text-white text-center py-2 text-sm font-medium tracking-wide shadow-inner transition-all duration-300">
-    ✨ Free Delivery above order value ₹299/-
+<div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30">
+    ✨ Free Delivery above order value ₹299/- ✨
 </div>
 
 <!-- Navigation Bar -->

@@ -64,7 +64,7 @@ require_once __DIR__ . '/../partials/header.php';
                         <button id="tabs-1-tab-1" class="relative h-24 bg-white dark:bg-gray-700 rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4" aria-controls="tabs-1-panel-1" role="tab" type="button">
                             <span class="sr-only">Product image</span>
                             <span class="absolute inset-0 rounded-md overflow-hidden">
-                                <img src="<?php echo sanitize($product['image_url'] ?? 'https://via.placeholder.com/600'); ?>" alt="" class="w-full h-full object-center object-cover">
+                                <img src="<?php echo sanitize($product['image_url'] ?? '/assets/images/placeholder.svg'); ?>" alt="" class="w-full h-full object-center object-cover">
                             </span>
                             <span class="ring-transparent absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none" aria-hidden="true"></span>
                         </button>
@@ -72,7 +72,7 @@ require_once __DIR__ . '/../partials/header.php';
                 </div>
 
                 <div class="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <img src="<?php echo sanitize($product['image_url'] ?? 'https://via.placeholder.com/600'); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover">
+                    <img src="<?php echo sanitize($product['image_url'] ?? '/assets/images/placeholder.svg'); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover">
                 </div>
             </div>
 

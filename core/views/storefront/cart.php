@@ -29,7 +29,7 @@ require_once __DIR__ . '/partials/header.php';
                     ?>
                         <li class="flex py-6 sm:py-10">
                             <div class="flex-shrink-0">
-                                <img src="<?php echo sanitize($product['image_url'] ?? 'https://via.placeholder.com/150'); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32 border dark:border-gray-700">
+                                <img src="<?php echo sanitize($product['image_url'] ?? '/assets/images/placeholder.svg'); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-24 h-24 rounded-md object-center object-cover sm:w-32 sm:h-32 border dark:border-gray-700">
                             </div>
 
                             <div class="ml-4 flex-1 flex flex-col justify-between sm:ml-6">

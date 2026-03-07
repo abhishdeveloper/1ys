@@ -193,6 +193,94 @@
         });
     });
 
+    // ----- Hero Slider Logic -----
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.hero-slide');
+        const dots = document.querySelectorAll('.slide-dot');
+        const prevBtn = document.getElementById('prev-slide');
+        const nextBtn = document.getElementById('next-slide');
+        let currentSlide = 0;
+        let slideInterval;
+        const autoPlayTime = 6000;
+
+        if (slides.length > 0) {
+            const showSlide = (index) => {
+                slides.forEach((slide, i) => {
+                    if (i === index) {
+                        slide.classList.remove('opacity-0', 'pointer-events-none');
+                        slide.classList.add('opacity-100', 'z-10');
+                        // reset text animations
+                        const animatedTexts = slide.querySelectorAll('.animate-slide-up');
+                        animatedTexts.forEach(el => {
+                            el.style.animation = 'none';
+                            el.offsetHeight; /* trigger reflow */
+                            el.style.animation = null;
+                        });
+                        // trigger image zoom
+                        const img = slide.querySelector('.slide-img');
+                        if(img) {
+                             img.classList.remove('scale-105');
+                             img.offsetHeight;
+                             img.classList.add('scale-100');
+                        }
+                    } else {
+                        slide.classList.remove('opacity-100', 'z-10');
+                        slide.classList.add('opacity-0', 'pointer-events-none');
+                        const img = slide.querySelector('.slide-img');
+                        if(img) {
+                             img.classList.remove('scale-100');
+                             img.classList.add('scale-105');
+                        }
+                    }
+                });
+
+                dots.forEach((dot, i) => {
+                    if (i === index) {
+                        dot.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+                        dot.classList.add('bg-accent', 'scale-125');
+                    } else {
+                        dot.classList.remove('bg-accent', 'scale-125');
+                        dot.classList.add('bg-gray-300', 'dark:bg-gray-600');
+                    }
+                });
+            };
+
+            const nextSlide = () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            };
+
+            const prevSlide = () => {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(currentSlide);
+            };
+
+            const startAutoPlay = () => {
+                slideInterval = setInterval(nextSlide, autoPlayTime);
+            };
+
+            const resetAutoPlay = () => {
+                clearInterval(slideInterval);
+                startAutoPlay();
+            };
+
+            if (nextBtn) nextBtn.addEventListener('click', () => { nextSlide(); resetAutoPlay(); });
+            if (prevBtn) prevBtn.addEventListener('click', () => { prevSlide(); resetAutoPlay(); });
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    showSlide(currentSlide);
+                    resetAutoPlay();
+                });
+            });
+
+            // Initialize first slide and start autoplay
+            showSlide(currentSlide);
+            startAutoPlay();
+        }
+    });
+
     // ----- Scroll Reveal Animation Logic -----
     document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {
@@ -332,7 +420,7 @@
                             <a href="/product/${product.slug}" class="block hover:bg-green-50 dark:hover:bg-gray-700 transition-colors p-4 group">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-12 w-12 bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm group-hover:border-green-200 transition-colors">
-                                        <img class="h-12 w-12 object-contain p-1" src="${product.image_url || '/assets/images/placeholder.jpg'}" alt="">
+                                        <img class="h-12 w-12 object-contain p-1" src="${product.image_url || '/assets/images/placeholder.svg'}" alt="">
                                     </div>
                                     <div class="ml-4 flex-1">
                                         <div class="text-sm font-semibold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors">${product.name}</div>

@@ -3,44 +3,87 @@
 require_once __DIR__ . '/partials/header.php';
 ?>
 
-<!-- Royal Ayurvedic Hero Section -->
-<div class="relative bg-secondary dark:bg-gray-900 overflow-hidden rounded-sm mb-20 border border-accent/30 dark:border-gray-800 animate-slide-up shadow-sm">
-    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center">
-        <!-- Text Content -->
-        <div class="relative z-10 w-full lg:w-1/2 px-6 py-16 sm:py-24 lg:px-16 text-center lg:text-left flex flex-col justify-center">
+<!-- Royal Ayurvedic Hero Slider Section -->
+<div class="relative bg-secondary dark:bg-gray-900 overflow-hidden mb-20 shadow-sm border-b-4 border-accent">
 
-            <div class="mb-6">
-                <span class="font-serif italic text-accent text-lg tracking-widest">Discover Luxurious Ayurveda</span>
-                <div class="h-px w-24 bg-accent mx-auto lg:mx-0 mt-3 mb-2"></div>
+    <!-- Slider Container -->
+    <div id="hero-slider" class="relative w-full h-[600px] md:h-[700px] overflow-hidden group">
+
+        <!-- Slide 1 -->
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-100 flex flex-col lg:flex-row items-center">
+            <!-- Text Content -->
+            <div class="relative z-10 w-full lg:w-1/2 px-6 py-16 sm:py-24 lg:px-16 text-center lg:text-left flex flex-col justify-center h-full bg-secondary/90 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none">
+                <div class="mb-6 animate-slide-up" style="animation-delay: 0.1s;">
+                    <span class="font-serif italic text-accent text-lg tracking-widest">Discover Luxurious Ayurveda</span>
+                    <div class="h-px w-24 bg-accent mx-auto lg:mx-0 mt-3 mb-2"></div>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-primary dark:text-white leading-tight mb-6 animate-slide-up" style="animation-delay: 0.3s;">
+                    Pure, Potent <br>
+                    <span class="text-accent italic font-normal">&amp; Time-Honored</span>
+                </h1>
+                <p class="text-base text-gray-700 dark:text-gray-300 sm:text-lg mb-10 font-light leading-relaxed max-w-lg mx-auto lg:mx-0 animate-slide-up" style="animation-delay: 0.5s;">
+                    Crafted with nature's rarest botanicals, our artisanal formulations deliver profound healing and radiant vitality rooted in ancient wisdom.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-slide-up" style="animation-delay: 0.7s;">
+                    <a href="/products" class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-lg shadow-primary/30">
+                        Explore Collection
+                    </a>
+                </div>
             </div>
-
-            <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-primary dark:text-white leading-tight mb-6">
-                Pure, Potent <br>
-                <span class="text-accent italic font-normal">&amp; Time-Honored</span>
-            </h1>
-
-            <p class="text-base text-gray-700 dark:text-gray-300 sm:text-lg mb-10 font-light leading-relaxed max-w-lg mx-auto lg:mx-0">
-                Crafted with nature's rarest botanicals, our artisanal formulations deliver profound healing and radiant vitality rooted in ancient wisdom.
-            </p>
-
-            <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
-                <a href="/products" class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-lg shadow-primary/30">
-                    Explore Collection
-                </a>
-                <a href="/categories" class="inline-flex items-center justify-center px-8 py-3.5 border border-accent text-sm font-semibold uppercase tracking-widest text-primary dark:text-accent bg-transparent hover:bg-accent hover:text-white transition-colors">
-                    Our Heritage
-                </a>
+            <!-- Image -->
+            <div class="absolute inset-0 lg:relative lg:w-1/2 h-full z-0">
+                <div class="absolute inset-4 lg:inset-8 border border-accent/40 z-20 pointer-events-none"></div>
+                <img class="w-full h-full object-cover object-center transform scale-105 transition-transform duration-[10000ms] slide-img" src="https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250204-WA0009.jpg" alt="Luxurious Ayurvedic Products">
+                <div class="absolute inset-0 bg-gradient-to-r from-secondary dark:from-gray-900 via-transparent to-transparent z-10 lg:hidden pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-secondary dark:to-gray-900 z-10 hidden lg:block pointer-events-none"></div>
             </div>
         </div>
 
-        <!-- Hero Image -->
-        <div class="w-full lg:w-1/2 relative min-h-[400px] lg:min-h-[600px]">
-            <!-- Elegant image frame with subtle border -->
-            <div class="absolute inset-4 lg:inset-8 border border-accent/40 z-20 pointer-events-none"></div>
-            <img class="absolute inset-0 w-full h-full object-cover z-10 animate-fade-in" src="https://myaayucare.com/wp-content/uploads/2025/02/IMG-20250204-WA0009.jpg" alt="AAYU CARE Luxurious Ayurvedic Products">
-            <div class="absolute inset-0 bg-gradient-to-r from-secondary dark:from-gray-900 via-transparent to-transparent z-10 lg:hidden pointer-events-none"></div>
-            <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-secondary dark:to-gray-900 z-10 hidden lg:block pointer-events-none"></div>
+        <!-- Slide 2 -->
+        <div class="hero-slide absolute inset-0 transition-opacity duration-1000 ease-in-out opacity-0 flex flex-col lg:flex-row items-center">
+            <div class="relative z-10 w-full lg:w-1/2 px-6 py-16 sm:py-24 lg:px-16 text-center lg:text-left flex flex-col justify-center h-full bg-secondary/90 lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none">
+                <div class="mb-6">
+                    <span class="font-serif italic text-accent text-lg tracking-widest">The Art of Wellness</span>
+                    <div class="h-px w-24 bg-accent mx-auto lg:mx-0 mt-3 mb-2"></div>
+                </div>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-serif font-bold text-primary dark:text-white leading-tight mb-6">
+                    Nourish Your <br>
+                    <span class="text-accent italic font-normal">Mind, Body &amp; Soul</span>
+                </h1>
+                <p class="text-base text-gray-700 dark:text-gray-300 sm:text-lg mb-10 font-light leading-relaxed max-w-lg mx-auto lg:mx-0">
+                    Experience the ultimate indulgence with our exquisite range of natural wellness supplements and herbal oils.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4">
+                    <a href="/category/herbal-oils" class="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-lg shadow-primary/30">
+                        Shop Herbal Oils
+                    </a>
+                </div>
+            </div>
+            <div class="absolute inset-0 lg:relative lg:w-1/2 h-full z-0">
+                <div class="absolute inset-4 lg:inset-8 border border-accent/40 z-20 pointer-events-none"></div>
+                <!-- Placeholder for second slide image -->
+                <div class="w-full h-full bg-gray-200 dark:bg-gray-800 flex items-center justify-center transform scale-105 transition-transform duration-[10000ms] slide-img">
+                    <img class="w-full h-full object-cover" src="https://myaayucare.com/wp-content/uploads/2025/02/banner2.jpg" onerror="this.src='https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?auto=format&fit=crop&q=80&w=1200';">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-r from-secondary dark:from-gray-900 via-transparent to-transparent z-10 lg:hidden pointer-events-none"></div>
+                <div class="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-secondary dark:to-gray-900 z-10 hidden lg:block pointer-events-none"></div>
+            </div>
         </div>
+
+        <!-- Slider Controls -->
+        <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+
+        <!-- Slider Indicators -->
+        <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3 z-30">
+            <button class="slide-dot w-2.5 h-2.5 rounded-full bg-accent transition-all duration-300 transform scale-125" data-slide="0"></button>
+            <button class="slide-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-accent/50 transition-all duration-300" data-slide="1"></button>
+        </div>
+
     </div>
 </div>
 
@@ -49,7 +92,11 @@ require_once __DIR__ . '/partials/header.php';
     <div class="text-center mb-16">
         <h2 class="font-serif italic text-accent text-xl mb-2">Curated With Care</h2>
         <h3 class="text-3xl font-serif font-bold tracking-widest text-primary dark:text-white uppercase">The Collections</h3>
-        <div class="h-px w-16 bg-accent mx-auto mt-6"></div>
+        <div class="flex items-center justify-center mt-6">
+            <div class="h-px w-16 bg-accent"></div>
+            <svg class="w-4 h-4 mx-3 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+            <div class="h-px w-16 bg-accent"></div>
+        </div>
     </div>
 
     <?php if (empty($categories)): ?>
@@ -72,8 +119,9 @@ require_once __DIR__ . '/partials/header.php';
 </div>
 
 <!-- Royal Features Section -->
-<div class="mb-24 bg-primary text-secondary py-16 px-4 relative overflow-hidden">
-    <!-- Subtle background pattern -->
+<div class="mb-24 bg-primary text-secondary py-16 px-4 relative overflow-hidden border-y-[6px] border-accent/20">
+    <!-- Detailed background pattern -->
+    <div class="absolute inset-0 opacity-[0.04] bg-[url('https://www.transparenttextures.com/patterns/arabesque.png')]"></div>
     <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMSIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')]"></div>
 
     <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center relative z-10">
@@ -100,7 +148,11 @@ require_once __DIR__ . '/partials/header.php';
     <div class="text-center mb-16">
         <h2 class="font-serif italic text-accent text-xl mb-2">Discover Our</h2>
         <h3 class="text-3xl font-serif font-bold tracking-widest text-primary dark:text-white uppercase">Bestsellers</h3>
-        <div class="h-px w-16 bg-accent mx-auto mt-6"></div>
+        <div class="flex items-center justify-center mt-6">
+            <div class="h-px w-16 bg-accent"></div>
+            <svg class="w-4 h-4 mx-3 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"></path></svg>
+            <div class="h-px w-16 bg-accent"></div>
+        </div>
     </div>
 
     <?php if (empty($featuredProducts)): ?>

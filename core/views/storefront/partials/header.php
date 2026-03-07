@@ -20,6 +20,11 @@
     <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>" />
     <meta property="og:type" content="<?php echo isset($product) ? 'product' : 'website'; ?>" />
 
+    <!-- Google Fonts for Royal Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS (CDN for simple deployment) -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -30,14 +35,20 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#166534', // Green-800 (Ayurvedic theme)
-                        primary_hover: '#14532d', // Green-900
-                        secondary: '#1f2937', // Gray-800
-                        accent: '#FBBF24', // Yellow-400 for accents/buttons
+                        primary: '#1a3622', // Deep Forest Green
+                        primary_hover: '#122618',
+                        secondary: '#fbf8f1', // Off-white/Cream
+                        accent: '#c27b3b', // Elegant Gold/Orange
+                        accent_hover: '#a66831',
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.5s ease-out',
-                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'zoom-in': 'zoomIn 1.5s ease-out forwards',
                     },
                     keyframes: {
                         fadeIn: {
@@ -45,8 +56,12 @@
                             '100%': { opacity: '1' },
                         },
                         slideUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        zoomIn: {
+                            '0%': { transform: 'scale(1.05)' },
+                            '100%': { transform: 'scale(1)' },
                         }
                     }
                 }
@@ -56,7 +71,8 @@
 
     <!-- Main Styles -->
     <style>
-        body { font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
+        body { font-family: 'Lato', sans-serif; background-color: #fbf8f1; color: #1a3622; transition: background-color 0.3s, color 0.3s; scroll-behavior: smooth; }
+        .font-serif { font-family: 'Playfair Display', serif; }
         /* Custom scrollbar for better aesthetics */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -107,48 +123,55 @@
 </div>
 
 <!-- Navigation Bar -->
-<nav id="main-nav" class="bg-white/95 dark:bg-gray-800/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100 dark:border-gray-700 transition-all duration-300 py-2">
+<nav id="main-nav" class="bg-secondary dark:bg-gray-900 shadow-sm sticky top-0 z-50 border-b border-gray-200 dark:border-gray-800 transition-all duration-300 py-2">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
 
-            <!-- Logo & Brand -->
-            <div class="flex items-center">
-                <a href="/" class="flex-shrink-0 flex items-center gap-2">
-                    <img class="h-10 w-auto" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
-                    <span class="font-bold text-xl tracking-tight text-primary dark:text-white">AAYU CARE</span>
+        <div class="flex justify-between items-center h-16">
+
+            <!-- Left Navigation (Desktop) -->
+            <div class="hidden md:flex space-x-8">
+                <a href="/products" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors">Shop</a>
+                <a href="/categories" class="text-sm font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors">Collections</a>
+            </div>
+
+            <!-- Logo & Brand (Centered) -->
+            <div class="flex-1 flex justify-center md:flex-none md:absolute md:left-1/2 md:transform md:-translate-x-1/2">
+                <a href="/" class="flex flex-col items-center">
+                    <img class="h-12 w-auto mb-1" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+                    <span class="font-serif font-bold text-xl tracking-widest text-primary dark:text-white uppercase">Aayu Care</span>
                 </a>
             </div>
 
-            <!-- Intelligent AJAX Search Bar (Desktop) -->
-            <div class="hidden sm:flex flex-1 items-center justify-center px-8 relative group">
-                <form action="/search" method="GET" class="w-full max-w-2xl relative">
-                    <input type="text" id="desktop-search" name="q" placeholder="Search for products, categories, or keywords..." autocomplete="off"
-                        value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                        class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2.5 pl-12 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
-                    <button type="submit" class="absolute left-4 top-3 text-gray-400 hover:text-primary transition-colors">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
-                    <!-- Loading Spinner -->
-                    <div id="desktop-search-spinner" class="absolute right-4 top-3 text-primary hidden animate-spin">
-                        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                    </div>
-                    <!-- Search Results Dropdown -->
-                    <div id="search-results" class="absolute w-full mt-3 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-2xl hidden z-50 max-h-[80vh] overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
-                        <!-- Results injected via JS -->
-                    </div>
-                </form>
-            </div>
+            <!-- Right side elements (Search, Theme Toggle, Cart, Profile) -->
+            <div class="flex items-center space-x-4 md:space-x-6">
 
-            <!-- Right side elements (Theme Toggle, Cart, Profile) -->
-            <div class="flex items-center space-x-4">
+                <!-- Desktop Search Trigger (Expands) -->
+                <div class="hidden sm:block relative group">
+                    <form action="/search" method="GET" class="relative flex items-center">
+                        <input type="text" id="desktop-search" name="q" placeholder="Search..." autocomplete="off"
+                            value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
+                            class="w-48 focus:w-64 bg-transparent border-b border-gray-300 dark:border-gray-600 text-primary dark:text-white py-1 px-2 focus:outline-none focus:border-accent transition-all duration-300 text-sm placeholder-gray-400">
+                        <button type="submit" class="absolute right-2 text-gray-400 hover:text-accent transition-colors">
+                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                        <!-- Loading Spinner -->
+                        <div id="desktop-search-spinner" class="absolute right-8 text-accent hidden animate-spin">
+                            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </div>
+                        <!-- Search Results Dropdown -->
+                        <div id="search-results" class="absolute right-0 top-full mt-4 w-80 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded shadow-xl hidden z-50 max-h-[70vh] overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
+                            <!-- Results injected via JS -->
+                        </div>
+                    </form>
+                </div>
 
                 <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="p-2 rounded-full text-gray-500 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 focus:outline-none transition-colors">
+                <button id="theme-toggle" class="text-primary hover:text-accent dark:text-gray-300 dark:hover:text-accent focus:outline-none transition-colors">
                     <!-- Sun Icon -->
                     <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4.22 3.22a1 1 0 011.415 0l.708.707a1 1 0 01-1.414 1.414l-.708-.707a1 1 0 010-1.414zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM14.22 15.364a1 1 0 010 1.414l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 0zM10 18a1 1 0 01-1-1v-1a1 1 0 112 0v1a1 1 0 01-1 1zm-4.22-1.22a1 1 0 01-1.415 0l-.708-.707a1 1 0 011.414-1.414l.708.707a1 1 0 010 1.414zM2 10a1 1 0 011-1h1a1 1 0 110 2H3a1 1 0 01-1-1zm1.22-4.22a1 1 0 010-1.414l.707-.707a1 1 0 011.414 1.414l-.707.707a1 1 0 01-1.414 0zM10 5a5 5 0 100 10 5 5 0 000-10z"></path>
@@ -159,6 +182,27 @@
                     </svg>
                 </button>
 
+                <!-- User Account / Login -->
+                <?php if(isset($_SESSION['user_id'])): ?>
+                    <div class="relative group">
+                        <button class="flex items-center text-primary dark:text-gray-300 hover:text-accent font-medium focus:outline-none uppercase tracking-widest text-xs transition-colors">
+                            <span>Account</span>
+                        </button>
+                        <!-- Dropdown -->
+                        <div class="absolute right-0 w-48 mt-4 py-2 bg-white dark:bg-gray-800 shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border border-gray-100 dark:border-gray-700">
+                            <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-accent transition-colors">My Orders</a>
+                            <a href="/change-password" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-accent transition-colors">Change Password</a>
+                            <?php if(isset($_SESSION['role']) && in_array($_SESSION['role'], ['admin', 'seller'])): ?>
+                                <a href="/admin" class="block px-4 py-2 text-sm text-accent font-semibold hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Management Panel</a>
+                            <?php endif; ?>
+                            <div class="border-t border-gray-100 dark:border-gray-700 my-1"></div>
+                            <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">Logout</a>
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <a href="/login" class="text-xs font-semibold text-primary dark:text-gray-300 hover:text-accent uppercase tracking-widest transition-colors">Sign In</a>
+                <?php endif; ?>
+
                 <!-- Shopping Cart -->
                 <?php
                 // Calculate total items in cart
@@ -167,54 +211,32 @@
                     $cartCount = array_sum($_SESSION['cart']);
                 }
                 ?>
-                <a href="/cart" class="relative p-2 text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-white transition-colors">
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                <a href="/cart" class="relative text-primary dark:text-gray-300 hover:text-accent transition-colors flex items-center">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     <?php if ($cartCount > 0): ?>
-                    <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full">
+                    <span class="absolute -top-1 -right-2 inline-flex items-center justify-center px-1.5 py-0.5 text-[9px] font-bold leading-none text-white bg-accent rounded-full border border-white dark:border-gray-900">
                         <?php echo $cartCount > 99 ? '99+' : $cartCount; ?>
                     </span>
                     <?php endif; ?>
                 </a>
 
-                <!-- User Account / Login -->
-                <?php if(isset($_SESSION['user_id'])): ?>
-                    <div class="relative group">
-                        <button class="flex items-center space-x-1 text-gray-700 dark:text-gray-300 hover:text-primary font-medium focus:outline-none">
-                            <span>Account</span>
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </button>
-                        <!-- Dropdown -->
-                        <div class="absolute right-0 w-48 mt-2 py-2 bg-white dark:bg-gray-800 rounded-md shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50 border dark:border-gray-700">
-                            <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">My Orders</a>
-                            <a href="/change-password" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">Change Password</a>
-                            <?php if(isset($_SESSION['role']) && in_array($_SESSION['role'], ['admin', 'seller'])): ?>
-                                <a href="/admin" class="block px-4 py-2 text-sm text-primary font-semibold hover:bg-gray-100 dark:hover:bg-gray-700">Management Panel</a>
-                            <?php endif; ?>
-                            <div class="border-t dark:border-gray-700 my-1"></div>
-                            <a href="/logout" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-700">Logout</a>
-                        </div>
-                    </div>
-                <?php else: ?>
-                    <a href="/login" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-primary">Login</a>
-                    <a href="/register" class="hidden sm:inline-block text-sm font-medium bg-primary text-white px-4 py-2 rounded-md hover:bg-primary_hover transition-colors">Sign Up</a>
-                <?php endif; ?>
             </div>
         </div>
 
         <!-- Mobile Search Bar (Visible only on small screens) -->
-        <div class="sm:hidden pb-4 relative px-2 z-50">
+        <div class="sm:hidden mt-2 relative z-50">
             <form action="/search" method="GET" class="relative w-full">
                 <input type="text" id="mobile-search" name="q" placeholder="Search Ayurveda..." autocomplete="off"
                     value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
-                    class="w-full bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white rounded-full py-2 pl-10 pr-10 focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white dark:focus:bg-gray-600 transition-all shadow-sm">
-                <button type="submit" class="absolute left-3 top-2.5 text-gray-400 hover:text-primary transition-colors">
+                    class="w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-primary dark:text-white rounded py-2 pl-10 pr-10 focus:outline-none focus:border-accent transition-all shadow-sm text-sm">
+                <button type="submit" class="absolute left-3 top-2 text-gray-400 hover:text-accent transition-colors">
                     <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </button>
-                <div id="mobile-search-spinner" class="absolute right-3 top-2.5 text-primary hidden animate-spin">
+                <div id="mobile-search-spinner" class="absolute right-3 top-2 text-accent hidden animate-spin">
                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
@@ -222,7 +244,7 @@
                 </div>
             </form>
             <!-- Mobile Search Results Dropdown -->
-            <div id="mobile-search-results" class="absolute w-full mt-2 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 rounded-xl shadow-2xl hidden z-[60] max-h-96 overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
+            <div id="mobile-search-results" class="absolute w-full mt-1 bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 shadow-2xl hidden z-[60] max-h-96 overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-200">
                 <!-- Results injected via JS -->
             </div>
         </div>
@@ -230,7 +252,7 @@
 </nav>
 
 <!-- Main Content Area -->
-<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-fade-in">
+<main class="flex-grow w-full py-8 animate-fade-in pb-16">
 
     <!-- Display Global Flash Messages -->
     <?php

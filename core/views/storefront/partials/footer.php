@@ -3,92 +3,111 @@
 ?>
 </main> <!-- End Main Content -->
 
-<!-- Footer -->
-<footer class="bg-white dark:bg-gray-800 shadow-inner mt-auto border-t dark:border-gray-700">
-    <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-            <div class="space-y-8 xl:col-span-1">
-                <a href="/" class="flex items-center gap-2">
-                    <img class="h-12 w-auto" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
-                    <span class="font-bold text-2xl tracking-tight text-primary dark:text-white">AAYU CARE</span>
+<!-- Elegant Footer -->
+<footer class="bg-primary text-secondary border-t-4 border-accent mt-auto relative z-10">
+    <!-- Decorative Top Pattern (Subtle) -->
+    <div class="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+
+            <!-- Brand Info -->
+            <div class="space-y-6">
+                <a href="/" class="flex flex-col items-start gap-2 mb-4">
+                    <img class="h-16 w-auto filter brightness-0 invert" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+                    <span class="font-serif font-bold text-2xl tracking-widest text-accent uppercase">Aayu Care</span>
                 </a>
-                <p class="text-gray-500 dark:text-gray-400 text-base">
-                    An Ayurvedic pharma medicine manufacturing company dedicated to providing high-quality, natural health solutions.
+                <p class="text-sm text-gray-300 leading-relaxed font-light">
+                    Luxurious Ayurvedic manufacturing & remedies. Crafting nature's profound healing secrets with modern elegance.
                 </p>
-                <div class="flex space-x-6">
+                <div class="flex space-x-5 pt-2">
                     <!-- Social Links -->
-                    <a href="#" class="text-gray-400 hover:text-gray-500">
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors">
                         <span class="sr-only">Facebook</span>
-                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
-                        </svg>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
                     </a>
                 </div>
             </div>
-            <div class="mt-12 grid grid-cols-2 gap-8 xl:mt-0 xl:col-span-2">
-                <div class="md:grid md:grid-cols-2 md:gap-8">
-                    <div>
-                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Shop</h3>
-                        <ul class="mt-4 space-y-4">
-                            <li><a href="/products" class="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">All Products</a></li>
-                            <li><a href="/categories" class="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Categories</a></li>
-                        </ul>
-                    </div>
-                    <div class="mt-12 md:mt-0">
-                        <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Support</h3>
-                        <ul class="mt-4 space-y-4">
-                            <li><a href="/contact" class="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">Contact Us</a></li>
-                            <li><a href="/faq" class="text-base text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white">FAQ</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="mt-12 border-t border-gray-200 dark:border-gray-700 pt-8 lg:flex lg:items-center lg:justify-between">
+
+            <!-- Quick Links -->
             <div>
-                <h3 class="text-sm font-semibold text-gray-400 tracking-wider uppercase">Subscribe to our newsletter</h3>
-                <p class="mt-2 text-base text-gray-500">The latest news, articles, and resources, sent to your inbox weekly.</p>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">The Collections</h3>
+                <ul class="space-y-3">
+                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shop All Products</a></li>
+                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Explore Categories</a></li>
+                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Common Questions</a></li>
+                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Get in Touch</a></li>
+                </ul>
             </div>
-            <form class="mt-4 sm:flex sm:max-w-md lg:mt-0" onsubmit="event.preventDefault(); alert('Subscribed successfully!');">
-                <label for="email-address" class="sr-only">Email address</label>
-                <input type="email" name="email-address" id="email-address" autocomplete="email" required class="appearance-none min-w-0 w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 px-4 text-base text-gray-900 dark:text-white placeholder-gray-500 focus:outline-none focus:ring-primary focus:border-primary focus:placeholder-gray-400 sm:max-w-xs" placeholder="Enter your email">
-                <div class="mt-3 rounded-md sm:mt-0 sm:ml-3 sm:flex-shrink-0">
-                    <button type="submit" class="w-full bg-primary flex items-center justify-center border border-transparent rounded-md py-2 px-4 text-base font-medium text-white hover:bg-primary_hover focus:ring-2 focus:ring-offset-2 focus:ring-primary">Subscribe</button>
-                </div>
-            </form>
+
+            <!-- Customer Service -->
+            <div>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Client Services</h3>
+                <ul class="space-y-3">
+                    <?php if(isset($_SESSION['user_id'])): ?>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">My Account</a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Order History</a></li>
+                    <?php else: ?>
+                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Sign In / Register</a></li>
+                    <?php endif; ?>
+                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shopping Bag</a></li>
+                    <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shipping & Returns</a></li>
+                </ul>
+            </div>
+
+            <!-- Newsletter -->
+            <div>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Join The Club</h3>
+                <p class="text-sm text-gray-300 mb-6 font-light">Subscribe to receive exclusive offers, luxurious skincare tips, and early access to new collections.</p>
+                <form class="flex flex-col gap-3" action="#" method="POST">
+                    <input type="email" placeholder="Email Address" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
+                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2">Subscribe Now</button>
+                </form>
+            </div>
         </div>
-        <div class="mt-8 border-t border-gray-200 dark:border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-base text-gray-400">&copy; <?php echo date('Y'); ?> AAYU CARE. All rights reserved.</p>
-            <p class="text-sm text-gray-400 mt-4 md:mt-0">Designed and developed by <a href="https://abhish.in/" target="_blank" class="text-primary hover:underline">abhish.in</a></p>
+
+        <div class="mt-16 border-t border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-xs text-gray-500 tracking-wider mb-4 md:mb-0">
+                &copy; <?php echo date('Y'); ?> AAYU CARE. ALL RIGHTS RESERVED.
+            </p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">PRIVACY POLICY</a>
+                <span class="text-gray-700">|</span>
+                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">TERMS OF SERVICE</a>
+            </div>
         </div>
     </div>
 </footer>
 
 <!-- Back to Top Button -->
-<button id="back-to-top" class="fixed bottom-24 right-6 sm:bottom-20 z-50 bg-gray-900 text-white p-3 rounded-full shadow-lg hover:bg-gray-700 transition-all transform translate-y-20 opacity-0 focus:outline-none" aria-label="Back to top">
+<button id="back-to-top" class="fixed bottom-24 right-6 sm:bottom-20 z-50 bg-accent text-white p-3 rounded-full shadow-lg hover:bg-accent_hover transition-all transform translate-y-20 opacity-0 focus:outline-none" aria-label="Back to top">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
 </button>
 
 <!-- Mobile Bottom App-like Navigation Bar -->
-<div class="sm:hidden fixed bottom-0 w-full bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 px-6 py-3 flex justify-between items-center pb-safe">
-    <a href="/" class="flex flex-col items-center text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-        <span class="text-[10px] font-medium">Home</span>
+<div class="sm:hidden fixed bottom-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 px-6 py-3 flex justify-between items-center pb-safe">
+    <a href="/" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
     </a>
-    <a href="/categories" class="flex flex-col items-center text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-        <span class="text-[10px] font-medium">Categories</span>
+    <a href="/categories" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Shop</span>
     </a>
-    <a href="/cart" class="relative flex flex-col items-center text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-        <span class="text-[10px] font-medium">Cart</span>
+    <a href="/cart" class="relative flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Cart</span>
         <?php if ($cartCount > 0): ?>
-            <span class="absolute top-0 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[8px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-red-600 rounded-full"><?php echo $cartCount > 99 ? '99+' : $cartCount; ?></span>
+            <span class="absolute top-0 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[8px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-accent rounded-full"><?php echo $cartCount > 99 ? '99+' : $cartCount; ?></span>
         <?php endif; ?>
     </a>
-    <a href="<?php echo isset($_SESSION['user_id']) ? '/dashboard' : '/login'; ?>" class="flex flex-col items-center text-gray-500 hover:text-primary dark:text-gray-400 dark:hover:text-primary transition-colors">
-        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-        <span class="text-[10px] font-medium">Account</span>
+    <a href="<?php echo isset($_SESSION['user_id']) ? '/dashboard' : '/login'; ?>" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
+        <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Account</span>
     </a>
 </div>
 
@@ -100,8 +119,8 @@
 </style>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/910000000000" target="_blank" class="fixed bottom-20 right-6 sm:bottom-6 z-[60] bg-green-500 text-white p-3 rounded-full shadow-2xl hover:bg-green-600 transition-all transform hover:scale-110 flex items-center justify-center animate-bounce shadow-green-500/50" aria-label="Chat on WhatsApp">
-    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<a href="https://wa.me/910000000000" target="_blank" class="fixed bottom-20 right-6 sm:bottom-6 z-[60] bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center" aria-label="Chat on WhatsApp">
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01a1.08 1.08 0 00-.792.372c-.297.322-1.139 1.115-1.139 2.716s1.164 3.146 1.327 3.369c.163.223 2.296 3.504 5.56 4.908 2.128.917 2.911 1.002 3.966.839 1.206-.188 3.708-1.516 4.228-2.979.52-1.462.52-2.716.366-2.979-.153-.263-.57-.411-.867-.56zM11.996 22C6.483 22 2 17.517 2 12S6.483 2 11.996 2s10.004 4.483 10.004 10-4.49 10-10.004 10z"></path>
     </svg>
 </a>

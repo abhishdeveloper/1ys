@@ -48,7 +48,9 @@
                     animation: {
                         'fade-in': 'fadeIn 1.2s ease-out',
                         'slide-up': 'slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards',
+                        'slide-up-fade': 'slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
                         'zoom-in': 'zoomIn 2s ease-out forwards',
+                        'slow-pan': 'slowPan 30s linear infinite alternate',
                     },
                     keyframes: {
                         fadeIn: {
@@ -59,9 +61,17 @@
                             '0%': { opacity: '0', transform: 'translateY(40px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
                         },
+                        slideUpFade: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
                         zoomIn: {
                             '0%': { transform: 'scale(1.05)' },
                             '100%': { transform: 'scale(1)' },
+                        },
+                        slowPan: {
+                            '0%': { backgroundPosition: '0% 0%' },
+                            '100%': { backgroundPosition: '100% 100%' },
                         }
                     }
                 }

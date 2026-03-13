@@ -169,11 +169,18 @@ require_once __DIR__ . '/partials/header.php';
     </div>
 
     <?php if (empty($featuredProducts)): ?>
-        <p class="text-gray-400 text-center font-light tracking-widest">No exquisite products available at the moment.</p>
+        <p class="text-gray-400 text-center font-light tracking-widest reveal-on-scroll">No exquisite products available at the moment.</p>
     <?php else: ?>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 max-w-7xl mx-auto">
-            <?php foreach ($featuredProducts as $product): ?>
-                <div class="group relative flex flex-col items-center text-center transition-all duration-500">
+            <?php foreach ($featuredProducts as $index => $product): ?>
+                <div class="group relative flex flex-col items-center text-center transition-all duration-500 reveal-on-scroll" data-stagger="true">
+                    <!-- Badge (Optional, can be conditional based on product data if added later) -->
+                    <?php if ($index === 0 || $index === 2): // Faking a 'Bestseller' badge for visual effect ?>
+                    <div class="absolute top-4 left-4 z-20 bg-accent text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 shadow-sm">
+                        Bestseller
+                    </div>
+                    <?php endif; ?>
+
                     <!-- Image -->
                     <div class="w-full aspect-w-4 aspect-h-5 mb-8 overflow-hidden border border-gray-100 dark:border-gray-800 bg-[#f9f8f6] dark:bg-gray-900 relative">
                         <?php if ($product['image_url']): ?>
@@ -186,11 +193,11 @@ require_once __DIR__ . '/partials/header.php';
 
                         <!-- Quick Add Overlay (Hover) -->
                         <div class="absolute inset-0 bg-primary/30 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-all duration-500 flex items-end justify-center pb-8">
-                            <form action="/cart/add" method="POST" class="w-5/6">
+                            <form action="/cart/add" method="POST" class="w-5/6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="quantity" value="1">
-                                <button type="submit" class="w-full py-3.5 bg-white text-primary text-[11px] font-medium uppercase tracking-[0.2em] hover:bg-accent hover:text-white transition-colors duration-300 shadow-xl">
-                                    Add to Bag
+                                <button type="submit" class="w-full py-3.5 bg-white text-primary text-[11px] font-medium uppercase tracking-[0.2em] hover:bg-accent hover:text-white transition-colors duration-300 shadow-xl flex items-center justify-center space-x-2">
+                                    <span>Add to Bag</span>
                                 </button>
                             </form>
                         </div>
@@ -214,12 +221,25 @@ require_once __DIR__ . '/partials/header.php';
             <?php endforeach; ?>
         </div>
 
-        <div class="mt-20 text-center">
-            <a href="/products" class="inline-block border border-accent/50 text-[11px] font-medium uppercase tracking-[0.2em] text-primary dark:text-gray-300 hover:bg-accent hover:text-white px-8 py-3.5 transition-all duration-300">
+        <div class="mt-24 text-center reveal-on-scroll">
+            <a href="/products" class="inline-block border border-accent/50 text-[11px] font-medium uppercase tracking-[0.2em] text-primary dark:text-gray-300 hover:bg-accent hover:text-white px-10 py-4 transition-all duration-500 hover:shadow-lg group">
                 View All Products
+                <svg class="w-4 h-4 inline-block ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </a>
         </div>
     <?php endif; ?>
+</div>
+
+<!-- Newsletter Section -->
+<div class="bg-secondary dark:bg-gray-800 py-24 border-t border-gray-200 dark:border-gray-700 reveal-on-scroll">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+        <h3 class="text-2xl md:text-3xl font-serif font-medium text-primary dark:text-white mb-4">Join the Aayu Care Circle</h3>
+        <p class="text-gray-500 dark:text-gray-400 font-light mb-8 max-w-lg mx-auto">Subscribe to receive exclusive offers, early access to new launches, and Ayurvedic wellness rituals.</p>
+        <form class="flex flex-col sm:flex-row max-w-lg mx-auto gap-4">
+            <input type="email" placeholder="Enter your email address" class="flex-grow bg-transparent border-b border-gray-400 dark:border-gray-600 py-3 px-2 focus:outline-none focus:border-accent transition-colors text-sm text-primary dark:text-white" required>
+            <button type="submit" class="bg-primary hover:bg-accent text-white text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 transition-colors duration-300">Subscribe</button>
+        </form>
+    </div>
 </div>
 
 <?php require_once __DIR__ . '/partials/footer.php'; ?>

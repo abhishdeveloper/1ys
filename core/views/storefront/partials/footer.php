@@ -292,20 +292,24 @@
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('animate-slide-up');
-                    entry.target.classList.remove('opacity-0');
+                    // Check if element has a specific animation class defined via data attribute, otherwise use default
+                    const animationClass = entry.target.dataset.animation || 'animate-slide-up-fade';
+                    entry.target.classList.add(animationClass);
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         // Select elements to animate (e.g., product cards, category boxes)
-        const revealElements = document.querySelectorAll('.group.relative, .bg-white.dark\\:bg-gray-800.rounded-xl.shadow-sm');
-        revealElements.forEach(el => {
-            if (!el.closest('#promo-popup')) {
-                el.classList.add('opacity-0');
-                observer.observe(el);
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        revealElements.forEach((el, index) => {
+            // Apply staggered delay if requested
+            if(el.dataset.stagger) {
+                el.style.animationDelay = `${index * 100}ms`;
             }
+            el.classList.add('opacity-0', 'translate-y-10'); // Initial state for slide-up-fade
+            observer.observe(el);
         });
     });
 

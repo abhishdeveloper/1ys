@@ -141,9 +141,9 @@ $navClasses = $isHome
 ?>
 
 <div class="<?php echo $headerContainerClasses; ?>">
-    <!-- Top Banner -->
-    <div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50">
-        ✨ Free Delivery above order value ₹299/- ✨
+    <!-- Top Banner (Typewriter Effect) -->
+    <div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50 overflow-hidden h-9 flex items-center justify-center">
+        <span id="typewriter-text" class="inline-block border-r-2 border-accent pr-1 animate-pulse"></span>
     </div>
 
     <!-- Navigation Bar -->

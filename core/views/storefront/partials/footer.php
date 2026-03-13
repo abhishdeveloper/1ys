@@ -281,6 +281,59 @@
         }
     });
 
+    // ----- Typewriter Effect for Top Banner -----
+    const typewriterElement = document.getElementById('typewriter-text');
+    if (typewriterElement) {
+        const phrases = [
+            "✨ Free delivery over ₹399/- ✨",
+            "✨ 10% off on orders over ₹599/- ✨",
+            "✨ 100% Natural, Cruelty-Free Ayurvedic Care ✨"
+        ];
+
+        let phraseIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+
+        // Typing speed settings (ms)
+        const typeSpeed = 50;
+        const deleteSpeed = 30;
+        const pauseEnd = 3000; // time to wait after finishing typing a line
+        const pauseStart = 500; // time to wait before typing next line
+
+        function typeWriter() {
+            const currentPhrase = phrases[phraseIndex];
+
+            if (isDeleting) {
+                // Remove char
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                // Add char
+                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            // Determine next speed/action
+            let speed = isDeleting ? deleteSpeed : typeSpeed;
+
+            if (!isDeleting && charIndex === currentPhrase.length) {
+                // Finished typing, pause then start deleting
+                speed = pauseEnd;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                // Finished deleting, move to next phrase, pause then start typing
+                isDeleting = false;
+                phraseIndex = (phraseIndex + 1) % phrases.length;
+                speed = pauseStart;
+            }
+
+            setTimeout(typeWriter, speed);
+        }
+
+        // Start the loop
+        setTimeout(typeWriter, pauseStart);
+    }
+
     // ----- Scroll Reveal Animation Logic -----
     document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {

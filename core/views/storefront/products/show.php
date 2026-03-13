@@ -107,7 +107,7 @@ require_once __DIR__ . '/../partials/header.php';
                 </div>
 
                 <div class="mt-6">
-                    <h3 class="sr-only">Description</h3>
+                    <h3 class="sr-only"><?php echo __('description'); ?></h3>
                     <div class="text-base text-gray-700 dark:text-gray-300 space-y-6">
                         <p><?php echo nl2br(sanitize($product['description'])); ?></p>
                     </div>
@@ -125,16 +125,16 @@ require_once __DIR__ . '/../partials/header.php';
 
                         <button type="submit" <?php echo $product['stock_quantity'] <= 0 ? 'disabled' : ''; ?>
                             class="max-w-xs flex-1 bg-primary border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-primary sm:w-full transition-colors <?php echo $product['stock_quantity'] <= 0 ? 'opacity-50 cursor-not-allowed' : ''; ?>">
-                            Add to bag
+                            <?php echo $product['stock_quantity'] <= 0 ? __('out_of_stock') : __('add_to_bag'); ?>
                         </button>
                     </div>
                 </form>
 
                 <!-- Shipping / Returns Policy Snippet -->
                 <section aria-labelledby="details-heading" class="mt-12 border-t dark:border-gray-700 pt-8">
-                    <h2 id="details-heading" class="text-lg font-medium text-gray-900 dark:text-white mb-4">Shipping & Returns</h2>
+                    <h2 id="details-heading" class="text-lg font-medium text-gray-900 dark:text-white mb-4"><?php echo __('shipping_returns'); ?></h2>
                     <ul class="text-sm text-gray-500 dark:text-gray-400 space-y-2 list-disc pl-5">
-                        <li>Free standard shipping on orders over $50</li>
+                        <li>Free standard shipping on orders over ₹399</li>
                         <li>Estimated delivery: 3-5 business days</li>
                         <li>30-day return policy for unused items in original packaging</li>
                     </ul>
@@ -147,7 +147,7 @@ require_once __DIR__ . '/../partials/header.php';
 <!-- Related Products -->
 <?php if (!empty($relatedProducts)): ?>
 <div class="mb-16">
-    <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-8">Customers also purchased</h2>
+    <h2 class="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-8"><?php echo __('related_products'); ?></h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-y-10 gap-x-6">
         <?php foreach ($relatedProducts as $related): ?>
             <div class="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col transition-all hover:shadow-lg">
@@ -169,7 +169,7 @@ require_once __DIR__ . '/../partials/header.php';
                             </a>
                         </h3>
                     </div>
-                    <p class="text-base font-medium text-gray-900 dark:text-white mt-2">$<?php echo number_format($related['price'], 2); ?></p>
+                    <p class="text-base font-medium text-gray-900 dark:text-white mt-2">₹<?php echo number_format($related['price'], 2); ?></p>
                 </div>
             </div>
         <?php endforeach; ?>

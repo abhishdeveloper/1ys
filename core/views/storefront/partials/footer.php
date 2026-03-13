@@ -111,6 +111,19 @@
     </a>
 </div>
 
+<!-- Floating WhatsApp Button -->
+<?php
+global $db;
+$stmt = $db->query("SELECT setting_value FROM settings WHERE setting_key = 'contact_whatsapp'");
+$row = $stmt->fetch();
+$contact_whatsapp = $row ? $row['setting_value'] : '910000000000';
+?>
+<a href="https://wa.me/<?php echo htmlspecialchars($contact_whatsapp); ?>" target="_blank" class="fixed bottom-32 right-6 sm:bottom-6 z-[60] bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center" aria-label="Chat on WhatsApp">
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01a1.08 1.08 0 00-.792.372c-.297.322-1.139 1.115-1.139 2.716s1.164 3.146 1.327 3.369c.163.223 2.296 3.504 5.56 4.908 2.128.917 2.911 1.002 3.966.839 1.206-.188 3.708-1.516 4.228-2.979.52-1.462.52-2.716.366-2.979-.153-.263-.57-.411-.867-.56zM11.996 22C6.483 22 2 17.517 2 12S6.483 2 11.996 2s10.004 4.483 10.004 10-4.49 10-10.004 10z"></path>
+    </svg>
+</a>
+
 <!-- Add padding to body so bottom nav doesn't hide content -->
 <style>
     @media (max-width: 640px) {

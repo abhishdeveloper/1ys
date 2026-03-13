@@ -177,7 +177,7 @@ require_once __DIR__ . '/partials/header.php';
                     <!-- Badge (Optional, can be conditional based on product data if added later) -->
                     <?php if ($index === 0 || $index === 2): // Faking a 'Bestseller' badge for visual effect ?>
                     <div class="absolute top-4 left-4 z-20 bg-accent text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 shadow-sm">
-                        Bestseller
+                        <?php echo __('bestseller_badge'); ?>
                     </div>
                     <?php endif; ?>
 
@@ -197,7 +197,7 @@ require_once __DIR__ . '/partials/header.php';
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="quantity" value="1">
                                 <button type="submit" class="w-full py-3.5 bg-white text-primary text-[11px] font-medium uppercase tracking-[0.2em] hover:bg-accent hover:text-white transition-colors duration-300 shadow-xl flex items-center justify-center space-x-2">
-                                    <span>Add to Bag</span>
+                                    <span><?php echo __('add_to_bag'); ?></span>
                                 </button>
                             </form>
                         </div>

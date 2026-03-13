@@ -42,6 +42,12 @@ $role = $_SESSION['role'] ?? '';
                         Products
                     </a>
 
+                    <?php if ($role === 'admin'): ?>
+                    <a href="/admin/categories" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        Categories
+                    </a>
+                    <?php endif; ?>
+
                     <a href="/admin/orders" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                         Orders
                     </a>
@@ -49,6 +55,9 @@ $role = $_SESSION['role'] ?? '';
                     <?php if ($role === 'admin'): ?>
                     <a href="/admin/coupons" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
                         Coupons
+                    </a>
+                    <a href="/admin/settings" class="text-gray-300 hover:bg-gray-700 hover:text-white group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        Settings
                     </a>
                     <?php endif; ?>
                 </nav>

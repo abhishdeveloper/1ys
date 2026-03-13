@@ -222,6 +222,38 @@ try {
             $adminOrderCtrl->show($id);
             break;
 
+        case 'admin/categories':
+            require_once __DIR__ . '/core/controllers/AdminCategoryController.php';
+            $adminCatCtrl = new AdminCategoryController($db);
+            $adminCatCtrl->index();
+            break;
+
+        case 'admin/categories/add':
+            require_once __DIR__ . '/core/controllers/AdminCategoryController.php';
+            $adminCatCtrl = new AdminCategoryController($db);
+            $adminCatCtrl->create();
+            break;
+
+        case 'admin/categories/edit':
+            require_once __DIR__ . '/core/controllers/AdminCategoryController.php';
+            $adminCatCtrl = new AdminCategoryController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminCatCtrl->edit($id);
+            break;
+
+        case 'admin/categories/delete':
+            require_once __DIR__ . '/core/controllers/AdminCategoryController.php';
+            $adminCatCtrl = new AdminCategoryController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminCatCtrl->delete($id);
+            break;
+
+        case 'admin/settings':
+            require_once __DIR__ . '/core/controllers/AdminSettingsController.php';
+            $adminSettingsCtrl = new AdminSettingsController($db);
+            $adminSettingsCtrl->index();
+            break;
+
         case 'admin/coupons':
             require_once __DIR__ . '/core/controllers/AdminCouponController.php';
             $adminCouponCtrl = new AdminCouponController($db);

@@ -1,5 +1,12 @@
 <?php
 // core/views/storefront/partials/header.php
+global $db;
+$stmt = $db->query("SELECT * FROM settings");
+$settingsRaw = $stmt->fetchAll();
+$settings = [];
+foreach ($settingsRaw as $row) {
+    $settings[$row['setting_key']] = $row['setting_value'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light">
@@ -16,7 +23,7 @@
     <!-- Open Graph for Social Sharing -->
     <meta property="og:title" content="<?php echo $pageTitle ?? 'AAYU CARE | Premium Ayurvedic Manufacturing'; ?>" />
     <meta property="og:description" content="<?php echo $metaDescription ?? 'Discover nature\'s healing with AAYU CARE. High-quality Ayurvedic medicines and natural care products.'; ?>" />
-    <meta property="og:image" content="<?php echo $ogImage ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'; ?>" />
+    <meta property="og:image" content="<?php echo $ogImage ?? $settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'; ?>" />
     <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>" />
     <meta property="og:type" content="<?php echo isset($product) ? 'product' : 'website'; ?>" />
 
@@ -156,7 +163,7 @@ $navClasses = $isHome
             <!-- Logo & Brand (Left) -->
             <div class="flex items-center space-x-3">
                 <a href="/" class="flex items-center space-x-2 group">
-                    <img class="h-8 w-auto group-hover:opacity-80 transition-opacity duration-300" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+                    <img class="h-8 w-auto group-hover:opacity-80 transition-opacity duration-300" src="<?php echo htmlspecialchars($settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'); ?>" alt="AAYU CARE Logo">
                     <span class="font-serif font-medium text-xl tracking-[0.2em] text-primary dark:text-white uppercase transition-colors group-hover:text-accent">Aayu Care</span>
                 </a>
             </div>

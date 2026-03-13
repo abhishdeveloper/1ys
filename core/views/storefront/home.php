@@ -4,7 +4,7 @@ require_once __DIR__ . '/partials/header.php';
 ?>
 
 <!-- Royal Ayurvedic Hero Slider Section -->
-<div class="relative bg-secondary dark:bg-gray-900 overflow-hidden mb-20 shadow-sm border-b-4 border-accent -mt-24 z-0">
+<div class="relative bg-secondary dark:bg-gray-900 overflow-hidden mb-20 shadow-sm border-b-4 border-accent z-0">
 
     <!-- Slider Container -->
     <div id="hero-slider" class="relative w-full h-[700px] md:h-[800px] overflow-hidden group">

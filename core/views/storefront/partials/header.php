@@ -142,22 +142,22 @@ $navClasses = $isHome
 
 <div class="<?php echo $headerContainerClasses; ?>">
     <!-- Top Banner (Typewriter Effect) -->
-    <div id="top-banner" class="bg-primary text-secondary text-center py-2 text-sm font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50 overflow-hidden h-9 flex items-center justify-center">
+    <div id="top-banner" class="bg-primary text-secondary text-center py-1 text-xs font-medium tracking-wider shadow-inner transition-all duration-300 border-b border-accent/30 relative z-50 overflow-hidden h-7 flex items-center justify-center">
         <span id="typewriter-text" class="inline-block border-r-2 border-accent pr-1 animate-pulse"></span>
     </div>
 
     <!-- Navigation Bar -->
     <nav id="main-nav" class="<?php echo $navClasses; ?> transition-all duration-500 font-light">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-4 md:py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 py-2 md:py-3">
 
         <!-- Row 1: Logo, Brand Text, and Menu -->
         <div class="flex justify-between items-center">
 
             <!-- Logo & Brand (Left) -->
-            <div class="flex items-center space-x-4">
-                <a href="/" class="flex items-center space-x-3 group">
-                    <img class="h-10 w-auto group-hover:opacity-80 transition-opacity duration-300" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
-                    <span class="font-serif font-medium text-2xl tracking-[0.2em] text-primary dark:text-white uppercase transition-colors group-hover:text-accent">Aayu Care</span>
+            <div class="flex items-center space-x-3">
+                <a href="/" class="flex items-center space-x-2 group">
+                    <img class="h-8 w-auto group-hover:opacity-80 transition-opacity duration-300" src="https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png" alt="AAYU CARE Logo">
+                    <span class="font-serif font-medium text-xl tracking-[0.2em] text-primary dark:text-white uppercase transition-colors group-hover:text-accent">Aayu Care</span>
                 </a>
             </div>
 
@@ -223,7 +223,7 @@ $navClasses = $isHome
         </div>
 
         <!-- Row 2: Search Bar and Language Toggle -->
-        <div class="flex justify-between items-end mt-4 md:mt-6 pb-2 border-b border-primary/20 dark:border-gray-700/50">
+        <div class="flex justify-between items-end mt-2 md:mt-3 pb-1 border-b border-primary/20 dark:border-gray-700/50">
 
             <!-- Minimal Search Bar -->
             <div class="w-full max-w-xl relative">

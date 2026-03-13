@@ -223,7 +223,7 @@ require_once __DIR__ . '/partials/header.php';
 
         <div class="mt-24 text-center reveal-on-scroll">
             <a href="/products" class="inline-block border border-accent/50 text-[11px] font-medium uppercase tracking-[0.2em] text-primary dark:text-gray-300 hover:bg-accent hover:text-white px-10 py-4 transition-all duration-500 hover:shadow-lg group">
-                View All Products
+                <?php echo __('view_all_products'); ?>
                 <svg class="w-4 h-4 inline-block ml-2 transform group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
             </a>
         </div>
@@ -233,11 +233,11 @@ require_once __DIR__ . '/partials/header.php';
 <!-- Newsletter Section -->
 <div class="bg-secondary dark:bg-gray-800 py-24 border-t border-gray-200 dark:border-gray-700 reveal-on-scroll">
     <div class="max-w-4xl mx-auto px-4 text-center">
-        <h3 class="text-2xl md:text-3xl font-serif font-medium text-primary dark:text-white mb-4">Join the Aayu Care Circle</h3>
-        <p class="text-gray-500 dark:text-gray-400 font-light mb-8 max-w-lg mx-auto">Subscribe to receive exclusive offers, early access to new launches, and Ayurvedic wellness rituals.</p>
+        <h3 class="text-2xl md:text-3xl font-serif font-medium text-primary dark:text-white mb-4"><?php echo __('join_circle'); ?></h3>
+        <p class="text-gray-500 dark:text-gray-400 font-light mb-8 max-w-lg mx-auto"><?php echo __('subscribe_desc'); ?></p>
         <form class="flex flex-col sm:flex-row max-w-lg mx-auto gap-4">
-            <input type="email" placeholder="Enter your email address" class="flex-grow bg-transparent border-b border-gray-400 dark:border-gray-600 py-3 px-2 focus:outline-none focus:border-accent transition-colors text-sm text-primary dark:text-white" required>
-            <button type="submit" class="bg-primary hover:bg-accent text-white text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 transition-colors duration-300">Subscribe</button>
+            <input type="email" placeholder="<?php echo __('enter_email'); ?>" class="flex-grow bg-transparent border-b border-gray-400 dark:border-gray-600 py-3 px-2 focus:outline-none focus:border-accent transition-colors text-sm text-primary dark:text-white" required>
+            <button type="submit" class="bg-primary hover:bg-accent text-white text-xs tracking-[0.2em] uppercase font-medium px-8 py-4 transition-colors duration-300"><?php echo __('subscribe'); ?></button>
         </form>
     </div>
 </div>

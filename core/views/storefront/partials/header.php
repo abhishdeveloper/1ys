@@ -124,9 +124,9 @@
 $isHome = ($_SERVER['REQUEST_URI'] === '/' || $_SERVER['REQUEST_URI'] === '/home');
 
 // Wrap both Top Banner and Nav in a single container for homepage to handle absolute positioning properly
-$headerContainerClasses = $isHome ? 'absolute w-full z-40' : 'sticky top-0 z-50';
+$headerContainerClasses = $isHome ? 'fixed top-0 w-full z-50' : 'sticky top-0 z-50';
 $navClasses = $isHome
-    ? 'bg-secondary/60 dark:bg-gray-900/60 backdrop-blur-lg border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
+    ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg border-b border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
     : 'bg-secondary dark:bg-gray-900 shadow-sm border-b border-gray-200/50 dark:border-gray-800/50';
 ?>
 

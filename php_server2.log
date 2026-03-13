@@ -1,0 +1,10 @@
+[Fri Mar 13 14:19:17 2026] PHP 8.3.6 Development Server (http://localhost:8001) started
+[Fri Mar 13 14:19:19 2026] [::1]:55576 Accepted
+[Fri Mar 13 14:19:19 2026] [::1]:55576 [200]: GET /
+[Fri Mar 13 14:19:19 2026] [::1]:55576 Closing
+[Fri Mar 13 14:19:19 2026] [::1]:55580 Accepted
+[Fri Mar 13 14:19:19 2026] [::1]:55580 [302]: GET /admin/categories
+[Fri Mar 13 14:19:19 2026] [::1]:55580 Closing
+[Fri Mar 13 14:23:40 2026] [::1]:59776 Accepted
+[Fri Mar 13 14:23:40 2026] [::1]:59776 [200]: GET /
+[Fri Mar 13 14:23:40 2026] [::1]:59776 Closing

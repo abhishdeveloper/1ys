@@ -148,5 +148,36 @@ class AdminProductController {
         $pageTitle = "Edit Product | Admin Panel";
         require_once __DIR__ . '/../views/admin/products/edit.php';
     }
+
+    public function delete($id) {
+        // Validation of ownership
+        $stmt = $this->db->prepare("SELECT * FROM products WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $product = $stmt->fetch();
+
+        if (!$product || ($_SESSION['role'] !== 'admin' && $product['seller_id'] != $_SESSION['user_id'])) {
+            setFlashMessage('error', 'Product not found or access denied.');
+            redirect('/admin/products');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            try {
+                // We should also check if the product is in any orders before deleting it.
+                $stmt = $this->db->prepare("SELECT COUNT(*) FROM order_items WHERE product_id = :id");
+                $stmt->execute(['id' => $id]);
+                if ($stmt->fetchColumn() > 0) {
+                    setFlashMessage('error', 'Cannot delete product because it is associated with existing orders. Consider making it inactive instead.');
+                    redirect('/admin/products');
+                }
+
+                $stmt = $this->db->prepare("DELETE FROM products WHERE id = :id");
+                $stmt->execute(['id' => $id]);
+                setFlashMessage('success', 'Product deleted successfully.');
+            } catch (Exception $e) {
+                setFlashMessage('error', 'Error deleting product.');
+            }
+        }
+        redirect('/admin/products');
+    }
 }
 ?>

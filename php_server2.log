@@ -8,3 +8,33 @@
 [Fri Mar 13 14:23:40 2026] [::1]:59776 Accepted
 [Fri Mar 13 14:23:40 2026] [::1]:59776 [200]: GET /
 [Fri Mar 13 14:23:40 2026] [::1]:59776 Closing
+[Fri Mar 13 15:28:15 2026] [::1]:49674 Accepted
+[Fri Mar 13 15:28:15 2026] [::1]:49674 [200]: GET /
+[Fri Mar 13 15:28:15 2026] [::1]:49674 Closing
+[Fri Mar 13 15:28:16 2026] [::1]:49690 Accepted
+[Fri Mar 13 15:28:16 2026] [::1]:49690 [200]: GET /
+[Fri Mar 13 15:28:16 2026] [::1]:49690 Closing
+[Sat Mar 14 11:14:23 2026] [::1]:52774 Accepted
+[Sat Mar 14 11:14:24 2026] [::1]:52774 [200]: GET /
+[Sat Mar 14 11:14:24 2026] [::1]:52774 Closing
+[Sat Mar 14 11:14:24 2026] [::1]:52784 Accepted
+[Sat Mar 14 11:14:24 2026] [::1]:52784 [404]: GET /$%7Bproduct.image_url%20%7C%7C%20'/assets/images/placeholder.svg'%7D - No such file or directory
+[Sat Mar 14 11:14:24 2026] [::1]:52784 Closing
+[Sat Mar 14 11:14:25 2026] [::1]:52798 Accepted
+[Sat Mar 14 11:14:25 2026] [::1]:52798 [200]: GET /
+[Sat Mar 14 11:14:25 2026] [::1]:52798 Closing
+[Sat Mar 14 11:14:25 2026] [::1]:49678 Accepted
+[Sat Mar 14 11:14:25 2026] [::1]:49678 [404]: GET /$%7Bproduct.image_url%20%7C%7C%20'/assets/images/placeholder.svg'%7D - No such file or directory
+[Sat Mar 14 11:14:25 2026] [::1]:49678 Closing
+[Sat Mar 14 11:39:25 2026] [::1]:59378 Accepted
+[Sat Mar 14 11:39:25 2026] [::1]:59378 [200]: GET /
+[Sat Mar 14 11:39:25 2026] [::1]:59378 Closing
+[Sat Mar 14 11:39:26 2026] [::1]:59394 Accepted
+[Sat Mar 14 11:39:26 2026] [::1]:59394 [200]: GET /
+[Sat Mar 14 11:39:26 2026] [::1]:59394 Closing
+[Sat Mar 14 11:49:08 2026] [::1]:52210 Accepted
+[Sat Mar 14 11:49:08 2026] [::1]:52210 [200]: GET /
+[Sat Mar 14 11:49:08 2026] [::1]:52210 Closing
+[Sat Mar 14 11:49:09 2026] [::1]:52214 Accepted
+[Sat Mar 14 11:49:09 2026] [::1]:52214 [200]: GET /
+[Sat Mar 14 11:49:09 2026] [::1]:52214 Closing

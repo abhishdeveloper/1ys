@@ -18,7 +18,7 @@
                     <span class="font-serif font-bold text-2xl tracking-widest text-accent uppercase">Aayu Care</span>
                 </a>
                 <p class="text-sm text-gray-300 leading-relaxed font-light">
-                    <?php echo __('footer_desc'); ?>
+                    Luxurious Ayurvedic manufacturing & remedies. Crafting nature's profound healing secrets with modern elegance.
                 </p>
                 <div class="flex space-x-5 pt-2">
                     <!-- Social Links -->
@@ -35,49 +35,49 @@
 
             <!-- Quick Links -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('the_collections'); ?></h3>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">The Collections</h3>
                 <ul class="space-y-3">
-                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shop_all'); ?></a></li>
-                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('explore_categories'); ?></a></li>
-                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('common_questions'); ?></a></li>
-                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('get_in_touch'); ?></a></li>
+                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shop All Products</a></li>
+                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Explore Categories</a></li>
+                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Common Questions</a></li>
+                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Get in Touch</a></li>
                 </ul>
             </div>
 
             <!-- Customer Service -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('client_services'); ?></h3>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Client Services</h3>
                 <ul class="space-y-3">
                     <?php if(isset($_SESSION['user_id'])): ?>
-                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('my_account'); ?></a></li>
-                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('order_history'); ?></a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">My Account</a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Order History</a></li>
                     <?php else: ?>
-                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('sign_in_register'); ?></a></li>
+                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Sign In / Register</a></li>
                     <?php endif; ?>
-                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shopping_bag'); ?></a></li>
-                    <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shipping_returns'); ?></a></li>
+                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shopping Bag</a></li>
+                    <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shipping & Returns</a></li>
                 </ul>
             </div>
 
             <!-- Newsletter -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('join_club'); ?></h3>
-                <p class="text-sm text-gray-300 mb-6 font-light"><?php echo __('join_club_desc'); ?></p>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Join The Club</h3>
+                <p class="text-sm text-gray-300 mb-6 font-light">Subscribe to receive exclusive offers, luxurious skincare tips, and early access to new collections.</p>
                 <form class="flex flex-col gap-3" action="#" method="POST">
-                    <input type="email" placeholder="<?php echo __('email_address'); ?>" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
-                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2"><?php echo __('subscribe_now'); ?></button>
+                    <input type="email" placeholder="Email Address" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
+                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2">Subscribe Now</button>
                 </form>
             </div>
         </div>
 
         <div class="mt-16 border-t border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p class="text-xs text-gray-500 tracking-wider mb-4 md:mb-0">
-                &copy; <?php echo date('Y'); ?> AAYU CARE. <?php echo __('all_rights_reserved'); ?>
+                &copy; <?php echo date('Y'); ?> AAYU CARE. ALL RIGHTS RESERVED.
             </p>
             <div class="flex space-x-6">
-                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors"><?php echo __('privacy_policy'); ?></a>
+                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">PRIVACY POLICY</a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors"><?php echo __('terms'); ?></a>
+                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">TERMS OF SERVICE</a>
             </div>
         </div>
     </div>
@@ -111,19 +111,6 @@
     </a>
 </div>
 
-<!-- Floating WhatsApp Button -->
-<?php
-global $db;
-$stmt = $db->query("SELECT setting_value FROM settings WHERE setting_key = 'contact_whatsapp'");
-$row = $stmt->fetch();
-$contact_whatsapp = $row ? $row['setting_value'] : '910000000000';
-?>
-<a href="https://wa.me/<?php echo htmlspecialchars($contact_whatsapp); ?>" target="_blank" class="fixed bottom-32 right-6 sm:bottom-6 z-[60] bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center" aria-label="Chat on WhatsApp">
-    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01a1.08 1.08 0 00-.792.372c-.297.322-1.139 1.115-1.139 2.716s1.164 3.146 1.327 3.369c.163.223 2.296 3.504 5.56 4.908 2.128.917 2.911 1.002 3.966.839 1.206-.188 3.708-1.516 4.228-2.979.52-1.462.52-2.716.366-2.979-.153-.263-.57-.411-.867-.56zM11.996 22C6.483 22 2 17.517 2 12S6.483 2 11.996 2s10.004 4.483 10.004 10-4.49 10-10.004 10z"></path>
-    </svg>
-</a>
-
 <!-- Add padding to body so bottom nav doesn't hide content -->
 <style>
     @media (max-width: 640px) {
@@ -138,74 +125,9 @@ $contact_whatsapp = $row ? $row['setting_value'] : '910000000000';
     </svg>
 </a>
 
-<!-- Promotional Popup -->
-<div id="promo-popup" class="fixed inset-0 z-[100] flex items-center justify-center bg-black bg-opacity-50 hidden opacity-0 transition-opacity duration-500">
-    <div class="relative bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 max-w-sm mx-4 transform scale-95 transition-transform duration-500" id="promo-popup-content">
-        <button id="close-popup" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-        </button>
-        <div class="text-center">
-            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-6">
-                <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
-            </div>
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Welcome to AAYU CARE</h3>
-            <p class="text-gray-500 dark:text-gray-400 mb-6">Get 10% off your first order of premium Ayurvedic medicines and natural care products!</p>
-            <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 mb-6 border border-dashed border-gray-300 dark:border-gray-500">
-                <span class="text-xl font-mono font-bold tracking-widest text-primary dark:text-green-400">WELCOME10</span>
-            </div>
-            <button id="copy-code" class="w-full bg-primary text-white font-medium py-3 px-4 rounded-full shadow-lg hover:bg-primary_hover transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                Copy Code & Shop Now
-            </button>
-        </div>
-    </div>
-</div>
 
 <!-- Global Scripts -->
 <script>
-    // ----- Promotional Popup Logic -----
-    document.addEventListener('DOMContentLoaded', () => {
-        const popup = document.getElementById('promo-popup');
-        const popupContent = document.getElementById('promo-popup-content');
-        const closeBtn = document.getElementById('close-popup');
-        const copyBtn = document.getElementById('copy-code');
-
-        // Show after 5 seconds if not seen before
-        if (!localStorage.getItem('promo_seen')) {
-            setTimeout(() => {
-                popup.classList.remove('hidden');
-                // Trigger reflow for transition
-                void popup.offsetWidth;
-                popup.classList.remove('opacity-0');
-                popup.classList.add('opacity-100');
-                popupContent.classList.remove('scale-95');
-                popupContent.classList.add('scale-100');
-            }, 5000);
-        }
-
-        const closePopup = () => {
-            popup.classList.remove('opacity-100');
-            popup.classList.add('opacity-0');
-            popupContent.classList.remove('scale-100');
-            popupContent.classList.add('scale-95');
-            setTimeout(() => popup.classList.add('hidden'), 500);
-            localStorage.setItem('promo_seen', 'true');
-        };
-
-        closeBtn.addEventListener('click', closePopup);
-
-        popup.addEventListener('click', (e) => {
-            if (e.target === popup) closePopup();
-        });
-
-        copyBtn.addEventListener('click', () => {
-            navigator.clipboard.writeText('WELCOME10').then(() => {
-                copyBtn.innerHTML = 'Copied! <svg class="w-5 h-5 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
-                copyBtn.classList.replace('bg-primary', 'bg-green-600');
-                setTimeout(() => closePopup(), 1500);
-            });
-        });
-    });
-
     // ----- Hero Slider Logic -----
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.hero-slide');
@@ -294,59 +216,6 @@ $contact_whatsapp = $row ? $row['setting_value'] : '910000000000';
         }
     });
 
-    // ----- Typewriter Effect for Top Banner -----
-    const typewriterElement = document.getElementById('typewriter-text');
-    if (typewriterElement) {
-        const phrases = [
-            "<?php echo __('promo_1'); ?>",
-            "<?php echo __('promo_2'); ?>",
-            "<?php echo __('promo_3'); ?>"
-        ];
-
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        // Typing speed settings (ms)
-        const typeSpeed = 50;
-        const deleteSpeed = 30;
-        const pauseEnd = 3000; // time to wait after finishing typing a line
-        const pauseStart = 500; // time to wait before typing next line
-
-        function typeWriter() {
-            const currentPhrase = phrases[phraseIndex];
-
-            if (isDeleting) {
-                // Remove char
-                typewriterElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                // Add char
-                typewriterElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            // Determine next speed/action
-            let speed = isDeleting ? deleteSpeed : typeSpeed;
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                // Finished typing, pause then start deleting
-                speed = pauseEnd;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                // Finished deleting, move to next phrase, pause then start typing
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                speed = pauseStart;
-            }
-
-            setTimeout(typeWriter, speed);
-        }
-
-        // Start the loop
-        setTimeout(typeWriter, pauseStart);
-    }
-
     // ----- Scroll Reveal Animation Logic -----
     document.addEventListener('DOMContentLoaded', () => {
         const observerOptions = {
@@ -358,24 +227,20 @@ $contact_whatsapp = $row ? $row['setting_value'] : '910000000000';
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // Check if element has a specific animation class defined via data attribute, otherwise use default
-                    const animationClass = entry.target.dataset.animation || 'animate-slide-up-fade';
-                    entry.target.classList.add(animationClass);
-                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                    entry.target.classList.add('animate-slide-up');
+                    entry.target.classList.remove('opacity-0');
                     observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
 
         // Select elements to animate (e.g., product cards, category boxes)
-        const revealElements = document.querySelectorAll('.reveal-on-scroll');
-        revealElements.forEach((el, index) => {
-            // Apply staggered delay if requested
-            if(el.dataset.stagger) {
-                el.style.animationDelay = `${index * 100}ms`;
+        const revealElements = document.querySelectorAll('.group.relative, .bg-white.dark\\:bg-gray-800.rounded-xl.shadow-sm');
+        revealElements.forEach(el => {
+            if (!el.closest('#promo-popup')) {
+                el.classList.add('opacity-0');
+                observer.observe(el);
             }
-            el.classList.add('opacity-0', 'translate-y-10'); // Initial state for slide-up-fade
-            observer.observe(el);
         });
     });
 

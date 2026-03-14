@@ -130,6 +130,28 @@ foreach ($settingsRaw as $row) {
             background: rgba(31, 41, 55, 0.95);
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
         }
+
+        /* Animated Underline */
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+        }
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: #b89053; /* accent color */
+            visibility: hidden;
+            transform: scaleX(0);
+            transition: all 0.3s ease-in-out 0s;
+        }
+        .nav-link:hover::before {
+            visibility: visible;
+            transform: scaleX(1);
+        }
     </style>
 </head>
 <body class="bg-[#fcfaf7] text-gray-900 dark:bg-gray-900 dark:text-gray-100 min-h-screen flex flex-col antialiased selection:bg-primary selection:text-white relative">
@@ -170,16 +192,16 @@ $navClasses = $isHome
 
             <!-- Main Menu (Right/Center) -->
             <div class="hidden md:flex space-x-10">
-                <a href="/" class="text-[11px] font-medium text-primary dark:text-gray-200 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1 border-b border-transparent hover:border-accent"><?php echo __('home'); ?></a>
-                <a href="/products" class="text-[11px] font-medium text-primary dark:text-gray-200 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1 border-b border-transparent hover:border-accent"><?php echo __('shop'); ?></a>
-                <a href="/categories" class="text-[11px] font-medium text-primary dark:text-gray-200 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1 border-b border-transparent hover:border-accent"><?php echo __('categories'); ?></a>
+                <a href="/" class="nav-link text-[11px] font-medium text-primary dark:text-gray-200 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1"><?php echo __('home'); ?></a>
+                <a href="/products" class="nav-link text-[11px] font-medium text-primary dark:text-gray-200 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1"><?php echo __('shop'); ?></a>
+                <a href="/categories" class="nav-link text-[11px] font-medium text-primary dark:text-gray-200 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1"><?php echo __('categories'); ?></a>
             </div>
 
             <!-- Right Actions (Cart, Profile, Theme) -->
             <div class="flex items-center space-x-6">
 
                 <!-- Theme Toggle Button -->
-                <button id="theme-toggle" class="text-primary hover:text-accent dark:text-gray-300 dark:hover:text-accent focus:outline-none transition-colors">
+                <button id="theme-toggle" class="text-primary hover:text-accent dark:text-gray-300 dark:hover:text-accent focus:outline-none transition-colors hover:scale-110 transform duration-300">
                     <svg id="theme-toggle-light-icon" class="hidden w-5 h-5 stroke-[1.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
                     </svg>
@@ -191,7 +213,7 @@ $navClasses = $isHome
                 <!-- User Account / Login -->
                 <?php if(isset($_SESSION['user_id'])): ?>
                     <div class="relative group">
-                        <button class="flex items-center text-primary dark:text-gray-300 hover:text-accent font-medium focus:outline-none uppercase tracking-[0.15em] text-[11px] transition-colors">
+                        <button class="nav-link flex items-center text-primary dark:text-gray-300 hover:text-accent font-medium focus:outline-none uppercase tracking-[0.15em] text-[11px] transition-colors pb-1">
                             <span><?php echo __('dashboard'); ?></span>
                         </button>
                         <!-- Dropdown -->
@@ -206,7 +228,7 @@ $navClasses = $isHome
                         </div>
                     </div>
                 <?php else: ?>
-                    <a href="/login" class="text-[11px] font-medium text-primary dark:text-gray-300 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1 border-b border-transparent hover:border-accent"><?php echo __('login'); ?></a>
+                    <a href="/login" class="nav-link text-[11px] font-medium text-primary dark:text-gray-300 hover:text-accent uppercase tracking-[0.15em] transition-colors pb-1"><?php echo __('login'); ?></a>
                 <?php endif; ?>
 
                 <!-- Shopping Cart -->
@@ -261,7 +283,7 @@ $navClasses = $isHome
             <div class="ml-6 shrink-0 mb-1">
                 <?php $currentLang = $_SESSION['lang'] ?? 'en'; ?>
                 <a href="/lang?lang=<?php echo $currentLang === 'en' ? 'hi' : 'en'; ?>"
-                   class="text-[10px] text-gray-500 hover:text-accent dark:text-gray-400 uppercase tracking-[0.2em] transition-colors pb-1 border-b border-transparent hover:border-accent">
+                   class="nav-link text-[10px] text-gray-500 hover:text-accent dark:text-gray-400 uppercase tracking-[0.2em] transition-colors pb-1">
                    <?php echo __('switch_lang'); ?>
                 </a>
             </div>

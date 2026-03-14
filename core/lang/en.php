@@ -52,6 +52,12 @@ return [
     'enter_email' => 'Enter your email address',
     'subscribe' => 'Subscribe',
 
+    // Popup
+    'popup_title' => 'Welcome to Aayu Care',
+    'popup_desc' => 'Sign up today and get 10% off your first order.',
+    'copied' => 'Copied to clipboard!',
+    'click_to_copy' => 'Click to copy',
+
     // Product/Shop
     'add_to_cart' => 'Add to Cart',
     'out_of_stock' => 'Out of Stock',

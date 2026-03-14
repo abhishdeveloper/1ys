@@ -51,7 +51,10 @@ require_once __DIR__ . '/../partials/header.php';
                                 <?php endif; ?>
                             </td>
                             <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                <a href="/admin/products/edit?id=<?php echo $p['id']; ?>" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                <a href="/admin/products/edit?id=<?php echo $p['id']; ?>" class="text-indigo-600 hover:text-indigo-900 mr-4">Edit</a>
+                                <form action="/admin/products/delete?id=<?php echo $p['id']; ?>" method="POST" class="inline-block" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         <?php endforeach; ?>

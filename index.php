@@ -209,6 +209,13 @@ try {
             $adminProductCtrl->edit($id);
             break;
 
+        case 'admin/products/delete':
+            require_once __DIR__ . '/core/controllers/AdminProductController.php';
+            $adminProductCtrl = new AdminProductController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminProductCtrl->delete($id);
+            break;
+
         case 'admin/orders':
             require_once __DIR__ . '/core/controllers/AdminOrderController.php';
             $adminOrderCtrl = new AdminOrderController($db);

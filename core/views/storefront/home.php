@@ -173,7 +173,7 @@ require_once __DIR__ . '/partials/header.php';
     <?php else: ?>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16 max-w-7xl mx-auto">
             <?php foreach ($featuredProducts as $index => $product): ?>
-                <div class="group relative flex flex-col items-center text-center transition-all duration-500 reveal-on-scroll" data-stagger="true">
+                <div class="group relative flex flex-col items-center text-center transition-all duration-500 hover:-translate-y-2 reveal-on-scroll" data-stagger="true">
                     <!-- Badge (Optional, can be conditional based on product data if added later) -->
                     <?php if ($index === 0 || $index === 2): // Faking a 'Bestseller' badge for visual effect ?>
                     <div class="absolute top-4 left-4 z-20 bg-accent text-white text-[9px] font-bold uppercase tracking-widest px-3 py-1 shadow-sm">
@@ -182,7 +182,7 @@ require_once __DIR__ . '/partials/header.php';
                     <?php endif; ?>
 
                     <!-- Image -->
-                    <div class="w-full aspect-w-4 aspect-h-5 mb-8 overflow-hidden border border-gray-100 dark:border-gray-800 bg-[#f9f8f6] dark:bg-gray-900 relative">
+                    <div class="w-full aspect-w-4 aspect-h-5 mb-8 overflow-hidden border border-gray-100 dark:border-gray-800 bg-[#f9f8f6] dark:bg-gray-900 relative shadow-sm group-hover:shadow-[0_20px_40px_rgba(184,144,83,0.15)] transition-shadow duration-500">
                         <?php if ($product['image_url']): ?>
                             <img src="<?php echo sanitize($product['image_url']); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover group-hover:scale-105 transition-transform duration-1000 ease-out">
                         <?php else: ?>

@@ -56,6 +56,7 @@
                     <?php endif; ?>
                     <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shopping Bag</a></li>
                     <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shipping & Returns</a></li>
+                    <li><a href="/login" class="text-sm text-accent hover:text-white hover:underline transition-all font-medium mt-2 block">Admin Login</a></li>
                 </ul>
             </div>
 

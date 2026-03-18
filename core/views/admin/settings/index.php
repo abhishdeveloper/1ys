@@ -79,6 +79,68 @@ require_once __DIR__ . '/../partials/header.php';
             </div>
         </div>
 
+        <div class="pt-8">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Email SMTP Configuration</h3>
+            <p class="mt-1 text-sm text-gray-500">Configure mail server credentials to enable automated system emails.</p>
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+
+                <div class="sm:col-span-4">
+                    <label for="smtp_host" class="block text-sm font-medium text-gray-700"> SMTP Host </label>
+                    <div class="mt-1">
+                        <input type="text" name="smtp_host" id="smtp_host" value="<?php echo htmlspecialchars($settings['smtp_host'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" placeholder="smtp.gmail.com">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="smtp_port" class="block text-sm font-medium text-gray-700"> SMTP Port </label>
+                    <div class="mt-1">
+                        <input type="text" name="smtp_port" id="smtp_port" value="<?php echo htmlspecialchars($settings['smtp_port'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" placeholder="587">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <label for="smtp_user" class="block text-sm font-medium text-gray-700"> SMTP Username </label>
+                    <div class="mt-1">
+                        <input type="text" name="smtp_user" id="smtp_user" value="<?php echo htmlspecialchars($settings['smtp_user'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <label for="smtp_password" class="block text-sm font-medium text-gray-700"> SMTP Password </label>
+                    <div class="mt-1">
+                        <input type="password" name="smtp_password" id="smtp_password" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" placeholder="Leave blank to keep current">
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">If using Gmail, use an App Password.</p>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="smtp_encryption" class="block text-sm font-medium text-gray-700"> Encryption </label>
+                    <div class="mt-1">
+                        <select id="smtp_encryption" name="smtp_encryption" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
+                            <option value="tls" <?php echo ($settings['smtp_encryption'] ?? 'tls') === 'tls' ? 'selected' : ''; ?>>TLS</option>
+                            <option value="ssl" <?php echo ($settings['smtp_encryption'] ?? '') === 'ssl' ? 'selected' : ''; ?>>SSL</option>
+                            <option value="none" <?php echo ($settings['smtp_encryption'] ?? '') === 'none' ? 'selected' : ''; ?>>None</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="smtp_from_name" class="block text-sm font-medium text-gray-700"> From Name </label>
+                    <div class="mt-1">
+                        <input type="text" name="smtp_from_name" id="smtp_from_name" value="<?php echo htmlspecialchars($settings['smtp_from_name'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-2">
+                    <label for="smtp_from_email" class="block text-sm font-medium text-gray-700"> From Email </label>
+                    <div class="mt-1">
+                        <input type="email" name="smtp_from_email" id="smtp_from_email" value="<?php echo htmlspecialchars($settings['smtp_from_email'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
 
     <div class="pt-5">

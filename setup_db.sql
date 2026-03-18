@@ -14,5 +14,12 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('promo_banner_2', '✨ 10% off on orders over ₹599/- ✨'),
 ('promo_banner_3', '✨ 100% Natural, Cruelty-Free Ayurvedic Care ✨'),
 ('contact_whatsapp', '910000000000'),
-('contact_email', 'info@aayucare.com')
+('contact_email', 'info@aayucare.com'),
+('smtp_host', ''),
+('smtp_port', '587'),
+('smtp_user', ''),
+('smtp_password', ''),
+('smtp_encryption', 'tls'),
+('smtp_from_email', 'noreply@aayucare.com'),
+('smtp_from_name', 'Aayu Care')
 ON DUPLICATE KEY UPDATE `setting_value`=VALUES(`setting_value`);

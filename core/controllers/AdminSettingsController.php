@@ -30,16 +30,32 @@ class AdminSettingsController {
     }
 
     private function saveSettings() {
-        $keys = ['promo_banner_1', 'promo_banner_2', 'promo_banner_3', 'contact_whatsapp', 'contact_email'];
+        $keys = [
+            'promo_banner_1', 'promo_banner_2', 'promo_banner_3',
+            'contact_whatsapp', 'contact_email',
+            'smtp_host', 'smtp_port', 'smtp_user', 'smtp_password',
+            'smtp_encryption', 'smtp_from_email', 'smtp_from_name'
+        ];
 
         try {
             $this->db->beginTransaction();
 
             // Handle text settings
-            $stmt = $this->db->prepare("UPDATE settings SET setting_value = :val WHERE setting_key = :key");
+            // Use INSERT ... ON DUPLICATE KEY UPDATE to ensure new keys are saved even if missing from DB initially
+            $stmt = $this->db->prepare("
+                INSERT INTO settings (setting_key, setting_value)
+                VALUES (:key, :val)
+                ON DUPLICATE KEY UPDATE setting_value = :val
+            ");
+
             foreach ($keys as $key) {
                 if (isset($_POST[$key])) {
-                    $stmt->execute(['val' => sanitize($_POST[$key]), 'key' => $key]);
+                    $val = sanitize($_POST[$key]);
+                    // Only save password if it is not empty, so we don't overwrite with a blank
+                    if ($key === 'smtp_password' && empty($val)) {
+                        continue;
+                    }
+                    $stmt->execute(['val' => $val, 'key' => $key]);
                 }
             }
 

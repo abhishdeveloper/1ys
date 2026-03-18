@@ -14,23 +14,44 @@ class Mailer {
         $mail = new PHPMailer(true);
 
         try {
-            // Server settings (Update these for production)
+            // Fetch dynamic SMTP settings from the database
+            $db = new PDO('mysql:host=localhost;dbname=shopswift', 'root', '');
+            $stmt = $db->query("SELECT setting_key, setting_value FROM settings WHERE setting_key LIKE 'smtp_%'");
+            $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+            $host = $settings['smtp_host'] ?? 'localhost';
+            $port = $settings['smtp_port'] ?? 1025;
+            $user = $settings['smtp_user'] ?? '';
+            $pass = $settings['smtp_password'] ?? '';
+            $encryption = $settings['smtp_encryption'] ?? 'tls';
+            $fromEmail = $settings['smtp_from_email'] ?? 'noreply@aayucare.com';
+            $fromName = $settings['smtp_from_name'] ?? 'Aayu Care';
+
+            // Server settings
             $mail->isSMTP();
-            $mail->Host       = 'localhost'; // Usually 'smtp.gmail.com' or custom SMTP server
-            $mail->SMTPAuth   = false;       // Set true for real SMTP
-            $mail->Username   = '';          // SMTP username
-            $mail->Password   = '';          // SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Or ENCRYPTION_SMTPS
-            $mail->Port       = 1025;        // Commonly 587, 465, or 25 (1025 for local Mailhog)
+            $mail->Host       = $host;
+            $mail->SMTPAuth   = !empty($user) && !empty($pass);
+            $mail->Username   = $user;
+            $mail->Password   = $pass;
 
-            // Override for testing locally to not fail if no auth
-            $mail->SMTPAutoTLS = false;
+            if ($mail->SMTPAuth) {
+                if (strtolower($encryption) === 'ssl') {
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                } else {
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                }
+            } else {
+                $mail->SMTPSecure = '';
+                $mail->SMTPAutoTLS = false;
+            }
 
-            $mail->setFrom('noreply@shopswift.local', 'ShopSwift System');
+            $mail->Port       = (int)$port;
+
+            $mail->setFrom($fromEmail, $fromName);
 
             return $mail;
         } catch (Exception $e) {
-            error_log("Mailer configuration error: " . $mail->ErrorInfo);
+            error_log("Mailer configuration error: " . $e->getMessage());
             return false;
         }
     }

@@ -29,18 +29,22 @@ class ProductController {
             $currentCategory = $this->categoryModel->findBySlug($categorySlug);
             if ($currentCategory) {
                 $filters['category_id'] = $currentCategory['id'];
-                $pageTitle = sanitize($currentCategory['name']) . " | AAYU CARE";
-                $metaDescription = "Explore our premium Ayurvedic range of " . sanitize($currentCategory['name']) . ". " . sanitize($currentCategory['description']);
+                $catName = sanitize($currentCategory['name']);
+                $pageTitle = $catName . " | Premium Ayurvedic Products | AAYU CARE";
+                $metaDescription = "Shop the best $catName. " . mb_strimwidth(sanitize($currentCategory['description']), 0, 150, "...");
+                $metaKeywords = strtolower($catName) . ", ayurvedic " . strtolower($catName) . ", aayu care products";
             } else {
                 // Category not found
                 http_response_code(404);
-                $pageTitle = "Category Not Found";
+                $pageTitle = "Category Not Found | AAYU CARE";
+                $metaDescription = "Category not found.";
                 require_once __DIR__ . '/../views/storefront/404.php';
                 exit();
             }
         } else {
-            $pageTitle = "All Ayurvedic Products | AAYU CARE";
-            $metaDescription = "Browse our complete catalog of authentic Ayurvedic medicines, herbal oils, and natural skincare products.";
+            $pageTitle = "All Ayurvedic Products & Skincare | AAYU CARE";
+            $metaDescription = "Browse our complete catalog of authentic Ayurvedic medicines, herbal oils, lip balms, roll-ons, and natural skincare products.";
+            $metaKeywords = "ayurvedic products, natural skincare, herbal medicines, aayu care catalog";
         }
 
         // Fetch products based on filters
@@ -62,13 +66,15 @@ class ProductController {
 
         if (!$product) {
             http_response_code(404);
-            $pageTitle = "Product Not Found";
+            $pageTitle = "Product Not Found | AAYU CARE";
             require_once __DIR__ . '/../views/storefront/404.php';
             exit();
         }
 
-        $pageTitle = sanitize($product['name']) . " | AAYU CARE";
-        $metaDescription = mb_strimwidth(sanitize($product['description']), 0, 150, "...");
+        $pName = sanitize($product['name']);
+        $pageTitle = $pName . " | Buy Online | AAYU CARE";
+        $metaDescription = "Buy " . $pName . " online at AAYU CARE. " . mb_strimwidth(sanitize(strip_tags($product['description'])), 0, 130, "...");
+        $metaKeywords = strtolower($pName) . ", buy " . strtolower($pName) . ", ayurvedic " . strtolower($pName);
         $ogImage = sanitize($product['image_url']);
 
         // Fetch related products (same category)
@@ -98,7 +104,8 @@ class ProductController {
         $categories = $this->categoryModel->getAllActive();
         $products = $this->productModel->getProducts($filters);
 
-        $pageTitle = "Search Results | AAYU CARE";
+        $pageTitle = "Search Results for '" . sanitize($query) . "' | AAYU CARE";
+        $metaDescription = "View search results for '" . sanitize($query) . "' in our Ayurvedic store.";
 
         // We reuse the product catalog index view
         require_once __DIR__ . '/../views/storefront/products/index.php';

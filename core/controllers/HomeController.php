@@ -25,7 +25,9 @@ class HomeController {
         $featuredProducts = $stmt->fetchAll();
 
         // Load the view
-        $pageTitle = "ShopSwift | Modern Shopping Simplified";
+        $pageTitle = "AAYU CARE | Premium Ayurvedic Manufacturing & Skincare";
+        $metaDescription = "Discover AAYU CARE's premium range of Ayurvedic medicines, herbal oils, lip balms, and natural skincare products. Handcrafted with traditional wisdom.";
+        $metaKeywords = "ayurveda, herbal medicine, natural skincare, premium ayurvedic products, aayu care, health";
         require_once __DIR__ . '/../views/storefront/home.php';
     }
 }

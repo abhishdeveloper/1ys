@@ -27,6 +27,55 @@ foreach ($settingsRaw as $row) {
     <meta property="og:url" content="<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>" />
     <meta property="og:type" content="<?php echo isset($product) ? 'product' : 'website'; ?>" />
 
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo $pageTitle ?? 'AAYU CARE | Premium Ayurvedic Manufacturing'; ?>">
+    <meta name="twitter:description" content="<?php echo $metaDescription ?? 'Discover nature\'s healing with AAYU CARE. High-quality Ayurvedic medicines and natural care products.'; ?>">
+    <meta name="twitter:image" content="<?php echo $ogImage ?? $settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'; ?>">
+
+    <!-- Schema.org JSON-LD -->
+    <?php if (isset($product)): ?>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": "<?php echo addslashes($product['name']); ?>",
+      "image": [
+        "<?php echo $product['image_url'] ?? ''; ?>"
+       ],
+      "description": "<?php echo addslashes(strip_tags($product['description'])); ?>",
+      "sku": "<?php echo $product['id']; ?>",
+      "brand": {
+        "@type": "Brand",
+        "name": "AAYU CARE"
+      },
+      "offers": {
+        "@type": "Offer",
+        "url": "<?php echo 'https://' . $_SERVER['HTTP_HOST'] . parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH); ?>",
+        "priceCurrency": "INR",
+        "price": "<?php echo $product['price']; ?>",
+        "itemCondition": "https://schema.org/NewCondition",
+        "availability": "https://schema.org/<?php echo $product['stock_quantity'] > 0 ? 'InStock' : 'OutOfStock'; ?>"
+      }
+    }
+    </script>
+    <?php elseif (!isset($product) && strpos($_SERVER['REQUEST_URI'], '/product/') === false && strpos($_SERVER['REQUEST_URI'], '/category/') === false): ?>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "AAYU CARE",
+      "url": "https://myaayucare.com/",
+      "logo": "<?php echo $settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'; ?>",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+<?php echo $settings['contact_whatsapp'] ?? '919876543210'; ?>",
+        "contactType": "customer service"
+      }
+    }
+    </script>
+    <?php endif; ?>
+
     <!-- Google Fonts for Royal Aesthetic -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

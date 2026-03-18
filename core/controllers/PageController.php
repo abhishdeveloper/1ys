@@ -19,12 +19,16 @@ class PageController {
             redirect('/contact');
         }
 
-        $pageTitle = "Contact Us | ShopSwift";
+        $pageTitle = "Contact Us | AAYU CARE";
+        $metaDescription = "Get in touch with the AAYU CARE team for inquiries about our Ayurvedic products, orders, or support.";
+        $metaKeywords = "contact aayu care, ayurvedic support, customer service";
         require_once __DIR__ . '/../views/storefront/contact.php';
     }
 
     public function faq() {
-        $pageTitle = "Frequently Asked Questions | ShopSwift";
+        $pageTitle = "Frequently Asked Questions | AAYU CARE";
+        $metaDescription = "Find answers to commonly asked questions about AAYU CARE's Ayurvedic products, shipping, and return policies.";
+        $metaKeywords = "aayu care faq, ayurvedic questions, shipping policies";
         require_once __DIR__ . '/../views/storefront/faq.php';
     }
 }

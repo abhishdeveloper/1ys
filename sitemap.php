@@ -2,10 +2,11 @@
 // sitemap.php - Generates dynamic XML sitemap
 require_once __DIR__ . '/core/config/database.php';
 
-header("Content-Type: text/xml;charset=iso-8859-1");
+header("Content-Type: application/xml; charset=utf-8");
 
 $db = getDB();
-$baseUrl = 'https://' . $_SERVER['HTTP_HOST'];
+$host = $_SERVER['HTTP_HOST'] ?? 'myaayucare.com';
+$baseUrl = 'https://' . $host;
 
 echo '<?xml version="1.0" encoding="UTF-8"?>';
 echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';

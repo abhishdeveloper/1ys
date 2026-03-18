@@ -1,9 +1,10 @@
 User-agent: *
-Allow: /
 Disallow: /admin/
-Disallow: /checkout/
 Disallow: /cart/
-Disallow: /core/
+Disallow: /checkout/
+Disallow: /login/
+Disallow: /register/
 Disallow: /dashboard/
+Allow: /
 
 Sitemap: https://myaayucare.com/sitemap.xml

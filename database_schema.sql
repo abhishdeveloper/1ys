@@ -197,6 +197,8 @@ CREATE TABLE `orders` (
   `order_status` enum('pending','processing','shipped','delivered','cancelled') NOT NULL DEFAULT 'pending',
   `shipping_address` text NOT NULL,
   `delivery_instructions` text,
+  `tracking_url` varchar(255) DEFAULT NULL,
+  `awb_code` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),

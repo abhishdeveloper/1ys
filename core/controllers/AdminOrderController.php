@@ -93,10 +93,28 @@ class AdminOrderController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $status = sanitize($_POST['order_status']);
             $instructions = sanitize($_POST['delivery_instructions'] ?? '');
+            $awbCode = sanitize($_POST['awb_code'] ?? '');
+            $trackingUrl = sanitize($_POST['tracking_url'] ?? '');
+
+            // Generate Shiprocket tracking URL if AWB is provided and tracking URL is not
+            if (!empty($awbCode) && empty($trackingUrl)) {
+                require_once __DIR__ . '/../helpers/Shiprocket.php';
+                $shiprocket = new Shiprocket();
+                $generatedUrl = $shiprocket->getTrackingUrlByAwb($awbCode);
+                if ($generatedUrl) {
+                    $trackingUrl = $generatedUrl;
+                }
+            }
 
             try {
-                $stmt = $this->db->prepare("UPDATE orders SET order_status = :status, delivery_instructions = :instructions WHERE id = :id");
-                $stmt->execute(['status' => $status, 'instructions' => $instructions, 'id' => $id]);
+                $stmt = $this->db->prepare("UPDATE orders SET order_status = :status, delivery_instructions = :instructions, awb_code = :awb, tracking_url = :track WHERE id = :id");
+                $stmt->execute([
+                    'status' => $status,
+                    'instructions' => $instructions,
+                    'awb' => $awbCode,
+                    'track' => $trackingUrl,
+                    'id' => $id
+                ]);
 
                 // If the status changed, send an email update
                 if ($status !== $order['order_status']) {

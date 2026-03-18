@@ -60,7 +60,7 @@ require_once __DIR__ . '/../partials/header.php';
 
                     <div>
                         <label for="order_status" class="block text-sm font-medium text-gray-700">Status</label>
-                        <select id="order_status" name="order_status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border">
+                        <select id="order_status" name="order_status" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border" onchange="toggleShippingFields()">
                             <?php
                             $statuses = ['pending', 'processing', 'shipped', 'delivered', 'cancelled'];
                             foreach ($statuses as $st) {
@@ -71,6 +71,20 @@ require_once __DIR__ . '/../partials/header.php';
                         </select>
                     </div>
 
+                    <div id="shipping_fields" class="space-y-6 <?php echo $order['order_status'] === 'shipped' ? '' : 'hidden'; ?>">
+                        <div>
+                            <label for="awb_code" class="block text-sm font-medium text-gray-700">AWB Code (For Shiprocket)</label>
+                            <input type="text" id="awb_code" name="awb_code" value="<?php echo sanitize($order['awb_code'] ?? ''); ?>" class="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter AWB Code">
+                            <p class="mt-1 text-xs text-gray-500">If Shiprocket is configured, tracking URL will be generated automatically.</p>
+                        </div>
+
+                        <div>
+                            <label for="tracking_url" class="block text-sm font-medium text-gray-700">Manual Tracking URL</label>
+                            <input type="url" id="tracking_url" name="tracking_url" value="<?php echo sanitize($order['tracking_url'] ?? ''); ?>" class="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://...">
+                            <p class="mt-1 text-xs text-gray-500">Leave blank if using Shiprocket AWB.</p>
+                        </div>
+                    </div>
+
                     <div>
                         <label for="delivery_instructions" class="block text-sm font-medium text-gray-700">Delivery Instructions (Optional)</label>
                         <textarea id="delivery_instructions" name="delivery_instructions" rows="4" class="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="E.g., Leave package at back door..."><?php echo sanitize($order['delivery_instructions'] ?? ''); ?></textarea>
@@ -79,6 +93,20 @@ require_once __DIR__ . '/../partials/header.php';
                     <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
                         Update Order
                     </button>
+
+                    <script>
+                        function toggleShippingFields() {
+                            const status = document.getElementById('order_status').value;
+                            const fields = document.getElementById('shipping_fields');
+                            if (status === 'shipped' || status === 'delivered') {
+                                fields.classList.remove('hidden');
+                            } else {
+                                fields.classList.add('hidden');
+                            }
+                        }
+                        // Initialize on load just in case
+                        document.addEventListener('DOMContentLoaded', toggleShippingFields);
+                    </script>
                 </form>
             </div>
         </div>

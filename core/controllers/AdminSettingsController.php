@@ -34,7 +34,8 @@ class AdminSettingsController {
             'promo_banner_1', 'promo_banner_2', 'promo_banner_3',
             'contact_whatsapp', 'contact_email',
             'smtp_host', 'smtp_port', 'smtp_user', 'smtp_password',
-            'smtp_encryption', 'smtp_from_email', 'smtp_from_name'
+            'smtp_encryption', 'smtp_from_email', 'smtp_from_name',
+            'shiprocket_email', 'shiprocket_password'
         ];
 
         try {
@@ -52,7 +53,7 @@ class AdminSettingsController {
                 if (isset($_POST[$key])) {
                     $val = sanitize($_POST[$key]);
                     // Only save password if it is not empty, so we don't overwrite with a blank
-                    if ($key === 'smtp_password' && empty($val)) {
+                    if (in_array($key, ['smtp_password', 'shiprocket_password']) && empty($val)) {
                         continue;
                     }
                     $stmt->execute(['val' => $val, 'key' => $key]);

@@ -21,5 +21,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('smtp_password', ''),
 ('smtp_encryption', 'tls'),
 ('smtp_from_email', 'noreply@aayucare.com'),
-('smtp_from_name', 'Aayu Care')
+('smtp_from_name', 'Aayu Care'),
+('shiprocket_email', ''),
+('shiprocket_password', '')
 ON DUPLICATE KEY UPDATE `setting_value`=VALUES(`setting_value`);

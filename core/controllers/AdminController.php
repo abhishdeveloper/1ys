@@ -28,7 +28,10 @@ class AdminController {
         $stats = [
             'total_orders' => 0,
             'total_revenue' => 0,
-            'total_products' => 0
+            'total_products' => 0,
+            'total_visits' => 0,
+            'unique_visitors' => 0,
+            'top_pages' => []
         ];
 
         if ($role === 'admin') {
@@ -39,6 +42,23 @@ class AdminController {
 
             $stmt = $this->db->query("SELECT COUNT(*) as count FROM products");
             $stats['total_products'] = $stmt->fetch()['count'] ?? 0;
+
+            // Analytics Stats
+            $stmt = $this->db->query("SELECT COUNT(*) as count FROM page_views");
+            $stats['total_visits'] = $stmt->fetch()['count'] ?? 0;
+
+            $stmt = $this->db->query("SELECT COUNT(DISTINCT visitor_ip) as count FROM page_views");
+            $stats['unique_visitors'] = $stmt->fetch()['count'] ?? 0;
+
+            $stmt = $this->db->query("
+                SELECT page_url, COUNT(*) as views
+                FROM page_views
+                GROUP BY page_url
+                ORDER BY views DESC
+                LIMIT 5
+            ");
+            $stats['top_pages'] = $stmt->fetchAll();
+
         } else {
             // Seller stats
             $stmt = $this->db->prepare("SELECT COUNT(*) as count FROM products WHERE seller_id = :seller_id");

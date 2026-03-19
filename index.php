@@ -11,9 +11,13 @@ ini_set('display_errors', 1);
 // Load required configuration and helper functions
 require_once __DIR__ . '/core/config/database.php';
 require_once __DIR__ . '/core/helpers/functions.php';
+require_once __DIR__ . '/core/helpers/Analytics.php';
 
 // Initialize session handling
 startSession();
+
+// Run analytics tracking for customer-facing requests
+Analytics::logPageView(getDB());
 
 // Setup minimal routing mapping paths to controllers/methods
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

@@ -87,6 +87,47 @@ require_once __DIR__ . '/partials/header.php';
         </div>
 
     </div>
+
+    <!-- Traffic Analytics Section (Admin Only) -->
+    <?php if ($_SESSION['role'] === 'admin'): ?>
+    <h2 class="text-xl font-semibold text-gray-900 mt-12 mb-6">Traffic Analytics</h2>
+
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 mb-8">
+        <div class="bg-white overflow-hidden shadow rounded-lg p-5">
+            <dt class="text-sm font-medium text-gray-500 truncate">Total Page Views</dt>
+            <dd class="mt-1 text-3xl font-semibold text-gray-900"><?php echo number_format($stats['total_visits']); ?></dd>
+        </div>
+        <div class="bg-white overflow-hidden shadow rounded-lg p-5">
+            <dt class="text-sm font-medium text-gray-500 truncate">Unique Visitors (IPs)</dt>
+            <dd class="mt-1 text-3xl font-semibold text-gray-900"><?php echo number_format($stats['unique_visitors']); ?></dd>
+        </div>
+    </div>
+
+    <!-- Top Pages Table -->
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+        <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">Most Visited Pages</h3>
+            <p class="mt-1 text-sm text-gray-500">Top 5 landing spots by hit count.</p>
+        </div>
+        <ul role="list" class="divide-y divide-gray-200">
+            <?php if (!empty($stats['top_pages'])): ?>
+                <?php foreach ($stats['top_pages'] as $page): ?>
+                <li class="px-4 py-4 sm:px-6 flex items-center justify-between">
+                    <div class="text-sm font-medium text-indigo-600 truncate"><?php echo htmlspecialchars($page['page_url']); ?></div>
+                    <div class="ml-2 flex-shrink-0 flex">
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            <?php echo number_format($page['views']); ?> views
+                        </span>
+                    </div>
+                </li>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <li class="px-4 py-4 sm:px-6 text-sm text-gray-500">No traffic data yet.</li>
+            <?php endif; ?>
+        </ul>
+    </div>
+    <?php endif; ?>
+
 </div>
 
 <?php require_once __DIR__ . '/partials/footer.php'; ?>

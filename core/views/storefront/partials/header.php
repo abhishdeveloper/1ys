@@ -231,8 +231,17 @@ $navClasses = $isHome
         <!-- Row 1: Logo, Brand Text, and Menu -->
         <div class="flex justify-between items-center">
 
+            <!-- Mobile Menu Button (Hamburger) -->
+            <div class="md:hidden flex items-center pr-2">
+                <button id="mobile-menu-btn" class="text-primary hover:text-accent dark:text-gray-200 focus:outline-none transition-colors">
+                    <svg class="h-6 w-6 stroke-[1.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
             <!-- Logo & Brand (Left) -->
-            <div class="flex items-center space-x-3">
+            <div class="flex items-center space-x-3 flex-1 md:flex-none">
                 <a href="/" class="flex items-center space-x-2 group">
                     <img class="h-8 w-auto group-hover:opacity-80 transition-opacity duration-300" src="<?php echo htmlspecialchars($settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'); ?>" alt="AAYU CARE Logo">
                     <span class="font-serif font-medium text-xl tracking-[0.2em] text-primary dark:text-white uppercase transition-colors group-hover:text-accent">Aayu Care</span>
@@ -300,8 +309,8 @@ $navClasses = $isHome
             </div>
         </div>
 
-        <!-- Row 2: Search Bar and Language Toggle -->
-        <div class="flex justify-between items-end mt-2 md:mt-3 pb-1 border-b border-primary/20 dark:border-gray-700/50">
+        <!-- Row 2: Search Bar and Language Toggle (Desktop mostly, mobile adjusting) -->
+        <div class="flex justify-between items-end mt-2 md:mt-3 pb-1 border-b border-primary/20 dark:border-gray-700/50 hidden md:flex">
 
             <!-- Minimal Search Bar -->
             <div class="w-full max-w-xl relative">
@@ -340,6 +349,63 @@ $navClasses = $isHome
         </div>
 
     </div>
+    </nav>
+</div>
+
+<!-- Mobile Menu Overlay (Splash) -->
+<div id="mobile-menu-overlay" class="fixed inset-0 bg-primary/95 dark:bg-gray-900/98 backdrop-blur-md z-[100] transform -translate-x-full transition-transform duration-300 flex flex-col pt-20 px-6 hidden">
+    <button id="close-mobile-menu" class="absolute top-6 right-6 text-white hover:text-accent transition-colors focus:outline-none">
+        <svg class="h-8 w-8 stroke-[1.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+    </button>
+
+    <!-- Mobile Search -->
+    <div class="mb-8 mt-4 relative w-full border-b border-white/20 pb-2">
+        <form action="/search" method="GET" class="relative flex items-center w-full">
+            <input type="text" id="mobile-search" name="q" placeholder="<?php echo __('search_placeholder'); ?>" autocomplete="off"
+                value="<?php echo isset($_GET['q']) && is_string($_GET['q']) ? sanitize($_GET['q']) : ''; ?>"
+                class="w-full bg-transparent border-none text-white py-2 px-2 focus:outline-none transition-all duration-300 text-lg placeholder-white/50 font-light">
+            <button type="submit" class="absolute right-2 text-white/50 hover:text-accent transition-colors">
+                <svg class="h-5 w-5 stroke-[1.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </button>
+            <div id="mobile-search-spinner" class="absolute right-10 text-accent hidden animate-spin">
+                <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+            <!-- Search Results Dropdown -->
+            <div id="mobile-search-results" class="absolute left-0 top-full mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-2xl hidden z-50 max-h-[50vh] overflow-y-auto transform opacity-0 translate-y-2 transition-all duration-300">
+                <!-- Results injected via JS -->
+            </div>
+        </form>
+    </div>
+
+    <nav class="flex flex-col space-y-6 items-center flex-1">
+        <a href="/" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('home'); ?></a>
+        <a href="/products" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('shop'); ?></a>
+        <a href="/categories" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('categories'); ?></a>
+
+        <div class="h-px w-16 bg-white/20 my-4"></div>
+
+        <?php if(isset($_SESSION['user_id'])): ?>
+            <a href="/dashboard" class="text-lg font-light text-gray-300 hover:text-accent uppercase tracking-[0.15em] transition-colors">My Account</a>
+            <?php if(isset($_SESSION['role']) && in_array($_SESSION['role'], ['admin', 'seller'])): ?>
+                <a href="/admin" class="text-lg font-light text-accent hover:text-white uppercase tracking-[0.15em] transition-colors">Management Panel</a>
+            <?php endif; ?>
+            <a href="/logout" class="text-lg font-light text-red-400 hover:text-red-300 uppercase tracking-[0.15em] transition-colors">Logout</a>
+        <?php else: ?>
+            <a href="/login" class="text-xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('login'); ?></a>
+        <?php endif; ?>
+
+        <!-- Language Switch in Mobile -->
+        <a href="/lang?lang=<?php echo $currentLang === 'en' ? 'hi' : 'en'; ?>"
+           class="mt-auto mb-8 text-sm text-gray-400 hover:text-white uppercase tracking-[0.2em] transition-colors">
+           <?php echo __('switch_lang'); ?>
+        </a>
     </nav>
 </div>
 

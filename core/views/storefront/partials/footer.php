@@ -85,7 +85,7 @@
 </footer>
 
 <!-- Back to Top Button -->
-<button id="back-to-top" class="fixed bottom-24 right-6 sm:bottom-20 z-50 bg-accent text-white p-3 rounded-full shadow-lg hover:bg-accent_hover transition-all transform translate-y-20 opacity-0 focus:outline-none" aria-label="Back to top">
+<button id="back-to-top" class="fixed bottom-24 right-6 sm:bottom-6 sm:right-6 z-50 bg-accent text-white p-3 rounded-full shadow-lg hover:bg-accent_hover transition-all transform translate-y-20 opacity-0 focus:outline-none" aria-label="Back to top">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
 </button>
 
@@ -120,7 +120,7 @@
 </style>
 
 <!-- Floating WhatsApp Button -->
-<a href="https://wa.me/910000000000" target="_blank" class="fixed bottom-32 right-6 sm:bottom-6 z-[60] bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/<?php echo $settings['contact_whatsapp'] ?? '919876543210'; ?>" target="_blank" class="fixed bottom-32 left-6 sm:bottom-6 sm:left-6 z-[60] bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center" aria-label="Chat on WhatsApp">
     <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01a1.08 1.08 0 00-.792.372c-.297.322-1.139 1.115-1.139 2.716s1.164 3.146 1.327 3.369c.163.223 2.296 3.504 5.56 4.908 2.128.917 2.911 1.002 3.966.839 1.206-.188 3.708-1.516 4.228-2.979.52-1.462.52-2.716.366-2.979-.153-.263-.57-.411-.867-.56zM11.996 22C6.483 22 2 17.517 2 12S6.483 2 11.996 2s10.004 4.483 10.004 10-4.49 10-10.004 10z"></path>
     </svg>
@@ -321,6 +321,30 @@
     const mobileResults = document.getElementById('mobile-search-results');
     const desktopSpinner = document.getElementById('desktop-search-spinner');
     const mobileSpinner = document.getElementById('mobile-search-spinner');
+
+    // ----- Mobile Menu Logic -----
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeMobileMenuBtn = document.getElementById('close-mobile-menu');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+
+    if (mobileMenuBtn && closeMobileMenuBtn && mobileMenuOverlay) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuOverlay.classList.remove('hidden');
+            // Small delay to allow display:block to apply before animation
+            setTimeout(() => {
+                mobileMenuOverlay.classList.remove('-translate-x-full');
+            }, 10);
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+
+        closeMobileMenuBtn.addEventListener('click', () => {
+            mobileMenuOverlay.classList.add('-translate-x-full');
+            setTimeout(() => {
+                mobileMenuOverlay.classList.add('hidden');
+            }, 300); // Wait for animation to finish
+            document.body.style.overflow = '';
+        });
+    }
 
     // Debounce function to limit API calls
     function debounce(func, wait) {

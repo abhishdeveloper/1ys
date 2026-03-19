@@ -35,7 +35,8 @@ class AdminSettingsController {
             'contact_whatsapp', 'contact_email',
             'smtp_host', 'smtp_port', 'smtp_user', 'smtp_password',
             'smtp_encryption', 'smtp_from_email', 'smtp_from_name',
-            'shiprocket_email', 'shiprocket_password'
+            'shiprocket_email', 'shiprocket_password',
+            'razorpay_key_id', 'razorpay_key_secret'
         ];
 
         try {
@@ -53,7 +54,7 @@ class AdminSettingsController {
                 if (isset($_POST[$key])) {
                     $val = sanitize($_POST[$key]);
                     // Only save password if it is not empty, so we don't overwrite with a blank
-                    if (in_array($key, ['smtp_password', 'shiprocket_password']) && empty($val)) {
+                    if (in_array($key, ['smtp_password', 'shiprocket_password', 'razorpay_key_secret']) && empty($val)) {
                         continue;
                     }
                     $stmt->execute(['val' => $val, 'key' => $key]);

@@ -80,6 +80,27 @@ require_once __DIR__ . '/../partials/header.php';
         </div>
 
         <div class="pt-8">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">Razorpay Payment Gateway</h3>
+            <p class="mt-1 text-sm text-gray-500">Configure your Razorpay API credentials for online payments.</p>
+            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
+
+                <div class="sm:col-span-3">
+                    <label for="razorpay_key_id" class="block text-sm font-medium text-gray-700"> Key ID </label>
+                    <div class="mt-1">
+                        <input type="text" name="razorpay_key_id" id="razorpay_key_id" value="<?php echo htmlspecialchars($settings['razorpay_key_id'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
+                    </div>
+                </div>
+
+                <div class="sm:col-span-3">
+                    <label for="razorpay_key_secret" class="block text-sm font-medium text-gray-700"> Key Secret </label>
+                    <div class="mt-1">
+                        <input type="password" name="razorpay_key_secret" id="razorpay_key_secret" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" placeholder="Leave blank to keep current">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-8">
             <h3 class="text-lg font-medium leading-6 text-gray-900">Shiprocket Integration</h3>
             <p class="mt-1 text-sm text-gray-500">Configure your Shiprocket API credentials for automated tracking updates.</p>
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">

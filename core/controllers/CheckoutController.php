@@ -55,6 +55,61 @@ class CheckoutController {
         require_once __DIR__ . '/../views/storefront/checkout.php';
     }
 
+    public function initPayment() {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
+            exit;
+        }
+
+        header('Content-Type: application/json');
+
+        // Verify Razorpay keys exist
+        $stmt = $this->db->prepare("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ('razorpay_key_id', 'razorpay_key_secret')");
+        $stmt->execute();
+        $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+
+        if (empty($settings['razorpay_key_id']) || empty($settings['razorpay_key_secret'])) {
+            echo json_encode(['success' => false, 'message' => 'Payment gateway is not configured.']);
+            exit;
+        }
+
+        // Calculate total
+        $cartItems = $this->getCartDetails();
+        $subtotal = array_sum(array_column($cartItems, 'total'));
+        $shipping = 10.00;
+        $discountAmount = 0;
+
+        if (isset($_SESSION['coupon'])) {
+            require_once __DIR__ . '/../models/Coupon.php';
+            $couponModel = new Coupon($this->db);
+            $coupon = $_SESSION['coupon'];
+            $discountAmount = $couponModel->calculateDiscount($coupon, $subtotal);
+
+            if ($subtotal < $coupon['min_order_value']) {
+                $discountAmount = 0; // Coupon invalid due to cart changes
+            }
+        }
+
+        $total = max(0, ($subtotal - $discountAmount) + $shipping);
+
+        // Create Razorpay Order
+        require_once __DIR__ . '/../helpers/RazorpayHelper.php';
+        $razorpay = new RazorpayHelper($settings['razorpay_key_id'], $settings['razorpay_key_secret']);
+        $order = $razorpay->createOrder($total, 'INR', 'order_rcptid_' . $_SESSION['user_id'] . '_' . time());
+
+        if ($order) {
+            $_SESSION['razorpay_order_id'] = $order['id'];
+            echo json_encode([
+                'success' => true,
+                'key_id' => $settings['razorpay_key_id'],
+                'order' => $order
+            ]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to create payment order with gateway.']);
+        }
+        exit;
+    }
+
     public function process() {
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
             redirect('/checkout');
@@ -93,14 +148,48 @@ class CheckoutController {
 
         $total = max(0, ($subtotal - $discountAmount) + $shipping);
 
+        // Verify Razorpay signature
+        $razorpayPaymentId = $_POST['razorpay_payment_id'] ?? null;
+        $razorpayOrderId = $_POST['razorpay_order_id'] ?? null;
+        $razorpaySignature = $_POST['razorpay_signature'] ?? null;
+
+        if (!$razorpayPaymentId || !$razorpayOrderId || !$razorpaySignature) {
+            setFlashMessage('error', 'Payment verification failed: Missing payment details.');
+            redirect('/checkout');
+        }
+
+        // Verify order ID against session to prevent tampering
+        if (!isset($_SESSION['razorpay_order_id']) || $_SESSION['razorpay_order_id'] !== $razorpayOrderId) {
+            setFlashMessage('error', 'Payment verification failed: Invalid session.');
+            redirect('/checkout');
+        }
+
+        $stmt = $this->db->prepare("SELECT setting_value FROM settings WHERE setting_key = 'razorpay_key_secret'");
+        $stmt->execute();
+        $keySecret = $stmt->fetchColumn();
+
+        require_once __DIR__ . '/../helpers/RazorpayHelper.php';
+        $razorpay = new RazorpayHelper('', $keySecret);
+
+        if (!$razorpay->verifySignature($razorpayOrderId, $razorpayPaymentId, $razorpaySignature)) {
+            setFlashMessage('error', 'Payment verification failed: Invalid signature.');
+            redirect('/checkout');
+        }
+
+        // Clear the order ID from session after successful verification
+        unset($_SESSION['razorpay_order_id']);
+
         $orderData = [
             'total_amount' => $total,
             'shipping_cost' => $shipping,
             'discount_amount' => $discountAmount,
             'coupon_id' => $couponId,
             'shipping_address' => $fullAddress,
-            'payment_method' => 'dummy_card',
-            'payment_status' => 'paid', // Simulating successful immediate payment for demo
+            'payment_method' => 'razorpay',
+            'payment_status' => 'paid',
+            'razorpay_order_id' => $razorpayOrderId,
+            'razorpay_payment_id' => $razorpayPaymentId,
+            'razorpay_signature' => $razorpaySignature
         ];
 
         // Process order creation

@@ -15,7 +15,8 @@ class Mailer {
 
         try {
             // Fetch dynamic SMTP settings from the database
-            $db = new PDO('mysql:host=localhost;dbname=shopswift', 'root', '');
+            require_once __DIR__ . '/functions.php';
+            $db = getDB();
             $stmt = $db->query("SELECT setting_key, setting_value FROM settings WHERE setting_key LIKE 'smtp_%'");
             $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 

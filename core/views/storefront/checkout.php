@@ -88,7 +88,12 @@ require_once __DIR__ . '/partials/header.php';
                 <?php endif; ?>
             </div>
 
-            <form action="/checkout/process" method="POST" class="space-y-8">
+            <form id="checkout-form" action="/checkout/process" method="POST" class="space-y-8">
+                <!-- Hidden inputs for Razorpay payload -->
+                <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+                <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+                <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+
                 <!-- Shipping Details -->
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                     <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Shipping Information</h2>
@@ -113,34 +118,135 @@ require_once __DIR__ . '/partials/header.php';
                     </div>
                 </div>
 
-                <!-- Payment Details (Dummy) -->
+                <!-- Payment Info -->
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Payment Method</h2>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">This is a demo environment. No real credit card information is required or processed.</p>
-
+                    <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Payment</h2>
                     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-4 sm:gap-x-4">
-                        <div class="sm:col-span-4">
-                            <label for="card_name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Name on Card</label>
-                            <input type="text" id="card_name" name="card_name" value="Demo User" readonly
-                                class="mt-1 block w-full bg-gray-100 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 text-gray-500 dark:text-gray-400 rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm cursor-not-allowed">
-                        </div>
-
-                        <div class="sm:col-span-4">
-                            <label for="card_number" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Card Number</label>
-                            <input type="text" id="card_number" name="card_number" value="**** **** **** 4242" readonly
-                                class="mt-1 block w-full bg-gray-100 dark:bg-gray-600 border border-gray-300 dark:border-gray-500 text-gray-500 dark:text-gray-400 rounded-md shadow-sm py-2 px-3 focus:outline-none sm:text-sm cursor-not-allowed">
+                        <div class="sm:col-span-4 bg-gray-50 dark:bg-gray-700/50 p-4 mb-4 rounded-md border border-gray-200 dark:border-gray-600 flex items-center justify-between">
+                            <div class="flex items-center">
+                                <svg class="h-6 w-6 text-primary dark:text-gray-300 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-900 dark:text-white font-medium">Secure Payment</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Pay safely via Razorpay (Credit/Debit Card, UPI, NetBanking)</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div>
-                    <button type="submit" class="w-full bg-primary border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-primary transition-colors">
-                        Place Order (Demo)
+                <div class="pt-4 mt-8 flex justify-end">
+                    <button type="button" id="pay-button" class="bg-primary text-white px-6 py-3 border border-transparent rounded-md shadow-sm hover:bg-primary_hover transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary font-medium text-base shadow-[0_4px_14px_0_rgb(28,49,37,0.39)] flex items-center">
+                        <span id="pay-btn-text">Proceed to Pay</span>
+                        <svg id="pay-btn-spinner" class="hidden animate-spin ml-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<!-- Razorpay Checkout JS -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+document.getElementById('pay-button').addEventListener('click', async function(e) {
+    e.preventDefault();
+
+    const form = document.getElementById('checkout-form');
+
+    // Basic frontend validation
+    if (!form.reportValidity()) {
+        return;
+    }
+
+    const btnText = document.getElementById('pay-btn-text');
+    const btnSpinner = document.getElementById('pay-btn-spinner');
+
+    // Disable button and show spinner
+    this.disabled = true;
+    btnText.textContent = 'Processing...';
+    btnSpinner.classList.remove('hidden');
+
+    try {
+        // Collect form data
+        const formData = new FormData(form);
+
+        // Step 1: Initialize Payment (Create Razorpay Order on Backend)
+        const response = await fetch('/checkout/init', {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (!data.success) {
+            throw new Error(data.message || 'Failed to initialize payment');
+        }
+
+        // Step 2: Configure Razorpay Options
+        const options = {
+            "key": data.key_id, // Enter the Key ID generated from the Dashboard
+            "amount": data.order.amount, // Amount is in currency subunits.
+            "currency": data.order.currency,
+            "name": "<?php echo sanitize($settings['site_title'] ?? 'AAYU CARE'); ?>",
+            "description": "Order Payment",
+            "image": "<?php echo sanitize($settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'); ?>",
+            "order_id": data.order.id, // This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+            "handler": function (response){
+                // Step 4: Handle success, inject IDs into form and submit
+                document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+                document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+                document.getElementById('razorpay_signature').value = response.razorpay_signature;
+
+                // Change button text to indicate finalizing
+                btnText.textContent = 'Finalizing Order...';
+
+                // Submit the form to the backend process URL
+                form.submit();
+            },
+            "prefill": {
+                "name": "<?php echo sanitize($_SESSION['name'] ?? ''); ?>",
+                "email": "<?php echo sanitize($_SESSION['email'] ?? ''); ?>"
+            },
+            "theme": {
+                "color": "#1c3125" // theme primary color
+            },
+            "modal": {
+                "ondismiss": function(){
+                    // Enable button and hide spinner if modal is closed
+                    document.getElementById('pay-button').disabled = false;
+                    document.getElementById('pay-btn-text').textContent = 'Proceed to Pay';
+                    document.getElementById('pay-btn-spinner').classList.add('hidden');
+                }
+            }
+        };
+
+        // Step 3: Open Razorpay Modal
+        const rzp1 = new Razorpay(options);
+
+        rzp1.on('payment.failed', function (response){
+            alert("Payment Failed. Reason: " + response.error.description);
+            // Reset button
+            document.getElementById('pay-button').disabled = false;
+            document.getElementById('pay-btn-text').textContent = 'Proceed to Pay';
+            document.getElementById('pay-btn-spinner').classList.add('hidden');
+        });
+
+        rzp1.open();
+
+    } catch (error) {
+        console.error('Error:', error);
+        alert(error.message || 'An error occurred while processing the payment. Please try again.');
+        // Reset button
+        this.disabled = false;
+        btnText.textContent = 'Proceed to Pay';
+        btnSpinner.classList.add('hidden');
+    }
+});
+</script>
 
 <?php require_once __DIR__ . '/partials/footer.php'; ?>

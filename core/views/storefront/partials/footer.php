@@ -129,6 +129,55 @@
 
 <!-- Global Scripts -->
 <script>
+    // ----- Typewriter Banner Logic -----
+    const messages = [
+        "<?php echo sanitize($settings['promo_banner_1'] ?? 'FREE SHIPPING ON ORDERS OVER $50'); ?>",
+        "<?php echo sanitize($settings['promo_banner_2'] ?? 'NEW ARRIVALS - SHOP NOW'); ?>",
+        "<?php echo sanitize($settings['promo_banner_3'] ?? 'USE CODE WELCOME10 FOR 10% OFF'); ?>"
+    ].filter(msg => msg.trim() !== ''); // Remove empty messages
+
+    if (messages.length > 0) {
+        let msgIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingDelay = 100;
+        let erasingDelay = 50;
+        let newTextDelay = 2000;
+        const typewriterElement = document.getElementById('typewriter-text');
+
+        function type() {
+            if (!typewriterElement) return;
+
+            const currentMsg = messages[msgIndex];
+
+            if (isDeleting) {
+                typewriterElement.textContent = currentMsg.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typewriterElement.textContent = currentMsg.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? erasingDelay : typingDelay;
+
+            if (!isDeleting && charIndex === currentMsg.length) {
+                typeSpeed = newTextDelay;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                msgIndex++;
+                if (msgIndex >= messages.length) {
+                    msgIndex = 0;
+                }
+                typeSpeed = 500;
+            }
+
+            setTimeout(type, typeSpeed);
+        }
+
+        if (messages.length) setTimeout(type, newTextDelay + 250);
+    }
+
     // ----- Hero Slider Logic -----
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.hero-slide');

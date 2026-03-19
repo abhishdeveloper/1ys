@@ -103,6 +103,12 @@ try {
             $checkoutCtrl->index();
             break;
 
+        case 'checkout/init':
+            require_once __DIR__ . '/core/controllers/CheckoutController.php';
+            $checkoutCtrl = new CheckoutController($db);
+            $checkoutCtrl->initPayment();
+            break;
+
         case 'checkout/process':
             require_once __DIR__ . '/core/controllers/CheckoutController.php';
             $checkoutCtrl = new CheckoutController($db);

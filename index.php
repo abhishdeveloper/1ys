@@ -167,6 +167,20 @@ try {
             $auth->login();
             break;
 
+        case 'auth/google':
+            require_once __DIR__ . '/core/models/User.php';
+            require_once __DIR__ . '/core/controllers/AuthController.php';
+            $auth = new AuthController($db);
+            $auth->google();
+            break;
+
+        case 'auth/google/callback':
+            require_once __DIR__ . '/core/models/User.php';
+            require_once __DIR__ . '/core/controllers/AuthController.php';
+            $auth = new AuthController($db);
+            $auth->googleCallback();
+            break;
+
         case 'register':
             require_once __DIR__ . '/core/models/User.php';
             require_once __DIR__ . '/core/controllers/AuthController.php';

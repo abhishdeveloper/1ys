@@ -257,6 +257,49 @@ class AuthController {
     }
 
     /**
+     * Handle Forgot Password Request
+     */
+    public function forgotPassword() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = sanitize($_POST['email'] ?? '');
+
+            if (empty($email)) {
+                setFlashMessage('error', 'Email is required.');
+                redirect('/forgot-password');
+            }
+
+            $user = $this->userModel->findByEmail($email);
+
+            if ($user) {
+                // Generate temporary password
+                $tempPassword = bin2hex(random_bytes(4)); // 8 character random string
+
+                // Update user password to the temp one
+                if ($this->userModel->updatePassword($user['id'], $tempPassword)) {
+                    require_once __DIR__ . '/../helpers/Mailer.php';
+                    $mailer = new Mailer();
+                    if ($mailer->sendTemporaryPasswordEmail($user['email'], $user['name'], $tempPassword)) {
+                        setFlashMessage('success', 'A temporary password has been sent to your email address.');
+                        redirect('/login');
+                    } else {
+                        setFlashMessage('error', 'Failed to send email. Please try again later.');
+                    }
+                } else {
+                    setFlashMessage('error', 'An error occurred while resetting your password.');
+                }
+            } else {
+                // Security: Don't reveal if email exists or not
+                setFlashMessage('success', 'If the email exists in our system, a temporary password has been sent.');
+                redirect('/login');
+            }
+        } else {
+            // Load the view
+            $pageTitle = "Forgot Password | ShopSwift";
+            require_once __DIR__ . '/../views/storefront/forgot_password.php';
+        }
+    }
+
+    /**
      * Logout a user and destroy the session
      */
     /**

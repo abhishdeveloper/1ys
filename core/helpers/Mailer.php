@@ -57,6 +57,31 @@ class Mailer {
         }
     }
 
+    public function sendTemporaryPasswordEmail($toEmail, $toName, $tempPassword) {
+        $mail = $this->getMailer();
+        if (!$mail) return false;
+
+        try {
+            $mail->addAddress($toEmail, $toName);
+            $mail->isHTML(true);
+            $mail->Subject = 'Password Reset Request';
+            $mail->Body    = "
+                <h2>Hello {$toName},</h2>
+                <p>We received a request to reset your password. Your new temporary password is:</p>
+                <p><strong>{$tempPassword}</strong></p>
+                <p>Please log in using this temporary password and change your password immediately from your account settings.</p>
+                <br>
+                <p><strong>The ShopSwift Team</strong></p>
+            ";
+            $mail->AltBody = "Hello {$toName}, your temporary password is: {$tempPassword}. Please log in and change it immediately.";
+
+            return $mail->send();
+        } catch (Exception $e) {
+            error_log("Failed to send temporary password email to {$toEmail}: {$mail->ErrorInfo}");
+            return false;
+        }
+    }
+
     public function sendPasswordChangeEmail($toEmail, $toName) {
         $mail = $this->getMailer();
         if (!$mail) return false;

@@ -160,6 +160,13 @@ try {
             require_once __DIR__ . '/core/controllers/lang.php';
             break;
 
+        case 'forgot-password':
+            require_once __DIR__ . '/core/models/User.php';
+            require_once __DIR__ . '/core/controllers/AuthController.php';
+            $auth = new AuthController($db);
+            $auth->forgotPassword();
+            break;
+
         case 'login':
             require_once __DIR__ . '/core/models/User.php';
             require_once __DIR__ . '/core/controllers/AuthController.php';

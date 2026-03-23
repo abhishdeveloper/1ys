@@ -209,6 +209,8 @@ class CheckoutController {
             $user = $stmt->fetch();
 
             if ($user && $createdOrder) {
+                $createdOrder['customer_name'] = $user['name'];
+                $createdOrder['customer_email'] = $user['email'];
                 $mailer->sendOrderConfirmationEmail($user['email'], $user['name'], $createdOrder);
             }
 

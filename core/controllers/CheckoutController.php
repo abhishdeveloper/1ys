@@ -117,14 +117,15 @@ class CheckoutController {
 
         $address = sanitize($_POST['address'] ?? '');
         $city = sanitize($_POST['city'] ?? '');
+        $state = sanitize($_POST['state'] ?? '');
         $zip = sanitize($_POST['zip'] ?? '');
 
-        if (empty($address) || empty($city) || empty($zip)) {
+        if (empty($address) || empty($city) || empty($state) || empty($zip)) {
             setFlashMessage('error', 'Please complete all shipping address fields.');
             redirect('/checkout');
         }
 
-        $fullAddress = "$address, $city, $zip";
+        $fullAddress = "$address, $city, $state, $zip";
         $cartItems = $this->getCartDetails();
         $subtotal = array_sum(array_column($cartItems, 'total'));
         $shipping = 10.00;

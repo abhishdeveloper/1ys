@@ -260,6 +260,13 @@ try {
             $adminOrderCtrl->show($id);
             break;
 
+        case 'admin/orders/label':
+            require_once __DIR__ . '/core/controllers/AdminOrderController.php';
+            $adminOrderCtrl = new AdminOrderController($db);
+            $id = (int)($_GET['id'] ?? 0);
+            $adminOrderCtrl->printLabel($id);
+            break;
+
         case 'admin/categories':
             require_once __DIR__ . '/core/controllers/AdminCategoryController.php';
             $adminCatCtrl = new AdminCategoryController($db);
@@ -313,9 +320,19 @@ try {
 
 
         default:
-            // Dynamic routing for categories and products
+            // Dynamic routing for categories and products and specific admin actions
             // Expected format: /category/slug or /product/slug
             $routeParts = explode('/', $route);
+
+            // Check for /admin/orders/{id}/label
+            if (count($routeParts) == 4 && $routeParts[0] === 'admin' && $routeParts[1] === 'orders' && $routeParts[3] === 'label') {
+                require_once __DIR__ . '/core/controllers/AdminOrderController.php';
+                $adminOrderCtrl = new AdminOrderController($db);
+                $id = (int)$routeParts[2];
+                $adminOrderCtrl->printLabel($id);
+                break;
+            }
+
             if (count($routeParts) == 2) {
                 require_once __DIR__ . '/core/controllers/ProductController.php';
                 $productCtrl = new ProductController($db);

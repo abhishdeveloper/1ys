@@ -7,7 +7,10 @@ require_once __DIR__ . '/../partials/header.php';
     <div class="sm:flex-auto">
         <h1 class="text-xl font-semibold text-gray-900">Order #<?php echo sanitize($order['order_number']); ?></h1>
     </div>
-    <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
+    <div class="mt-4 sm:mt-0 sm:ml-16 flex items-center gap-4 sm:flex-none">
+        <a href="/admin/orders/<?php echo $order['id']; ?>/label" target="_blank" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            Print Shipping Label
+        </a>
         <a href="/admin/orders" class="inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">Back to Orders</a>
     </div>
 </div>

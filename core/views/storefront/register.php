@@ -9,7 +9,7 @@ require_once __DIR__ . '/partials/header.php';
 
 <div class="flex items-center justify-center min-h-[70vh]">
 <div class="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-full max-w-md border dark:border-gray-700">
-    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white text-center">Create an Account</h2>
+    <h2 class="text-2xl font-bold mb-6 text-gray-800 dark:text-white text-center"><?php echo __('create_account'); ?></h2>
 
     <?php
     // Flash messages handled globally
@@ -17,26 +17,26 @@ require_once __DIR__ . '/partials/header.php';
 
     <form action="/register" method="POST" class="space-y-4">
         <div>
-            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300"><?php echo __('full_name'); ?></label>
             <input type="text" id="name" name="name" required
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         </div>
 
         <div>
-            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
+            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300"><?php echo __('email_address'); ?></label>
             <input type="email" id="email" name="email" required
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         </div>
 
         <div>
-            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300"><?php echo __('password'); ?></label>
             <input type="password" id="password" name="password" required minlength="8"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-            <p class="text-xs text-gray-500 mt-1">Must be at least 8 characters.</p>
+            <p class="text-xs text-gray-500 mt-1"><?php echo __('password_min_length'); ?></p>
         </div>
 
         <div>
-            <label for="confirm_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Confirm Password</label>
+            <label for="confirm_password" class="block text-sm font-medium text-gray-700 dark:text-gray-300"><?php echo __('confirm_password'); ?></label>
             <input type="password" id="confirm_password" name="confirm_password" required minlength="8"
                 class="mt-1 block w-full px-3 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
         </div>
@@ -44,7 +44,7 @@ require_once __DIR__ . '/partials/header.php';
         <div>
             <button type="submit"
                 class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
-                Register
+                <?php echo __('register'); ?>
             </button>
         </div>
     </form>
@@ -54,7 +54,7 @@ require_once __DIR__ . '/partials/header.php';
             <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
         </div>
         <div class="relative flex justify-center text-sm">
-            <span class="px-2 bg-white dark:bg-gray-800 text-gray-500">Or continue with</span>
+            <span class="px-2 bg-white dark:bg-gray-800 text-gray-500"><?php echo __('or_continue_with'); ?></span>
         </div>
     </div>
 
@@ -67,13 +67,13 @@ require_once __DIR__ . '/partials/header.php';
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                 <path d="M1 1h22v22H1z" fill="none"/>
             </svg>
-            Sign in with Google
+            <?php echo __('sign_in_google'); ?>
         </a>
     </div>
 
     <div class="mt-8 text-center">
         <p class="text-sm text-gray-600 dark:text-gray-400">
-            Already have an account? <a href="/login" class="font-medium text-primary hover:text-indigo-500">Log in</a>
+            <?php echo __('already_have_account'); ?> <a href="/login" class="font-medium text-primary hover:text-indigo-500"><?php echo __('login_here'); ?></a>
         </p>
     </div>
 </div>

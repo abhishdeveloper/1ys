@@ -18,7 +18,7 @@
                     <span class="font-serif font-bold text-2xl tracking-widest text-accent uppercase">Aayu Care</span>
                 </a>
                 <p class="text-sm text-gray-300 leading-relaxed font-light">
-                    Luxurious Ayurvedic manufacturing & remedies. Crafting nature's profound healing secrets with modern elegance.
+                    <?php echo __('footer_desc'); ?>
                 </p>
                 <div class="flex space-x-5 pt-2">
                     <!-- Social Links -->
@@ -35,50 +35,50 @@
 
             <!-- Quick Links -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">The Collections</h3>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('the_collections'); ?></h3>
                 <ul class="space-y-3">
-                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shop All Products</a></li>
-                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Explore Categories</a></li>
-                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Common Questions</a></li>
-                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Get in Touch</a></li>
+                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shop_all'); ?></a></li>
+                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('explore_categories'); ?></a></li>
+                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('common_questions'); ?></a></li>
+                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('get_in_touch'); ?></a></li>
                 </ul>
             </div>
 
             <!-- Customer Service -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Client Services</h3>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('client_services'); ?></h3>
                 <ul class="space-y-3">
                     <?php if(isset($_SESSION['user_id'])): ?>
-                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">My Account</a></li>
-                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Order History</a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('my_account'); ?></a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('order_history'); ?></a></li>
                     <?php else: ?>
-                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Sign In / Register</a></li>
+                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('sign_in_register'); ?></a></li>
                     <?php endif; ?>
-                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shopping Bag</a></li>
-                    <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shipping & Returns</a></li>
+                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shopping_bag'); ?></a></li>
+                    <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shipping_returns'); ?></a></li>
                     <li><a href="/login" class="text-sm text-accent hover:text-white hover:underline transition-all font-medium mt-2 block">Admin Login</a></li>
                 </ul>
             </div>
 
             <!-- Newsletter -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Join The Club</h3>
-                <p class="text-sm text-gray-300 mb-6 font-light">Subscribe to receive exclusive offers, luxurious skincare tips, and early access to new collections.</p>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('join_club'); ?></h3>
+                <p class="text-sm text-gray-300 mb-6 font-light"><?php echo __('join_club_desc'); ?></p>
                 <form class="flex flex-col gap-3" action="#" method="POST">
-                    <input type="email" placeholder="Email Address" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
-                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2">Subscribe Now</button>
+                    <input type="email" placeholder="<?php echo __('email_address'); ?>" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
+                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2"><?php echo __('subscribe_now'); ?></button>
                 </form>
             </div>
         </div>
 
         <div class="mt-16 border-t border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p class="text-xs text-gray-500 tracking-wider mb-4 md:mb-0">
-                &copy; <?php echo date('Y'); ?> AAYU CARE. ALL RIGHTS RESERVED.
+                &copy; <?php echo date('Y'); ?> AAYU CARE. <?php echo __('all_rights_reserved'); ?>
             </p>
             <div class="flex space-x-6">
-                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">PRIVACY POLICY</a>
+                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors"><?php echo __('privacy_policy'); ?></a>
                 <span class="text-gray-700">|</span>
-                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">TERMS OF SERVICE</a>
+                <a href="#" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors"><?php echo __('terms'); ?></a>
             </div>
         </div>
     </div>
@@ -93,22 +93,22 @@
 <div class="sm:hidden fixed bottom-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 px-6 py-3 flex justify-between items-center pb-safe">
     <a href="/" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
+        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('home'); ?></span>
     </a>
     <a href="/categories" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase">Shop</span>
+        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('shop'); ?></span>
     </a>
     <a href="/cart" class="relative flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase">Cart</span>
+        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('cart'); ?></span>
         <?php if ($cartCount > 0): ?>
             <span class="absolute top-0 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[8px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-accent rounded-full"><?php echo $cartCount > 99 ? '99+' : $cartCount; ?></span>
         <?php endif; ?>
     </a>
     <a href="<?php echo isset($_SESSION['user_id']) ? '/dashboard' : '/login'; ?>" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase">Account</span>
+        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('my_account'); ?></span>
     </a>
 </div>
 
@@ -442,14 +442,14 @@
                 });
                 html += '</ul>';
                 // Add a "view all" link
-                html += `<div class="p-3 bg-gray-50 dark:bg-gray-750 text-center border-t border-gray-100 dark:border-gray-700 rounded-b-xl"><a href="/search?q=${encodeURIComponent(query)}" class="text-sm font-medium text-primary hover:text-primary_hover">View all results &rarr;</a></div>`;
+                html += `<div class="p-3 bg-gray-50 dark:bg-gray-750 text-center border-t border-gray-100 dark:border-gray-700 rounded-b-xl"><a href="/search?q=${encodeURIComponent(query)}" class="text-sm font-medium text-primary hover:text-primary_hover"><?php echo __('view_all_products'); ?> &rarr;</a></div>`;
 
                 resultsContainer.innerHTML = html;
             } else {
                 resultsContainer.innerHTML = `
                     <div class="p-8 text-center">
                         <svg class="mx-auto h-8 w-8 text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <p class="text-sm font-medium text-gray-900 dark:text-white">No products found.</p>
+                        <p class="text-sm font-medium text-gray-900 dark:text-white"><?php echo __('no_products'); ?></p>
                         <p class="text-xs text-gray-500 mt-1">Try adjusting your search terms.</p>
                     </div>`;
             }

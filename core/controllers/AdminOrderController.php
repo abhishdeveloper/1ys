@@ -19,7 +19,7 @@ class AdminOrderController {
 
         if ($role === 'admin') {
             $stmt = $this->db->query("
-                SELECT o.*, u.name as customer_name
+                SELECT o.*, u.name as customer_name, u.phone as customer_phone
                 FROM orders o
                 JOIN users u ON o.user_id = u.id
                 ORDER BY o.created_at DESC
@@ -28,7 +28,7 @@ class AdminOrderController {
         } else {
             // Seller sees orders that contain at least one of their products
             $stmt = $this->db->prepare("
-                SELECT DISTINCT o.*, u.name as customer_name
+                SELECT DISTINCT o.*, u.name as customer_name, u.phone as customer_phone
                 FROM orders o
                 JOIN users u ON o.user_id = u.id
                 JOIN order_items oi ON o.id = oi.order_id
@@ -50,7 +50,7 @@ class AdminOrderController {
 
         // Fetch Order
         $stmt = $this->db->prepare("
-            SELECT o.*, u.name as customer_name, u.email as customer_email
+            SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone
             FROM orders o
             JOIN users u ON o.user_id = u.id
             WHERE o.id = :id
@@ -145,7 +145,7 @@ class AdminOrderController {
 
         // Fetch Order
         $stmt = $this->db->prepare("
-            SELECT o.*, u.name as customer_name, u.email as customer_email
+            SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone
             FROM orders o
             JOIN users u ON o.user_id = u.id
             WHERE o.id = :id

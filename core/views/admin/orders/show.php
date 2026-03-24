@@ -48,6 +48,7 @@ require_once __DIR__ . '/../partials/header.php';
             </div>
             <div class="px-4 py-5 sm:px-6 text-sm text-gray-700 space-y-2">
                 <p><strong>Name:</strong> <?php echo sanitize($order['customer_name']); ?></p>
+                <p><strong>Mobile No:</strong> <?php echo sanitize($order['customer_phone'] ?? 'N/A'); ?></p>
                 <p><strong>Email:</strong> <?php echo sanitize($order['customer_email']); ?></p>
                 <p><strong>Address:</strong><br> <?php echo sanitize($order['shipping_address']); ?></p>
             </div>

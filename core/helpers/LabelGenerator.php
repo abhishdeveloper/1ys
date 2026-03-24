@@ -35,8 +35,12 @@ class LabelGenerator {
         // The shipping address now includes State and Pincode as it is saved as "Address, City, State, ZIP"
         $pdf->MultiCell(0, 6, $order['shipping_address'], 0, 'L');
 
-        // Phone number if we had one could go here. We'll use email as fallback contact.
-        $pdf->Cell(0, 6, 'Contact: ' . $order['customer_email'], 0, 1, 'L');
+        $pdf->SetFont('Arial', 'B', 10);
+        $phone = !empty($order['customer_phone']) ? $order['customer_phone'] : 'N/A';
+        $pdf->Cell(0, 6, 'Mobile No: ' . $phone, 0, 1, 'L');
+
+        $pdf->SetFont('Arial', '', 9);
+        $pdf->Cell(0, 6, 'Email: ' . $order['customer_email'], 0, 1, 'L');
 
         $pdf->Line(10, 85, 90, 85);
         $pdf->Ln(5);

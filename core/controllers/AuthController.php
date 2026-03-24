@@ -214,6 +214,7 @@ class AuthController {
 
         if ($user) {
             // Log them in
+            regenerateSession();
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             $_SESSION['email'] = $user['email'];
@@ -238,6 +239,7 @@ class AuthController {
                 $mailer->sendAccountCreationEmail($email, $name);
 
                 // Auto login
+                regenerateSession();
                 $_SESSION['user_id'] = $userId;
                 $_SESSION['name'] = $name;
                 $_SESSION['email'] = $email;

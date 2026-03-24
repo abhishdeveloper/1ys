@@ -33,14 +33,16 @@ function redirect($path) {
  */
 function startSession() {
     if (session_status() === PHP_SESSION_NONE) {
+        $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https'));
+
         // Secure session cookie settings
         session_set_cookie_params([
             'lifetime' => 86400, // 1 day
             'path' => '/',
             'domain' => '',
-            'secure' => isset($_SERVER['HTTPS']), // True if HTTPS
+            'secure' => $isHttps, // True if HTTPS
             'httponly' => true, // Accessible only through the HTTP protocol
-            'samesite' => 'Strict' // Protects against CSRF
+            'samesite' => 'Lax' // Lax is required for OAuth cross-site top-level navigation
         ]);
         session_start();
     }

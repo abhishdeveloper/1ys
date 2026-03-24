@@ -31,5 +31,23 @@ class PageController {
         $metaKeywords = "aayu care faq, ayurvedic questions, shipping policies";
         require_once __DIR__ . '/../views/storefront/faq.php';
     }
+
+    public function shipping() {
+        $pageTitle = "Shipping & Returns | AAYU CARE";
+        $metaDescription = "Learn more about our shipping policies and hassle-free return processes.";
+        require_once __DIR__ . '/../views/storefront/shipping.php';
+    }
+
+    public function privacy() {
+        $pageTitle = "Privacy Policy | AAYU CARE";
+        $metaDescription = "AAYU CARE's privacy policy and data usage terms.";
+        require_once __DIR__ . '/../views/storefront/privacy.php';
+    }
+
+    public function terms() {
+        $pageTitle = "Terms of Service | AAYU CARE";
+        $metaDescription = "AAYU CARE's terms and conditions of use.";
+        require_once __DIR__ . '/../views/storefront/terms.php';
+    }
 }
 ?>

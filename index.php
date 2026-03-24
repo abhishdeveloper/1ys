@@ -152,6 +152,24 @@ try {
             $pageCtrl->faq();
             break;
 
+        case 'shipping-returns':
+            require_once __DIR__ . '/core/controllers/PageController.php';
+            $pageCtrl = new PageController();
+            $pageCtrl->shipping();
+            break;
+
+        case 'privacy-policy':
+            require_once __DIR__ . '/core/controllers/PageController.php';
+            $pageCtrl = new PageController();
+            $pageCtrl->privacy();
+            break;
+
+        case 'terms':
+            require_once __DIR__ . '/core/controllers/PageController.php';
+            $pageCtrl = new PageController();
+            $pageCtrl->terms();
+            break;
+
         case 'sitemap.xml':
             require_once __DIR__ . '/sitemap.php';
             break;

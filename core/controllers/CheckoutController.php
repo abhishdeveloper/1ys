@@ -101,11 +101,12 @@ class CheckoutController {
             $_SESSION['razorpay_order_id'] = $order['id'];
             echo json_encode([
                 'success' => true,
-                'key_id' => $settings['razorpay_key_id'],
+                'key_id' => trim($settings['razorpay_key_id']),
                 'order' => $order
             ]);
         } else {
-            echo json_encode(['success' => false, 'message' => 'Failed to create payment order with gateway.']);
+            $errorMessage = $razorpay->lastError ? $razorpay->lastError : 'Failed to create payment order with gateway.';
+            echo json_encode(['success' => false, 'message' => $errorMessage]);
         }
         exit;
     }

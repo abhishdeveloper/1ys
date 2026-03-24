@@ -32,7 +32,7 @@ require_once __DIR__ . '/../partials/header.php';
                             <p class="text-sm text-gray-500">Qty: <?php echo $item['quantity']; ?></p>
                         </div>
                         <div class="text-sm font-medium text-gray-900">
-                            $<?php echo number_format($item['total_price'], 2); ?>
+                            ₹<?php echo number_format($item['total_price'], 2); ?>
                         </div>
                     </li>
                 <?php endforeach; ?>

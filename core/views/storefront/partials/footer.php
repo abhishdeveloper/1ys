@@ -433,7 +433,7 @@
                                     </div>
                                     <div class="ml-4 flex-1">
                                         <div class="text-sm font-semibold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors">${product.name}</div>
-                                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">$${product.price}</div>
+                                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">₹${product.price}</div>
                                     </div>
                                 </div>
                             </a>

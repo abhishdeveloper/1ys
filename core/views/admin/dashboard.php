@@ -47,7 +47,7 @@ require_once __DIR__ . '/partials/header.php';
                         <dl>
                             <dt class="text-sm font-medium text-gray-500 truncate">Total Revenue</dt>
                             <dd>
-                                <div class="text-lg font-medium text-gray-900">$<?php echo number_format($stats['total_revenue'], 2); ?></div>
+                                <div class="text-lg font-medium text-gray-900">₹<?php echo number_format($stats['total_revenue'], 2); ?></div>
                             </dd>
                         </dl>
                     </div>

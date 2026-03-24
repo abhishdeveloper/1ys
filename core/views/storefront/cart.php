@@ -42,7 +42,7 @@ require_once __DIR__ . '/partials/header.php';
                                                 </a>
                                             </h3>
                                         </div>
-                                        <p class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">$<?php echo number_format($product['price'], 2); ?></p>
+                                        <p class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">₹<?php echo number_format($product['price'], 2); ?></p>
                                     </div>
 
                                     <div class="mt-4 sm:mt-0 sm:pr-9">
@@ -101,11 +101,11 @@ require_once __DIR__ . '/partials/header.php';
                     <dl class="mt-6 space-y-4">
                         <div class="flex items-center justify-between">
                             <dt class="text-sm text-gray-600 dark:text-gray-400"><?php echo __('subtotal'); ?></dt>
-                            <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($subtotal, 2); ?></dd>
+                            <dd class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($subtotal, 2); ?></dd>
                         </div>
                         <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
                             <dt class="text-base font-medium text-gray-900 dark:text-white"><?php echo __('total'); ?></dt>
-                            <dd class="text-base font-medium text-gray-900 dark:text-white">$<?php echo number_format($subtotal, 2); ?></dd>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">₹<?php echo number_format($subtotal, 2); ?></dd>
                         </div>
                     </dl>
 

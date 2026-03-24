@@ -33,7 +33,7 @@ require_once __DIR__ . '/partials/header.php';
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Total Amount</dt>
-                    <dd class="mt-1 text-sm text-gray-900 dark:text-white font-medium">$<?php echo number_format($order['total_amount'], 2); ?></dd>
+                    <dd class="mt-1 text-sm text-gray-900 dark:text-white font-medium">₹<?php echo number_format($order['total_amount'], 2); ?></dd>
                 </div>
                 <div>
                     <dt class="text-sm font-medium text-gray-500 dark:text-gray-400">Shipping Address</dt>
@@ -58,7 +58,7 @@ require_once __DIR__ . '/partials/header.php';
                                 </p>
                                 <span class="ml-2 text-sm text-gray-500 dark:text-gray-400">x<?php echo $item['quantity']; ?></span>
                             </div>
-                            <p class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($item['total_price'], 2); ?></p>
+                            <p class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($item['total_price'], 2); ?></p>
                         </li>
                     <?php endforeach; ?>
                 </ul>

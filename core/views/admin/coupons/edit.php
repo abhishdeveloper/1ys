@@ -29,7 +29,7 @@ require_once __DIR__ . '/../partials/header.php';
                     <div class="mt-1">
                         <select id="discount_type" name="discount_type" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
                             <option value="percentage" <?php echo $coupon['discount_type'] == 'percentage' ? 'selected' : ''; ?>>Percentage (%)</option>
-                            <option value="fixed" <?php echo $coupon['discount_type'] == 'fixed' ? 'selected' : ''; ?>>Fixed Amount ($)</option>
+                            <option value="fixed" <?php echo $coupon['discount_type'] == 'fixed' ? 'selected' : ''; ?>>Fixed Amount (₹)</option>
                         </select>
                     </div>
                 </div>
@@ -42,7 +42,7 @@ require_once __DIR__ . '/../partials/header.php';
                 </div>
 
                 <div class="sm:col-span-2">
-                    <label for="min_order_value" class="block text-sm font-medium text-gray-700"> Minimum Order Value ($) </label>
+                    <label for="min_order_value" class="block text-sm font-medium text-gray-700"> Minimum Order Value (₹) </label>
                     <div class="mt-1">
                         <input type="number" step="0.01" name="min_order_value" id="min_order_value" value="<?php echo $coupon['min_order_value']; ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
                     </div>

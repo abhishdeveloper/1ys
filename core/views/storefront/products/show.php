@@ -82,7 +82,7 @@ require_once __DIR__ . '/../partials/header.php';
 
                 <div class="mt-3">
                     <h2 class="sr-only">Product information</h2>
-                    <p class="text-3xl text-gray-900 dark:text-white font-bold">$<?php echo number_format($product['price'], 2); ?></p>
+                    <p class="text-3xl text-gray-900 dark:text-white font-bold">₹<?php echo number_format($product['price'], 2); ?></p>
                 </div>
 
                 <!-- Stock / Weight Info -->

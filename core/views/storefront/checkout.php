@@ -20,7 +20,7 @@ require_once __DIR__ . '/partials/header.php';
                                     <?php echo sanitize($product['name']); ?>
                                 </h3>
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">
-                                    $<?php echo number_format($item['total'], 2); ?>
+                                    ₹<?php echo number_format($item['total'], 2); ?>
                                 </p>
                             </div>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Qty <?php echo $item['quantity']; ?></p>
@@ -32,23 +32,23 @@ require_once __DIR__ . '/partials/header.php';
             <dl class="mt-8 space-y-4 border-t border-gray-200 dark:border-gray-700 pt-6">
                 <div class="flex items-center justify-between">
                     <dt class="text-sm text-gray-600 dark:text-gray-400">Subtotal</dt>
-                    <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($subtotal, 2); ?></dd>
+                    <dd class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($subtotal, 2); ?></dd>
                 </div>
                 <div class="flex items-center justify-between">
                     <dt class="text-sm text-gray-600 dark:text-gray-400">Shipping Estimate</dt>
-                    <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($shipping, 2); ?></dd>
+                    <dd class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($shipping, 2); ?></dd>
                 </div>
                 <?php if (isset($discountAmount) && $discountAmount > 0): ?>
                 <div class="flex items-center justify-between">
                     <dt class="text-sm text-green-600 dark:text-green-400">
                         Discount (<?php echo sanitize($_SESSION['coupon']['code']); ?>)
                     </dt>
-                    <dd class="text-sm font-medium text-green-600 dark:text-green-400">-$<?php echo number_format($discountAmount, 2); ?></dd>
+                    <dd class="text-sm font-medium text-green-600 dark:text-green-400">-₹<?php echo number_format($discountAmount, 2); ?></dd>
                 </div>
                 <?php endif; ?>
                 <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
                     <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                    <dd class="text-base font-bold text-gray-900 dark:text-white">$<?php echo number_format($total, 2); ?></dd>
+                    <dd class="text-base font-bold text-gray-900 dark:text-white">₹<?php echo number_format($total, 2); ?></dd>
                 </div>
             </dl>
         </div>

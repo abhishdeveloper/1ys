@@ -50,7 +50,7 @@ require_once __DIR__ . '/partials/header.php';
                                     <div>
                                         <dt class="font-medium text-gray-900 dark:text-white">Total amount</dt>
                                         <dd class="mt-1 font-medium text-gray-900 dark:text-white">
-                                            $<?php echo number_format($order['total_amount'], 2); ?>
+                                            ₹<?php echo number_format($order['total_amount'], 2); ?>
                                         </dd>
                                     </div>
                                 </dl>

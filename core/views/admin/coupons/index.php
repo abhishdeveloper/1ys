@@ -37,10 +37,10 @@ require_once __DIR__ . '/../partials/header.php';
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <?php
                                 if($c['discount_type'] == 'percentage') echo $c['discount_value'] . '%';
-                                else echo '$' . number_format($c['discount_value'], 2);
+                                else echo '₹' . number_format($c['discount_value'], 2);
                                 ?>
                             </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">$<?php echo number_format($c['min_order_value'], 2); ?></td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₹<?php echo number_format($c['min_order_value'], 2); ?></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <?php echo $c['times_used']; ?> / <?php echo $c['usage_limit'] ?? '∞'; ?>
                             </td>

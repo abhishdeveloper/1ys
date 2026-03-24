@@ -96,7 +96,7 @@ require_once __DIR__ . '/../partials/header.php';
                     <div class="mt-1">
                         <input type="password" name="google_client_secret" id="google_client_secret" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" placeholder="Leave blank to keep current">
                     </div>
-                    <p class="text-xs text-gray-500 mt-1">Callback URL: <?php echo $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/auth/google/callback'; ?></p>
+                    <p class="text-xs text-gray-500 mt-1">Callback URL: <?php echo getBaseUrl() . '/auth/google/callback'; ?></p>
                 </div>
             </div>
         </div>

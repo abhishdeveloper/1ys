@@ -9,10 +9,22 @@ function sanitize($string) {
 }
 
 /**
+ * Get the application's base URL, correctly handling protocol and subdirectory
+ */
+function getBaseUrl() {
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443 || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? "https" : "http";
+    $host = $_SERVER['HTTP_HOST'];
+    $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
+    $basePath = ($scriptDir === '/' || $scriptDir === '\\') ? '' : $scriptDir;
+    return $protocol . '://' . $host . $basePath;
+}
+
+/**
  * Basic routing utility based on URL path
  */
 function redirect($path) {
-    header("Location: /" . ltrim($path, '/'));
+    $basePath = getBaseUrl();
+    header("Location: " . $basePath . '/' . ltrim($path, '/'));
     exit();
 }
 

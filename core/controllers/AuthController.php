@@ -124,7 +124,7 @@ class AuthController {
         }
 
         $clientId = $settings['google_client_id'];
-        $redirectUri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/auth/google/callback';
+        $redirectUri = getBaseUrl() . '/auth/google/callback';
         $scope = 'email profile';
 
         $authUrl = 'https://accounts.google.com/o/oauth2/v2/auth?' . http_build_query([
@@ -161,7 +161,7 @@ class AuthController {
 
         $clientId = $settings['google_client_id'] ?? '';
         $clientSecret = $settings['google_client_secret'] ?? '';
-        $redirectUri = $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . '/auth/google/callback';
+        $redirectUri = getBaseUrl() . '/auth/google/callback';
 
         // Exchange code for token via cURL
         $tokenUrl = 'https://oauth2.googleapis.com/token';

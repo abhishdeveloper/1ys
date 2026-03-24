@@ -31,9 +31,26 @@ class InvoiceController {
             $order = $stmt->fetch();
 
             if ($order) {
-                $stmt = $this->db->prepare("SELECT * FROM order_items WHERE order_id = :order_id");
+                // Fetch items and check seller ownership
+                $stmt = $this->db->prepare("SELECT oi.*, p.seller_id, p.name as product_name FROM order_items oi JOIN products p ON oi.product_id = p.id WHERE oi.order_id = :order_id");
                 $stmt->execute(['order_id' => $orderId]);
-                $order['items'] = $stmt->fetchAll();
+                $items = $stmt->fetchAll();
+
+                if ($role === 'seller') {
+                    $hasItem = false;
+                    foreach ($items as $item) {
+                        if ($item['seller_id'] == $userId) {
+                            $hasItem = true;
+                            break;
+                        }
+                    }
+                    if (!$hasItem) {
+                        http_response_code(403);
+                        die("Access denied to this order's invoice.");
+                    }
+                }
+
+                $order['items'] = $items;
             }
         } else {
             $order = $this->orderModel->findById($orderId, $userId);

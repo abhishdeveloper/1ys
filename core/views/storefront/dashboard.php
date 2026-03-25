@@ -23,15 +23,16 @@ require_once __DIR__ . '/partials/header.php';
                         <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No orders</h3>
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">You haven't placed any orders yet.</p>
                         <div class="mt-6">
-                            <a href="/products" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <a href="/products" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary_hover transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                 Start Shopping
                             </a>
                         </div>
                     </div>
                 <?php else: ?>
+                    <div class="space-y-8">
                     <?php foreach ($orders as $order): ?>
                         <div class="bg-white dark:bg-gray-800 border-t border-b sm:rounded-lg sm:border border-gray-200 dark:border-gray-700 shadow-sm overflow-hidden">
-                            <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6">
+                            <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 sm:p-6 sm:grid sm:grid-cols-4 sm:gap-x-6">
                                 <dl class="grid grid-cols-2 gap-x-6 text-sm sm:col-span-3 sm:grid-cols-3 lg:col-span-2">
                                     <div>
                                         <dt class="font-medium text-gray-900 dark:text-white">Order number</dt>
@@ -78,7 +79,7 @@ require_once __DIR__ . '/partials/header.php';
                             <!-- View Details Link -->
                             <div class="p-4 sm:p-6 bg-white dark:bg-gray-800 flex justify-between items-center flex-wrap gap-4">
                                 <div class="flex items-center space-x-4">
-                                    <a href="/order/success?id=<?php echo $order['id']; ?>" class="text-sm font-medium text-primary hover:text-indigo-500 flex items-center">
+                                    <a href="/order/success?id=<?php echo $order['id']; ?>" class="text-sm font-medium text-primary dark:text-accent hover:text-primary_hover transition-colors flex items-center">
                                         View Receipt
                                         <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                     </a>
@@ -91,13 +92,14 @@ require_once __DIR__ . '/partials/header.php';
                                     <?php endif; ?>
                                 </div>
 
-                                <a href="/order/invoice?id=<?php echo $order['id']; ?>" target="_blank" class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white flex items-center">
+                                <a href="/order/invoice?id=<?php echo $order['id']; ?>" target="_blank" class="text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors flex items-center">
                                     <svg class="mr-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                                     Invoice PDF
                                 </a>
                             </div>
                         </div>
                     <?php endforeach; ?>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>

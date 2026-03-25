@@ -68,17 +68,17 @@ require_once __DIR__ . '/partials/header.php';
         </div>
 
         <!-- Slider Controls -->
-        <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md">
+        <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-40 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md cursor-pointer pointer-events-auto">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
         </button>
-        <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md">
+        <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-40 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md cursor-pointer pointer-events-auto">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
         </button>
 
         <!-- Slider Indicators -->
-        <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3 z-30">
-            <button class="slide-dot w-2.5 h-2.5 rounded-full bg-accent transition-all duration-300 transform scale-125" data-slide="0"></button>
-            <button class="slide-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-accent/50 transition-all duration-300" data-slide="1"></button>
+        <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3 z-40 pointer-events-auto">
+            <button class="slide-dot w-3 h-3 rounded-full bg-accent transition-all duration-300 transform scale-125 cursor-pointer" data-slide="0"></button>
+            <button class="slide-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-accent/50 transition-all duration-300 cursor-pointer" data-slide="1"></button>
         </div>
 
     </div>

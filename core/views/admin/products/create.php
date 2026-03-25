@@ -67,6 +67,14 @@ require_once __DIR__ . '/../partials/header.php';
                     <p class="text-xs text-gray-500 mt-1">JPEG, PNG, GIF, WEBP up to 2MB.</p>
                 </div>
 
+                <div class="sm:col-span-6">
+                    <label for="additional_images" class="block text-sm font-medium text-gray-700"> Additional Images (Gallery) </label>
+                    <div class="mt-1 flex items-center">
+                        <input type="file" id="additional_images" name="additional_images[]" accept="image/*" multiple class="shadow-sm block w-full sm:text-sm border-gray-300 p-2">
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Select multiple images to create a product gallery.</p>
+                </div>
+
             </div>
         </div>
     </div>

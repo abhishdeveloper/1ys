@@ -78,6 +78,36 @@ require_once __DIR__ . '/../partials/header.php';
                 </div>
 
                 <div class="sm:col-span-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2"> Current Additional Images </label>
+                    <?php
+                    $additionalImages = $product['additional_images'] ? json_decode($product['additional_images'], true) : [];
+                    if (!empty($additionalImages)): ?>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+                            <?php foreach ($additionalImages as $idx => $imgUrl): ?>
+                                <div class="relative group">
+                                    <img src="<?php echo sanitize($imgUrl); ?>" class="h-24 w-24 object-cover rounded-md border border-gray-200">
+                                    <div class="absolute top-1 left-1">
+                                        <input type="checkbox" name="remove_additional_images[]" value="<?php echo htmlspecialchars($imgUrl); ?>" id="remove_img_<?php echo $idx; ?>" class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded cursor-pointer">
+                                        <label for="remove_img_<?php echo $idx; ?>" class="sr-only">Remove this image</label>
+                                    </div>
+                                    <div class="mt-1 text-xs text-red-600 font-medium">Check to remove</div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <span class="text-sm text-gray-500 block mb-4">No additional images uploaded.</span>
+                    <?php endif; ?>
+                </div>
+
+                <div class="sm:col-span-6">
+                    <label for="additional_images" class="block text-sm font-medium text-gray-700"> Upload Additional Images </label>
+                    <div class="mt-1 flex items-center">
+                        <input type="file" id="additional_images" name="additional_images[]" accept="image/*" multiple class="shadow-sm block w-full sm:text-sm border-gray-300 p-2">
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Select multiple images to add to the gallery.</p>
+                </div>
+
+                <div class="sm:col-span-6">
                     <div class="flex items-start">
                         <div class="flex h-5 items-center">
                             <input id="is_active" name="is_active" type="checkbox" <?php echo $product['is_active'] ? 'checked' : ''; ?> class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500">

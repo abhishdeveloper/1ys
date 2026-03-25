@@ -44,13 +44,11 @@ class AdminProductController {
             $sellerId = $_SESSION['role'] === 'admin' && isset($_POST['seller_id']) ? (int)$_POST['seller_id'] : $_SESSION['user_id'];
 
             $imageUrl = null;
+            $uploadDir = __DIR__ . '/../../uploads/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
-            // Handle file upload
+            // Handle file upload (main image)
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = __DIR__ . '/../../uploads/';
-                if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
-
-                // Sanitize filename to prevent XSS/Path Traversal
                 $safeFileName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', basename($_FILES['image']['name']));
                 $fileName = time() . '_' . $safeFileName;
                 $targetFile = $uploadDir . $fileName;
@@ -63,8 +61,29 @@ class AdminProductController {
                 }
             }
 
+            // Handle additional images upload
+            $additionalImages = [];
+            if (isset($_FILES['additional_images'])) {
+                $fileCount = count($_FILES['additional_images']['name']);
+                for ($i = 0; $i < $fileCount; $i++) {
+                    if ($_FILES['additional_images']['error'][$i] === UPLOAD_ERR_OK) {
+                        $safeFileName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', basename($_FILES['additional_images']['name'][$i]));
+                        $fileName = time() . '_' . $i . '_' . $safeFileName;
+                        $targetFile = $uploadDir . $fileName;
+
+                        $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+                        if (in_array($fileType, ['jpg', 'jpeg', 'png', 'webp'])) {
+                            if (move_uploaded_file($_FILES['additional_images']['tmp_name'][$i], $targetFile)) {
+                                $additionalImages[] = '/uploads/' . $fileName;
+                            }
+                        }
+                    }
+                }
+            }
+            $additionalImagesJson = !empty($additionalImages) ? json_encode($additionalImages) : null;
+
             try {
-                $stmt = $this->db->prepare("INSERT INTO products (seller_id, category_id, name, slug, description, price, stock_quantity, image_url) VALUES (:seller_id, :category_id, :name, :slug, :description, :price, :stock, :image_url)");
+                $stmt = $this->db->prepare("INSERT INTO products (seller_id, category_id, name, slug, description, price, stock_quantity, image_url, additional_images) VALUES (:seller_id, :category_id, :name, :slug, :description, :price, :stock, :image_url, :additional_images)");
                 $stmt->execute([
                     'seller_id' => $sellerId,
                     'category_id' => $categoryId,
@@ -73,7 +92,8 @@ class AdminProductController {
                     'description' => $description,
                     'price' => $price,
                     'stock' => $stock,
-                    'image_url' => $imageUrl
+                    'image_url' => $imageUrl,
+                    'additional_images' => $additionalImagesJson
                 ]);
                 setFlashMessage('success', 'Product created successfully.');
                 redirect('/admin/products');
@@ -109,11 +129,11 @@ class AdminProductController {
             $isActive = isset($_POST['is_active']) ? 1 : 0;
 
             $imageUrl = $product['image_url'];
+            $uploadDir = __DIR__ . '/../../uploads/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
-            // Handle file upload
+            // Handle main file upload
             if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
-                $uploadDir = __DIR__ . '/../../uploads/';
-                // Sanitize filename to prevent XSS/Path Traversal
                 $safeFileName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', basename($_FILES['image']['name']));
                 $fileName = time() . '_' . $safeFileName;
                 $targetFile = $uploadDir . $fileName;
@@ -126,8 +146,47 @@ class AdminProductController {
                 }
             }
 
+            // Handle additional images append
+            $existingAdditionalImages = $product['additional_images'] ? json_decode($product['additional_images'], true) : [];
+            $newAdditionalImages = [];
+
+            if (isset($_FILES['additional_images'])) {
+                $fileCount = count($_FILES['additional_images']['name']);
+                for ($i = 0; $i < $fileCount; $i++) {
+                    if ($_FILES['additional_images']['error'][$i] === UPLOAD_ERR_OK) {
+                        $safeFileName = preg_replace('/[^a-zA-Z0-9_.-]/', '_', basename($_FILES['additional_images']['name'][$i]));
+                        $fileName = time() . '_' . $i . '_' . $safeFileName;
+                        $targetFile = $uploadDir . $fileName;
+
+                        $fileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+                        if (in_array($fileType, ['jpg', 'jpeg', 'png', 'webp'])) {
+                            if (move_uploaded_file($_FILES['additional_images']['tmp_name'][$i], $targetFile)) {
+                                $newAdditionalImages[] = '/uploads/' . $fileName;
+                            }
+                        }
+                    }
+                }
+            }
+
+            $mergedImages = array_merge($existingAdditionalImages, $newAdditionalImages);
+
+            // Handle optional deletion of existing images
+            if (isset($_POST['remove_additional_images']) && is_array($_POST['remove_additional_images'])) {
+                foreach ($_POST['remove_additional_images'] as $imgToRemove) {
+                    $key = array_search($imgToRemove, $mergedImages);
+                    if ($key !== false) {
+                        unset($mergedImages[$key]);
+                        // Optional: unlink file from disk
+                        // @unlink(__DIR__ . '/../..' . $imgToRemove);
+                    }
+                }
+            }
+
+            $mergedImages = array_values($mergedImages); // reset keys
+            $additionalImagesJson = !empty($mergedImages) ? json_encode($mergedImages) : null;
+
             try {
-                $stmt = $this->db->prepare("UPDATE products SET category_id = :cat, name = :name, description = :desc, price = :price, stock_quantity = :stock, is_active = :active, image_url = :img WHERE id = :id");
+                $stmt = $this->db->prepare("UPDATE products SET category_id = :cat, name = :name, description = :desc, price = :price, stock_quantity = :stock, is_active = :active, image_url = :img, additional_images = :additional_images WHERE id = :id");
                 $stmt->execute([
                     'cat' => $categoryId,
                     'name' => $name,
@@ -136,6 +195,7 @@ class AdminProductController {
                     'stock' => $stock,
                     'active' => $isActive,
                     'img' => $imageUrl,
+                    'additional_images' => $additionalImagesJson,
                     'id' => $id
                 ]);
                 setFlashMessage('success', 'Product updated successfully.');

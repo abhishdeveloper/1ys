@@ -58,21 +58,41 @@ require_once __DIR__ . '/../partials/header.php';
 
             <!-- Product Gallery -->
             <div class="flex flex-col-reverse">
-                <!-- Image selector (Mocked for single image but structured for gallery) -->
+                <?php
+                $mainImage = sanitize($product['image_url'] ?? '/assets/images/placeholder.svg');
+                $galleryImages = [];
+                if (!empty($product['additional_images'])) {
+                    $decoded = json_decode($product['additional_images'], true);
+                    if (is_array($decoded)) {
+                        $galleryImages = $decoded;
+                    }
+                }
+
+                // Add main image to the beginning of the gallery array if there are additional images
+                if (!empty($galleryImages) && !empty($product['image_url'])) {
+                    array_unshift($galleryImages, $product['image_url']);
+                }
+                ?>
+
+                <!-- Image selector -->
+                <?php if (!empty($galleryImages)): ?>
                 <div class="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
                     <div class="grid grid-cols-4 gap-6" aria-orientation="horizontal" role="tablist">
-                        <button id="tabs-1-tab-1" class="relative h-24 bg-white dark:bg-gray-700 rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4" aria-controls="tabs-1-panel-1" role="tab" type="button">
-                            <span class="sr-only">Product image</span>
+                        <?php foreach($galleryImages as $index => $img): ?>
+                        <button class="gallery-thumbnail relative h-24 bg-white dark:bg-gray-700 rounded-md flex items-center justify-center text-sm font-medium uppercase text-gray-900 cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring focus:ring-opacity-50 focus:ring-offset-4" role="tab" type="button" data-image="<?php echo sanitize($img); ?>">
+                            <span class="sr-only">Product image <?php echo $index + 1; ?></span>
                             <span class="absolute inset-0 rounded-md overflow-hidden">
-                                <img src="<?php echo sanitize($product['image_url'] ?? '/assets/images/placeholder.svg'); ?>" alt="" class="w-full h-full object-center object-cover">
+                                <img src="<?php echo sanitize($img); ?>" alt="" class="w-full h-full object-center object-cover">
                             </span>
                             <span class="ring-transparent absolute inset-0 rounded-md ring-2 ring-offset-2 pointer-events-none" aria-hidden="true"></span>
                         </button>
+                        <?php endforeach; ?>
                     </div>
                 </div>
+                <?php endif; ?>
 
-                <div class="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
-                    <img src="<?php echo sanitize($product['image_url'] ?? '/assets/images/placeholder.svg'); ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover">
+                <div class="w-full aspect-w-1 aspect-h-1 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm relative">
+                    <img id="main-product-image" src="<?php echo $mainImage; ?>" alt="<?php echo sanitize($product['name']); ?>" class="w-full h-full object-center object-cover transition-opacity duration-300">
                 </div>
             </div>
 
@@ -176,5 +196,26 @@ require_once __DIR__ . '/../partials/header.php';
     </div>
 </div>
 <?php endif; ?>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const thumbnails = document.querySelectorAll('.gallery-thumbnail');
+    const mainImage = document.getElementById('main-product-image');
+
+    if (thumbnails.length > 0 && mainImage) {
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', () => {
+                const newSrc = thumb.getAttribute('data-image');
+                // Optional: add a tiny fade effect
+                mainImage.style.opacity = 0.5;
+                setTimeout(() => {
+                    mainImage.src = newSrc;
+                    mainImage.style.opacity = 1;
+                }, 150);
+            });
+        });
+    }
+});
+</script>
 
 <?php require_once __DIR__ . '/../partials/footer.php'; ?>

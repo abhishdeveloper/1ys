@@ -41,7 +41,7 @@ require_once __DIR__ . '/../partials/header.php';
                                 </div>
                             </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo sanitize($p['category_name']); ?></td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₹<?php echo number_format($p['price'], 2); ?></td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">$<?php echo number_format($p['price'], 2); ?></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo $p['stock_quantity']; ?></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <?php if($p['is_active']): ?>

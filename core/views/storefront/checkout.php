@@ -20,7 +20,7 @@ require_once __DIR__ . '/partials/header.php';
                                     <?php echo sanitize($product['name']); ?>
                                 </h3>
                                 <p class="text-sm font-medium text-gray-900 dark:text-white">
-                                    ₹<?php echo number_format($item['total'], 2); ?>
+                                    $<?php echo number_format($item['total'], 2); ?>
                                 </p>
                             </div>
                             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Qty <?php echo $item['quantity']; ?></p>
@@ -32,23 +32,23 @@ require_once __DIR__ . '/partials/header.php';
             <dl class="mt-8 space-y-4 border-t border-gray-200 dark:border-gray-700 pt-6">
                 <div class="flex items-center justify-between">
                     <dt class="text-sm text-gray-600 dark:text-gray-400">Subtotal</dt>
-                    <dd class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($subtotal, 2); ?></dd>
+                    <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($subtotal, 2); ?></dd>
                 </div>
                 <div class="flex items-center justify-between">
                     <dt class="text-sm text-gray-600 dark:text-gray-400">Shipping Estimate</dt>
-                    <dd class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($shipping, 2); ?></dd>
+                    <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($shipping, 2); ?></dd>
                 </div>
                 <?php if (isset($discountAmount) && $discountAmount > 0): ?>
                 <div class="flex items-center justify-between">
                     <dt class="text-sm text-green-600 dark:text-green-400">
                         Discount (<?php echo sanitize($_SESSION['coupon']['code']); ?>)
                     </dt>
-                    <dd class="text-sm font-medium text-green-600 dark:text-green-400">-₹<?php echo number_format($discountAmount, 2); ?></dd>
+                    <dd class="text-sm font-medium text-green-600 dark:text-green-400">-$<?php echo number_format($discountAmount, 2); ?></dd>
                 </div>
                 <?php endif; ?>
                 <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
                     <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
-                    <dd class="text-base font-bold text-gray-900 dark:text-white">₹<?php echo number_format($total, 2); ?></dd>
+                    <dd class="text-base font-bold text-gray-900 dark:text-white">$<?php echo number_format($total, 2); ?></dd>
                 </div>
             </dl>
         </div>
@@ -88,12 +88,7 @@ require_once __DIR__ . '/partials/header.php';
                 <?php endif; ?>
             </div>
 
-            <form id="checkout-form" action="/checkout/process" method="POST" class="space-y-8">
-                <!-- Hidden inputs for Razorpay payload -->
-                <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
-                <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
-                <input type="hidden" name="razorpay_signature" id="razorpay_signature">
-
+            <form action="/checkout/process" method="POST" class="space-y-8">
                 <!-- Shipping Details -->
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                     <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Shipping Information</h2>
@@ -101,25 +96,19 @@ require_once __DIR__ . '/partials/header.php';
                         <div class="sm:col-span-2">
                             <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Street Address</label>
                             <input type="text" id="address" name="address" required
-                                class="mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                         </div>
 
                         <div>
                             <label for="city" class="block text-sm font-medium text-gray-700 dark:text-gray-300">City</label>
                             <input type="text" id="city" name="city" required
-                                class="mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                         </div>
 
                         <div>
-                            <label for="state" class="block text-sm font-medium text-gray-700 dark:text-gray-300">State</label>
-                            <input type="text" id="state" name="state" required
-                                class="mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
-                        </div>
-
-                        <div>
-                            <label for="zip" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Pincode / ZIP</label>
+                            <label for="zip" class="block text-sm font-medium text-gray-700 dark:text-gray-300">ZIP / Postal Code</label>
                             <input type="text" id="zip" name="zip" required
-                                class="mt-1 block w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
+                                class="mt-1 block w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm">
                         </div>
                     </div>
                 </div>

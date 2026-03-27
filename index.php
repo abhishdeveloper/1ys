@@ -145,29 +145,16 @@ try {
             $pageCtrl = new PageController();
             $pageCtrl->contact();
             break;
+    case '3rd-party-manufacturing':
+        require_once __DIR__ . '/core/controllers/PageController.php';
+        $controller = new PageController();
+        $controller->manufacturing();
+        break;
 
         case 'faq':
             require_once __DIR__ . '/core/controllers/PageController.php';
             $pageCtrl = new PageController();
             $pageCtrl->faq();
-            break;
-
-        case 'shipping-returns':
-            require_once __DIR__ . '/core/controllers/PageController.php';
-            $pageCtrl = new PageController();
-            $pageCtrl->shipping();
-            break;
-
-        case 'privacy-policy':
-            require_once __DIR__ . '/core/controllers/PageController.php';
-            $pageCtrl = new PageController();
-            $pageCtrl->privacy();
-            break;
-
-        case 'terms':
-            require_once __DIR__ . '/core/controllers/PageController.php';
-            $pageCtrl = new PageController();
-            $pageCtrl->terms();
             break;
 
         case 'sitemap.xml':
@@ -178,32 +165,11 @@ try {
             require_once __DIR__ . '/core/controllers/lang.php';
             break;
 
-        case 'forgot-password':
-            require_once __DIR__ . '/core/models/User.php';
-            require_once __DIR__ . '/core/controllers/AuthController.php';
-            $auth = new AuthController($db);
-            $auth->forgotPassword();
-            break;
-
         case 'login':
             require_once __DIR__ . '/core/models/User.php';
             require_once __DIR__ . '/core/controllers/AuthController.php';
             $auth = new AuthController($db);
             $auth->login();
-            break;
-
-        case 'auth/google':
-            require_once __DIR__ . '/core/models/User.php';
-            require_once __DIR__ . '/core/controllers/AuthController.php';
-            $auth = new AuthController($db);
-            $auth->google();
-            break;
-
-        case 'auth/google/callback':
-            require_once __DIR__ . '/core/models/User.php';
-            require_once __DIR__ . '/core/controllers/AuthController.php';
-            $auth = new AuthController($db);
-            $auth->googleCallback();
             break;
 
         case 'register':
@@ -278,13 +244,6 @@ try {
             $adminOrderCtrl->show($id);
             break;
 
-        case 'admin/orders/label':
-            require_once __DIR__ . '/core/controllers/AdminOrderController.php';
-            $adminOrderCtrl = new AdminOrderController($db);
-            $id = (int)($_GET['id'] ?? 0);
-            $adminOrderCtrl->printLabel($id);
-            break;
-
         case 'admin/categories':
             require_once __DIR__ . '/core/controllers/AdminCategoryController.php';
             $adminCatCtrl = new AdminCategoryController($db);
@@ -338,19 +297,9 @@ try {
 
 
         default:
-            // Dynamic routing for categories and products and specific admin actions
+            // Dynamic routing for categories and products
             // Expected format: /category/slug or /product/slug
             $routeParts = explode('/', $route);
-
-            // Check for /admin/orders/{id}/label
-            if (count($routeParts) == 4 && $routeParts[0] === 'admin' && $routeParts[1] === 'orders' && $routeParts[3] === 'label') {
-                require_once __DIR__ . '/core/controllers/AdminOrderController.php';
-                $adminOrderCtrl = new AdminOrderController($db);
-                $id = (int)$routeParts[2];
-                $adminOrderCtrl->printLabel($id);
-                break;
-            }
-
             if (count($routeParts) == 2) {
                 require_once __DIR__ . '/core/controllers/ProductController.php';
                 $productCtrl = new ProductController($db);

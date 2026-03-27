@@ -18,7 +18,6 @@ require_once __DIR__ . '/../partials/header.php';
                         <tr>
                             <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Order Number</th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Customer</th>
-                            <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Mobile No</th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Date</th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Total</th>
                             <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
@@ -30,9 +29,8 @@ require_once __DIR__ . '/../partials/header.php';
                         <tr>
                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">#<?php echo sanitize($o['order_number']); ?></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo sanitize($o['customer_name']); ?></td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo sanitize($o['customer_phone'] ?? 'N/A'); ?></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><?php echo date('M j, Y', strtotime($o['created_at'])); ?></td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">₹<?php echo number_format($o['total_amount'], 2); ?></td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">$<?php echo number_format($o['total_amount'], 2); ?></td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
                                 <span class="inline-flex rounded-full bg-blue-100 px-2 text-xs font-semibold leading-5 text-blue-800">
                                     <?php echo ucfirst(sanitize($o['order_status'])); ?>

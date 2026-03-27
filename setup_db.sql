@@ -34,9 +34,5 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('smtp_from_email', 'noreply@aayucare.com'),
 ('smtp_from_name', 'Aayu Care'),
 ('shiprocket_email', ''),
-('shiprocket_password', ''),
-('razorpay_key_id', ''),
-('razorpay_key_secret', ''),
-('google_client_id', ''),
-('google_client_secret', '')
+('shiprocket_password', '')
 ON DUPLICATE KEY UPDATE `setting_value`=VALUES(`setting_value`);

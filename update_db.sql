@@ -8,6 +8,3 @@ CREATE TABLE IF NOT EXISTS `page_views` (
   INDEX `idx_page_url` (`page_url`),
   INDEX `idx_created_at` (`created_at`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('google_client_id', '');
-INSERT IGNORE INTO settings (setting_key, setting_value) VALUES ('google_client_secret', '');
-ALTER TABLE products ADD COLUMN additional_images TEXT NULL AFTER image_url;

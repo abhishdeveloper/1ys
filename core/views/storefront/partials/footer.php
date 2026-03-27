@@ -18,15 +18,15 @@
                     <span class="font-serif font-bold text-2xl tracking-widest text-accent uppercase">Aayu Care</span>
                 </a>
                 <p class="text-sm text-gray-300 leading-relaxed font-light">
-                    <?php echo __('footer_desc'); ?>
+                    Luxurious Ayurvedic manufacturing & remedies. Crafting nature's profound healing secrets with modern elegance.
                 </p>
                 <div class="flex space-x-5 pt-2">
                     <!-- Social Links -->
-                    <a href="https://facebook.com/aayucare" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors">
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors">
                         <span class="sr-only">Facebook</span>
                         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
                     </a>
-                    <a href="https://instagram.com/aayucare" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-colors">
+                    <a href="#" class="text-gray-400 hover:text-accent transition-colors">
                         <span class="sr-only">Instagram</span>
                         <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" /></svg>
                     </a>
@@ -35,50 +35,56 @@
 
             <!-- Quick Links -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('the_collections'); ?></h3>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">The Collections</h3>
                 <ul class="space-y-3">
-                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shop_all'); ?></a></li>
-                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('explore_categories'); ?></a></li>
-                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('common_questions'); ?></a></li>
-                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('get_in_touch'); ?></a></li>
+                    <li><a href="/products" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shop All Products</a></li>
+                    <li><a href="/categories" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Explore Categories</a></li>
+                    <li><a href="/3rd-party-manufacturing" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('3rd_party_manufacturing'); ?></a></li>
+                    <li><a href="/faq" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Common Questions</a></li>
+                    <li><a href="/contact" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Get in Touch</a></li>
                 </ul>
             </div>
 
             <!-- Customer Service -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('client_services'); ?></h3>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Client Services</h3>
                 <ul class="space-y-3">
                     <?php if(isset($_SESSION['user_id'])): ?>
-                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('my_account'); ?></a></li>
-                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('order_history'); ?></a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">My Account</a></li>
+                        <li><a href="/dashboard" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Order History</a></li>
                     <?php else: ?>
-                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('sign_in_register'); ?></a></li>
+                        <li><a href="/login" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Sign In / Register</a></li>
                     <?php endif; ?>
-                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shopping_bag'); ?></a></li>
-                    <li><a href="/shipping-returns" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light"><?php echo __('shipping_returns'); ?></a></li>
+                    <li><a href="/cart" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shopping Bag</a></li>
+                    <li><a href="#" class="text-sm text-gray-300 hover:text-white hover:underline transition-all font-light">Shipping & Returns</a></li>
                     <li><a href="/login" class="text-sm text-accent hover:text-white hover:underline transition-all font-medium mt-2 block">Admin Login</a></li>
                 </ul>
             </div>
 
             <!-- Newsletter -->
             <div>
-                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block"><?php echo __('join_club'); ?></h3>
-                <p class="text-sm text-gray-300 mb-6 font-light"><?php echo __('join_club_desc'); ?></p>
-                <form class="flex flex-col gap-3" action="javascript:void(0);" method="POST">
-                    <input type="email" placeholder="<?php echo __('email_address'); ?>" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
-                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2"><?php echo __('subscribe_now'); ?></button>
+                <h3 class="text-sm font-serif text-accent uppercase tracking-widest mb-6 pb-2 inline-block">Join The Club</h3>
+                <p class="text-sm text-gray-300 mb-6 font-light">Subscribe to receive exclusive offers, luxurious skincare tips, and early access to new collections.</p>
+                <form class="flex flex-col gap-3" action="#" method="POST">
+                    <input type="email" placeholder="Email Address" required class="w-full bg-transparent border-b border-gray-500 text-white py-2 px-1 text-sm focus:outline-none focus:border-accent transition-colors placeholder-gray-500 font-light">
+                    <button type="button" onclick="alert('Thank you for subscribing to AAYU CARE!')" class="text-left text-xs font-bold text-accent uppercase tracking-widest hover:text-white transition-colors mt-2">Subscribe Now</button>
                 </form>
             </div>
         </div>
 
         <div class="mt-16 border-t border-gray-700/50 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p class="text-xs text-gray-500 tracking-wider mb-4 md:mb-0">
-                &copy; <?php echo date('Y'); ?> AAYU CARE. <?php echo __('all_rights_reserved'); ?>
+                &copy; <?php echo date('Y'); ?> AAYU CARE. ALL RIGHTS RESERVED.
             </p>
-            <div class="flex space-x-6">
-                <a href="/privacy-policy" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors"><?php echo __('privacy_policy'); ?></a>
+            <div class="flex space-x-4 items-center">
+                <?php $currentLang = $_SESSION['lang'] ?? 'en'; ?>
+                <a href="/lang?lang=<?php echo $currentLang === 'en' ? 'hi' : 'en'; ?>" class="text-xs font-semibold text-accent hover:text-white tracking-wider transition-colors">
+                    <?php echo __('switch_lang'); ?>
+                </a>
                 <span class="text-gray-700">|</span>
-                <a href="/terms" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors"><?php echo __('terms'); ?></a>
+                <a href="/privacy-policy" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">PRIVACY POLICY</a>
+                <span class="text-gray-700">|</span>
+                <a href="/terms" class="text-xs text-gray-500 hover:text-accent tracking-wider transition-colors">TERMS OF SERVICE</a>
             </div>
         </div>
     </div>
@@ -93,22 +99,22 @@
 <div class="sm:hidden fixed bottom-0 w-full bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 px-6 py-3 flex justify-between items-center pb-safe">
     <a href="/" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('home'); ?></span>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
     </a>
     <a href="/categories" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('shop'); ?></span>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Shop</span>
     </a>
     <a href="/cart" class="relative flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('cart'); ?></span>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Cart</span>
         <?php if ($cartCount > 0): ?>
             <span class="absolute top-0 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-[8px] font-bold leading-none text-white transform translate-x-1/4 -translate-y-1/4 bg-accent rounded-full"><?php echo $cartCount > 99 ? '99+' : $cartCount; ?></span>
         <?php endif; ?>
     </a>
     <a href="<?php echo isset($_SESSION['user_id']) ? '/dashboard' : '/login'; ?>" class="flex flex-col items-center text-gray-500 hover:text-accent dark:text-gray-400 dark:hover:text-accent transition-colors">
         <svg class="w-6 h-6 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-        <span class="text-[10px] font-medium tracking-wide uppercase"><?php echo __('my_account'); ?></span>
+        <span class="text-[10px] font-medium tracking-wide uppercase">Account</span>
     </a>
 </div>
 
@@ -121,63 +127,14 @@
 
 <!-- Floating WhatsApp Button -->
 <a href="https://wa.me/<?php echo $settings['contact_whatsapp'] ?? '919876543210'; ?>" target="_blank" class="fixed bottom-32 left-6 sm:bottom-6 sm:left-6 z-[60] bg-[#25D366] text-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1 flex items-center justify-center" aria-label="Chat on WhatsApp">
-    <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12.012 2C6.496 2 2 6.496 2 12.013c0 1.76.459 3.486 1.332 5l-1.317 4.8 4.912-1.293A9.957 9.957 0 0012.012 22c5.514 22 10-4.496 10-10.013S17.528 2 12.012 2zm5.556 14.494c-.234.662-1.348 1.263-1.87 1.328-.5.062-1.144.15-3.664-.894-3.046-1.26-5.01-4.38-5.163-4.584-.156-.206-1.233-1.642-1.233-3.13 0-1.488.777-2.235 1.054-2.527.276-.29.6-.363.8-.363.197 0 .393 0 .567.008.204.01.478-.078.747.57.283.682.966 2.36.105 2.569.09.21.144.342-.036.683-.178.34-.268.55-.53.844-.266.295-.55.626-.788.887-.26.287-.534.602-.236 1.066.296.46 1.316 2.126 2.784 3.435 1.9 1.697 3.522 2.23 4.013 2.477.49.247.78.193 1.071-.144.29-.336 1.258-1.455 1.595-1.954.337-.497.674-.413 1.118-.246.492.167 3.125 1.47 3.662 1.737.537.268.895.4 1.026.621.13.22.13 1.277-.104 1.94z"/>
+    <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.888-.788-1.489-1.761-1.663-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01a1.08 1.08 0 00-.792.372c-.297.322-1.139 1.115-1.139 2.716s1.164 3.146 1.327 3.369c.163.223 2.296 3.504 5.56 4.908 2.128.917 2.911 1.002 3.966.839 1.206-.188 3.708-1.516 4.228-2.979.52-1.462.52-2.716.366-2.979-.153-.263-.57-.411-.867-.56zM11.996 22C6.483 22 2 17.517 2 12S6.483 2 11.996 2s10.004 4.483 10.004 10-4.49 10-10.004 10z"></path>
     </svg>
 </a>
 
 
 <!-- Global Scripts -->
 <script>
-    // ----- Typewriter Banner Logic -----
-    const messages = [
-        "<?php echo sanitize($settings['promo_banner_1'] ?? 'FREE SHIPPING ON ORDERS OVER $50'); ?>",
-        "<?php echo sanitize($settings['promo_banner_2'] ?? 'NEW ARRIVALS - SHOP NOW'); ?>",
-        "<?php echo sanitize($settings['promo_banner_3'] ?? 'USE CODE WELCOME10 FOR 10% OFF'); ?>"
-    ].filter(msg => msg.trim() !== ''); // Remove empty messages
-
-    if (messages.length > 0) {
-        let msgIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typingDelay = 100;
-        let erasingDelay = 50;
-        let newTextDelay = 2000;
-        const typewriterElement = document.getElementById('typewriter-text');
-
-        function type() {
-            if (!typewriterElement) return;
-
-            const currentMsg = messages[msgIndex];
-
-            if (isDeleting) {
-                typewriterElement.textContent = currentMsg.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typewriterElement.textContent = currentMsg.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let typeSpeed = isDeleting ? erasingDelay : typingDelay;
-
-            if (!isDeleting && charIndex === currentMsg.length) {
-                typeSpeed = newTextDelay;
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                msgIndex++;
-                if (msgIndex >= messages.length) {
-                    msgIndex = 0;
-                }
-                typeSpeed = 500;
-            }
-
-            setTimeout(type, typeSpeed);
-        }
-
-        if (messages.length) setTimeout(type, newTextDelay + 250);
-    }
-
     // ----- Hero Slider Logic -----
     document.addEventListener('DOMContentLoaded', () => {
         const slides = document.querySelectorAll('.hero-slide');
@@ -433,7 +390,7 @@
                                     </div>
                                     <div class="ml-4 flex-1">
                                         <div class="text-sm font-semibold text-gray-900 dark:text-white truncate group-hover:text-primary transition-colors">${product.name}</div>
-                                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">₹${product.price}</div>
+                                        <div class="text-sm font-medium text-gray-500 dark:text-gray-400">$${product.price}</div>
                                     </div>
                                 </div>
                             </a>
@@ -442,14 +399,14 @@
                 });
                 html += '</ul>';
                 // Add a "view all" link
-                html += `<div class="p-3 bg-gray-50 dark:bg-gray-750 text-center border-t border-gray-100 dark:border-gray-700 rounded-b-xl"><a href="/search?q=${encodeURIComponent(query)}" class="text-sm font-medium text-primary hover:text-primary_hover"><?php echo __('view_all_products'); ?> &rarr;</a></div>`;
+                html += `<div class="p-3 bg-gray-50 dark:bg-gray-750 text-center border-t border-gray-100 dark:border-gray-700 rounded-b-xl"><a href="/search?q=${encodeURIComponent(query)}" class="text-sm font-medium text-primary hover:text-primary_hover">View all results &rarr;</a></div>`;
 
                 resultsContainer.innerHTML = html;
             } else {
                 resultsContainer.innerHTML = `
                     <div class="p-8 text-center">
                         <svg class="mx-auto h-8 w-8 text-gray-300 mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                        <p class="text-sm font-medium text-gray-900 dark:text-white"><?php echo __('no_products'); ?></p>
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">No products found.</p>
                         <p class="text-xs text-gray-500 mt-1">Try adjusting your search terms.</p>
                     </div>`;
             }

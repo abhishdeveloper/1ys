@@ -10,8 +10,7 @@ class Shiprocket {
     public function __construct() {
         // Fetch Shiprocket credentials from DB
         try {
-            require_once __DIR__ . '/functions.php';
-            $db = getDB();
+            $db = new PDO('mysql:host=localhost;dbname=shopswift', 'root', '');
             $stmt = $db->query("SELECT setting_key, setting_value FROM settings WHERE setting_key IN ('shiprocket_email', 'shiprocket_password')");
             $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 

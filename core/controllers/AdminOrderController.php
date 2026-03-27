@@ -19,7 +19,7 @@ class AdminOrderController {
 
         if ($role === 'admin') {
             $stmt = $this->db->query("
-                SELECT o.*, u.name as customer_name, u.phone as customer_phone
+                SELECT o.*, u.name as customer_name
                 FROM orders o
                 JOIN users u ON o.user_id = u.id
                 ORDER BY o.created_at DESC
@@ -28,7 +28,7 @@ class AdminOrderController {
         } else {
             // Seller sees orders that contain at least one of their products
             $stmt = $this->db->prepare("
-                SELECT DISTINCT o.*, u.name as customer_name, u.phone as customer_phone
+                SELECT DISTINCT o.*, u.name as customer_name
                 FROM orders o
                 JOIN users u ON o.user_id = u.id
                 JOIN order_items oi ON o.id = oi.order_id
@@ -50,7 +50,7 @@ class AdminOrderController {
 
         // Fetch Order
         $stmt = $this->db->prepare("
-            SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone
+            SELECT o.*, u.name as customer_name, u.email as customer_email
             FROM orders o
             JOIN users u ON o.user_id = u.id
             WHERE o.id = :id
@@ -137,55 +137,6 @@ class AdminOrderController {
 
         $pageTitle = "Order Details | Admin Panel";
         require_once __DIR__ . '/../views/admin/orders/show.php';
-    }
-
-    public function printLabel($id) {
-        $role = $_SESSION['role'];
-        $userId = $_SESSION['user_id'];
-
-        // Fetch Order
-        $stmt = $this->db->prepare("
-            SELECT o.*, u.name as customer_name, u.email as customer_email, u.phone as customer_phone
-            FROM orders o
-            JOIN users u ON o.user_id = u.id
-            WHERE o.id = :id
-        ");
-        $stmt->execute(['id' => $id]);
-        $order = $stmt->fetch();
-
-        if (!$order) {
-            setFlashMessage('error', 'Order not found.');
-            redirect('/admin/orders');
-        }
-
-        // Fetch Items
-        $stmt = $this->db->prepare("
-            SELECT oi.*, p.seller_id, p.name as product_name
-            FROM order_items oi
-            JOIN products p ON oi.product_id = p.id
-            WHERE oi.order_id = :order_id
-        ");
-        $stmt->execute(['order_id' => $id]);
-        $items = $stmt->fetchAll();
-
-        // Security check for sellers
-        if ($role === 'seller') {
-            $hasItem = false;
-            foreach ($items as $item) {
-                if ($item['seller_id'] == $userId) {
-                    $hasItem = true;
-                    break;
-                }
-            }
-            if (!$hasItem) {
-                setFlashMessage('error', 'Access denied to this order.');
-                redirect('/admin/orders');
-            }
-        }
-
-        // Pass to LabelGenerator
-        require_once __DIR__ . '/../helpers/LabelGenerator.php';
-        LabelGenerator::generate($order, $items);
     }
 }
 ?>

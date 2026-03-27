@@ -384,10 +384,11 @@ $navClasses = $isHome
         </form>
     </div>
 
-    <nav class="flex flex-col space-y-6 items-center flex-1">
+    <nav class="flex flex-col space-y-6 items-center flex-1 pb-safe">
         <a href="/" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('home'); ?></a>
         <a href="/products" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('shop'); ?></a>
         <a href="/categories" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('categories'); ?></a>
+        <a href="/3rd-party-manufacturing" class="text-2xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors text-center"><?php echo __('3rd_party_manufacturing'); ?></a>
 
         <div class="h-px w-16 bg-white/20 my-4"></div>
 
@@ -401,11 +402,10 @@ $navClasses = $isHome
             <a href="/login" class="text-xl font-light text-white hover:text-accent uppercase tracking-[0.2em] transition-colors"><?php echo __('login'); ?></a>
         <?php endif; ?>
 
-        <!-- Language Switch in Mobile -->
-        <a href="/lang?lang=<?php echo $currentLang === 'en' ? 'hi' : 'en'; ?>"
-           class="mt-auto mb-8 text-sm text-gray-400 hover:text-white uppercase tracking-[0.2em] transition-colors">
-           <?php echo __('switch_lang'); ?>
-        </a>
+        <div class="flex-grow"></div>
+
+        <!-- Site Logo at bottom of mobile menu -->
+        <img class="h-16 w-auto filter brightness-0 invert mt-auto mb-16 opacity-70" src="<?php echo sanitize($settings['site_logo'] ?? 'https://myaayucare.com/wp-content/uploads/2025/02/logoaayucare-2.png'); ?>" alt="Logo">
     </nav>
 </div>
 

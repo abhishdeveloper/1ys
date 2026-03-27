@@ -98,15 +98,13 @@ class CheckoutController {
         $order = $razorpay->createOrder($total, 'INR', 'order_rcptid_' . $_SESSION['user_id'] . '_' . time());
 
         if ($order) {
-            $_SESSION['razorpay_order_id'] = $order['id'];
             echo json_encode([
                 'success' => true,
-                'key_id' => trim($settings['razorpay_key_id']),
+                'key_id' => $settings['razorpay_key_id'],
                 'order' => $order
             ]);
         } else {
-            $errorMessage = $razorpay->lastError ? $razorpay->lastError : 'Failed to create payment order with gateway.';
-            echo json_encode(['success' => false, 'message' => $errorMessage]);
+            echo json_encode(['success' => false, 'message' => 'Failed to create payment order with gateway.']);
         }
         exit;
     }
@@ -118,15 +116,14 @@ class CheckoutController {
 
         $address = sanitize($_POST['address'] ?? '');
         $city = sanitize($_POST['city'] ?? '');
-        $state = sanitize($_POST['state'] ?? '');
         $zip = sanitize($_POST['zip'] ?? '');
 
-        if (empty($address) || empty($city) || empty($state) || empty($zip)) {
+        if (empty($address) || empty($city) || empty($zip)) {
             setFlashMessage('error', 'Please complete all shipping address fields.');
             redirect('/checkout');
         }
 
-        $fullAddress = "$address, $city, $state, $zip";
+        $fullAddress = "$address, $city, $zip";
         $cartItems = $this->getCartDetails();
         $subtotal = array_sum(array_column($cartItems, 'total'));
         $shipping = 10.00;
@@ -160,12 +157,6 @@ class CheckoutController {
             redirect('/checkout');
         }
 
-        // Verify order ID against session to prevent tampering
-        if (!isset($_SESSION['razorpay_order_id']) || $_SESSION['razorpay_order_id'] !== $razorpayOrderId) {
-            setFlashMessage('error', 'Payment verification failed: Invalid session.');
-            redirect('/checkout');
-        }
-
         $stmt = $this->db->prepare("SELECT setting_value FROM settings WHERE setting_key = 'razorpay_key_secret'");
         $stmt->execute();
         $keySecret = $stmt->fetchColumn();
@@ -177,9 +168,6 @@ class CheckoutController {
             setFlashMessage('error', 'Payment verification failed: Invalid signature.');
             redirect('/checkout');
         }
-
-        // Clear the order ID from session after successful verification
-        unset($_SESSION['razorpay_order_id']);
 
         $orderData = [
             'total_amount' => $total,
@@ -211,8 +199,6 @@ class CheckoutController {
             $user = $stmt->fetch();
 
             if ($user && $createdOrder) {
-                $createdOrder['customer_name'] = $user['name'];
-                $createdOrder['customer_email'] = $user['email'];
                 $mailer->sendOrderConfirmationEmail($user['email'], $user['name'], $createdOrder);
             }
 

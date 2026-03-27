@@ -4,11 +4,10 @@ class RazorpayHelper {
     private $keyId;
     private $keySecret;
     private $baseUrl = 'https://api.razorpay.com/v1';
-    public $lastError = null;
 
     public function __construct($keyId, $keySecret) {
-        $this->keyId = trim($keyId);
-        $this->keySecret = trim($keySecret);
+        $this->keyId = $keyId;
+        $this->keySecret = $keySecret;
     }
 
     /**
@@ -22,11 +21,6 @@ class RazorpayHelper {
         $url = $this->baseUrl . '/orders';
 
         // Razorpay expects amount in subunits (e.g. paise for INR, cents for USD)
-        // Minimum amount for INR is ₹1.00 (100 paise)
-        if ($amount < 1.00 && strtoupper($currency) === 'INR') {
-            $amount = 1.00;
-        }
-
         $amountInSubunits = (int)round($amount * 100);
 
         $data = [
@@ -60,15 +54,11 @@ class RazorpayHelper {
      * Helper to make cURL requests to Razorpay
      */
     private function makeRequest($method, $url, $data = null) {
-        $this->lastError = null;
         $ch = curl_init();
 
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_USERPWD, $this->keyId . ':' . $this->keySecret);
-        // Important for shared hosting environments that might have outdated CA bundles
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
 
         if ($method === 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
@@ -86,19 +76,14 @@ class RazorpayHelper {
         curl_close($ch);
 
         if ($error) {
-            $this->lastError = "cURL Error: " . $error;
-            error_log("Razorpay " . $this->lastError);
+            error_log("Razorpay cURL Error: " . $error);
             return false;
         }
 
-        $decodedResponse = json_decode($response, true);
-
         if ($httpCode >= 200 && $httpCode < 300) {
-            return $decodedResponse;
+            return json_decode($response, true);
         } else {
-            $apiErrorMsg = isset($decodedResponse['error']['description']) ? $decodedResponse['error']['description'] : "Unknown API Error";
-            $this->lastError = "API Error ($httpCode): " . $apiErrorMsg;
-            error_log("Razorpay " . $this->lastError . " - Response: " . $response);
+            error_log("Razorpay API Error ($httpCode): " . $response);
             return false;
         }
     }

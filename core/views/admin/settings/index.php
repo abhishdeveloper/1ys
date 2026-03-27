@@ -80,28 +80,6 @@ require_once __DIR__ . '/../partials/header.php';
         </div>
 
         <div class="pt-8">
-            <h3 class="text-lg font-medium leading-6 text-gray-900">Google OAuth (Login with Google)</h3>
-            <p class="mt-1 text-sm text-gray-500">Configure your Google OAuth 2.0 credentials for user authentication.</p>
-            <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-
-                <div class="sm:col-span-3">
-                    <label for="google_client_id" class="block text-sm font-medium text-gray-700"> Client ID </label>
-                    <div class="mt-1">
-                        <input type="text" name="google_client_id" id="google_client_id" value="<?php echo htmlspecialchars($settings['google_client_id'] ?? ''); ?>" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border">
-                    </div>
-                </div>
-
-                <div class="sm:col-span-3">
-                    <label for="google_client_secret" class="block text-sm font-medium text-gray-700"> Client Secret </label>
-                    <div class="mt-1">
-                        <input type="password" name="google_client_secret" id="google_client_secret" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" placeholder="Leave blank to keep current">
-                    </div>
-                    <p class="text-xs text-gray-500 mt-1">Callback URL: <?php echo getBaseUrl() . '/auth/google/callback'; ?></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="pt-8">
             <h3 class="text-lg font-medium leading-6 text-gray-900">Razorpay Payment Gateway</h3>
             <p class="mt-1 text-sm text-gray-500">Configure your Razorpay API credentials for online payments.</p>
             <div class="mt-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">

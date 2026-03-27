@@ -21,19 +21,19 @@ require_once __DIR__ . '/partials/header.php';
             <!-- Text Content (Centered over image) -->
             <div class="relative z-20 w-full max-w-4xl px-6 pt-32 pb-16 flex flex-col justify-center items-center h-full">
                 <div class="mb-6 animate-slide-up" style="animation-delay: 0.1s;">
-                    <span class="font-serif italic text-accent text-xl tracking-widest drop-shadow-md"><?php echo __('discover_luxury'); ?></span>
+                    <span class="font-serif italic text-accent text-xl tracking-widest drop-shadow-md">Discover Luxurious Ayurveda</span>
                     <div class="h-px w-24 bg-accent mx-auto mt-3 mb-2"></div>
                 </div>
                 <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6 animate-slide-up drop-shadow-lg" style="animation-delay: 0.3s;">
-                    <?php echo __('pure_potent'); ?> <br>
-                    <span class="text-accent italic font-normal"><?php echo __('time_honored'); ?></span>
+                    Pure, Potent <br>
+                    <span class="text-accent italic font-normal">&amp; Time-Honored</span>
                 </h1>
                 <p class="text-base text-gray-100 sm:text-xl mb-10 font-light leading-relaxed max-w-2xl mx-auto animate-slide-up drop-shadow-md" style="animation-delay: 0.5s;">
-                    <?php echo __('hero_desc_1'); ?>
+                    Crafted with nature's rarest botanicals, our artisanal formulations deliver profound healing and radiant vitality rooted in ancient wisdom.
                 </p>
                 <div class="flex justify-center animate-slide-up" style="animation-delay: 0.7s;">
                     <a href="/products" class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-xl hover:shadow-2xl">
-                        <?php echo __('explore_collection'); ?>
+                        Explore Collection
                     </a>
                 </div>
             </div>
@@ -49,36 +49,36 @@ require_once __DIR__ . '/partials/header.php';
 
             <div class="relative z-20 w-full max-w-4xl px-6 pt-32 pb-16 flex flex-col justify-center items-center h-full">
                 <div class="mb-6">
-                    <span class="font-serif italic text-accent text-xl tracking-widest drop-shadow-md"><?php echo __('art_of_wellness'); ?></span>
+                    <span class="font-serif italic text-accent text-xl tracking-widest drop-shadow-md">The Art of Wellness</span>
                     <div class="h-px w-24 bg-accent mx-auto mt-3 mb-2"></div>
                 </div>
                 <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6 drop-shadow-lg">
-                    <?php echo __('nourish_your'); ?> <br>
-                    <span class="text-accent italic font-normal"><?php echo __('mind_body_soul'); ?></span>
+                    Nourish Your <br>
+                    <span class="text-accent italic font-normal">Mind, Body &amp; Soul</span>
                 </h1>
                 <p class="text-base text-gray-100 sm:text-xl mb-10 font-light leading-relaxed max-w-2xl mx-auto drop-shadow-md">
-                    <?php echo __('hero_desc_2'); ?>
+                    Experience the ultimate indulgence with our exquisite range of natural wellness supplements and herbal oils.
                 </p>
                 <div class="flex justify-center pointer-events-auto">
                     <a href="/category/herbal-oils" class="inline-flex items-center justify-center px-10 py-4 border border-transparent text-sm font-semibold uppercase tracking-widest text-secondary bg-primary hover:bg-primary_hover transition-colors shadow-xl hover:shadow-2xl">
-                        <?php echo __('shop_herbal_oils'); ?>
+                        Shop Herbal Oils
                     </a>
                 </div>
             </div>
         </div>
 
         <!-- Slider Controls -->
-        <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-40 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md cursor-pointer pointer-events-auto">
+        <button id="prev-slide" class="absolute left-4 top-1/2 transform -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"></path></svg>
         </button>
-        <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-40 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md cursor-pointer pointer-events-auto">
+        <button id="next-slide" class="absolute right-4 top-1/2 transform -translate-y-1/2 z-30 p-2 rounded-full bg-white/50 hover:bg-white text-primary hover:text-accent transition-all opacity-0 group-hover:opacity-100 backdrop-blur-md">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"></path></svg>
         </button>
 
         <!-- Slider Indicators -->
-        <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3 z-40 pointer-events-auto">
-            <button class="slide-dot w-3 h-3 rounded-full bg-accent transition-all duration-300 transform scale-125 cursor-pointer" data-slide="0"></button>
-            <button class="slide-dot w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-accent/50 transition-all duration-300 cursor-pointer" data-slide="1"></button>
+        <div class="absolute bottom-6 left-0 right-0 flex justify-center space-x-3 z-30">
+            <button class="slide-dot w-2.5 h-2.5 rounded-full bg-accent transition-all duration-300 transform scale-125" data-slide="0"></button>
+            <button class="slide-dot w-2.5 h-2.5 rounded-full bg-gray-300 dark:bg-gray-600 hover:bg-accent/50 transition-all duration-300" data-slide="1"></button>
         </div>
 
     </div>
@@ -87,8 +87,8 @@ require_once __DIR__ . '/partials/header.php';
 <!-- Shop by Curated Categories -->
 <div class="mb-32 mt-16 px-4">
     <div class="text-center mb-20">
-        <h2 class="font-serif italic text-accent text-xl mb-3 font-light tracking-wide"><?php echo __('curated_with_care'); ?></h2>
-        <h3 class="text-2xl md:text-3xl font-serif font-medium tracking-[0.2em] text-primary dark:text-white uppercase"><?php echo __('the_collections'); ?></h3>
+        <h2 class="font-serif italic text-accent text-xl mb-3 font-light tracking-wide">Curated With Care</h2>
+        <h3 class="text-2xl md:text-3xl font-serif font-medium tracking-[0.2em] text-primary dark:text-white uppercase">The Collections</h3>
         <div class="flex items-center justify-center mt-8">
             <div class="h-[1px] w-12 md:w-20 bg-accent/60"></div>
             <div class="w-1.5 h-1.5 rounded-full bg-accent/60 mx-4"></div>
@@ -97,7 +97,7 @@ require_once __DIR__ . '/partials/header.php';
     </div>
 
     <?php if (empty($categories)): ?>
-        <p class="text-gray-400 text-center font-light tracking-widest"><?php echo __('collections_prep'); ?></p>
+        <p class="text-gray-400 text-center font-light tracking-widest">The collections are currently being prepared for you.</p>
     <?php else: ?>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-16 max-w-6xl mx-auto px-4 sm:px-8">
             <?php foreach ($categories as $category): ?>
@@ -132,8 +132,8 @@ require_once __DIR__ . '/partials/header.php';
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
             </div>
-            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4"><?php echo __('pure_ingredients'); ?></h4>
-            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto"><?php echo __('pure_ingredients_desc'); ?></p>
+            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4">Pure Ingredients</h4>
+            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto">Sourced from the pristine valleys of the Himalayas, preserving the life force of every herb.</p>
         </div>
         <div class="flex flex-col items-center p-4 group">
             <div class="w-16 h-16 rounded-full border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors duration-500">
@@ -141,8 +141,8 @@ require_once __DIR__ . '/partials/header.php';
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
             </div>
-            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4"><?php echo __('time_honored_recipes'); ?></h4>
-            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto"><?php echo __('time_honored_recipes_desc'); ?></p>
+            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4">Time-Honored Recipes</h4>
+            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto">Authentic formulations passed down through generations of Ayurvedic masters.</p>
         </div>
         <div class="flex flex-col items-center p-4 group">
             <div class="w-16 h-16 rounded-full border border-accent/30 flex items-center justify-center mb-6 group-hover:border-accent transition-colors duration-500">
@@ -150,8 +150,8 @@ require_once __DIR__ . '/partials/header.php';
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                 </svg>
             </div>
-            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4"><?php echo __('modern_elegance'); ?></h4>
-            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto"><?php echo __('modern_elegance_desc'); ?></p>
+            <h4 class="font-serif text-[15px] tracking-[0.2em] uppercase text-accent mb-4">Modern Elegance</h4>
+            <p class="text-sm text-gray-400 font-light leading-loose max-w-xs mx-auto">Ancient wisdom meticulously crafted to meet the exacting standards of luxury skincare.</p>
         </div>
     </div>
 </div>
@@ -159,8 +159,8 @@ require_once __DIR__ . '/partials/header.php';
 <!-- Featured Bestsellers -->
 <div class="mb-32 px-4">
     <div class="text-center mb-20">
-        <h2 class="font-serif italic text-accent text-xl mb-3 font-light tracking-wide"><?php echo __('discover_our'); ?></h2>
-        <h3 class="text-2xl md:text-3xl font-serif font-medium tracking-[0.2em] text-primary dark:text-white uppercase"><?php echo __('bestsellers'); ?></h3>
+        <h2 class="font-serif italic text-accent text-xl mb-3 font-light tracking-wide">Discover Our</h2>
+        <h3 class="text-2xl md:text-3xl font-serif font-medium tracking-[0.2em] text-primary dark:text-white uppercase">Bestsellers</h3>
         <div class="flex items-center justify-center mt-8">
             <div class="h-[1px] w-12 md:w-20 bg-accent/60"></div>
             <div class="w-1.5 h-1.5 rounded-full bg-accent/60 mx-4"></div>

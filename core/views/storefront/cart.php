@@ -11,11 +11,11 @@ require_once __DIR__ . '/partials/header.php';
             <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
-            <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white"><?php echo __('your_cart_empty'); ?></h3>
+            <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">Your cart is empty</h3>
             <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Looks like you haven't added anything to your cart yet.</p>
             <div class="mt-6">
                 <a href="/products" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                    <?php echo __('start_shopping'); ?>
+                    Start Shopping
                 </a>
             </div>
         </div>
@@ -42,7 +42,7 @@ require_once __DIR__ . '/partials/header.php';
                                                 </a>
                                             </h3>
                                         </div>
-                                        <p class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">₹<?php echo number_format($product['price'], 2); ?></p>
+                                        <p class="mt-1 text-sm font-medium text-gray-900 dark:text-gray-300">$<?php echo number_format($product['price'], 2); ?></p>
                                     </div>
 
                                     <div class="mt-4 sm:mt-0 sm:pr-9">
@@ -70,8 +70,8 @@ require_once __DIR__ . '/partials/header.php';
                                         <div class="absolute top-0 right-0">
                                             <form action="/cart/remove" method="POST">
                                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                                <button type="submit" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500" title="<?php echo __('remove'); ?>">
-                                                    <span class="sr-only"><?php echo __('remove'); ?></span>
+                                                <button type="submit" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
+                                                    <span class="sr-only">Remove</span>
                                                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                     </svg>
@@ -96,27 +96,27 @@ require_once __DIR__ . '/partials/header.php';
             <!-- Order Summary -->
             <div class="lg:w-96 flex-shrink-0">
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 px-4 py-6 sm:p-6 lg:p-8 sticky top-24">
-                    <h2 class="text-lg font-medium text-gray-900 dark:text-white"><?php echo __('order_summary'); ?></h2>
+                    <h2 class="text-lg font-medium text-gray-900 dark:text-white">Order summary</h2>
 
                     <dl class="mt-6 space-y-4">
                         <div class="flex items-center justify-between">
-                            <dt class="text-sm text-gray-600 dark:text-gray-400"><?php echo __('subtotal'); ?></dt>
-                            <dd class="text-sm font-medium text-gray-900 dark:text-white">₹<?php echo number_format($subtotal, 2); ?></dd>
+                            <dt class="text-sm text-gray-600 dark:text-gray-400">Subtotal</dt>
+                            <dd class="text-sm font-medium text-gray-900 dark:text-white">$<?php echo number_format($subtotal, 2); ?></dd>
                         </div>
                         <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 pt-4">
-                            <dt class="text-base font-medium text-gray-900 dark:text-white"><?php echo __('total'); ?></dt>
-                            <dd class="text-base font-medium text-gray-900 dark:text-white">₹<?php echo number_format($subtotal, 2); ?></dd>
+                            <dt class="text-base font-medium text-gray-900 dark:text-white">Order total</dt>
+                            <dd class="text-base font-medium text-gray-900 dark:text-white">$<?php echo number_format($subtotal, 2); ?></dd>
                         </div>
                     </dl>
 
                     <div class="mt-6">
                         <a href="/checkout" class="w-full bg-primary border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-primary flex justify-center transition-colors">
-                            <?php echo __('checkout'); ?>
+                            Checkout
                         </a>
                     </div>
                     <div class="mt-6 text-sm text-center text-gray-500 dark:text-gray-400">
                         <p>
-                            or <a href="/products" class="text-primary font-medium hover:text-indigo-500"><?php echo __('continue_shopping'); ?><span aria-hidden="true"> &rarr;</span></a>
+                            or <a href="/products" class="text-primary font-medium hover:text-indigo-500">Continue Shopping<span aria-hidden="true"> &rarr;</span></a>
                         </p>
                     </div>
                 </div>

@@ -15,8 +15,7 @@ class Mailer {
 
         try {
             // Fetch dynamic SMTP settings from the database
-            require_once __DIR__ . '/functions.php';
-            $db = getDB();
+            $db = new PDO('mysql:host=localhost;dbname=shopswift', 'root', '');
             $stmt = $db->query("SELECT setting_key, setting_value FROM settings WHERE setting_key LIKE 'smtp_%'");
             $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
@@ -53,31 +52,6 @@ class Mailer {
             return $mail;
         } catch (Exception $e) {
             error_log("Mailer configuration error: " . $e->getMessage());
-            return false;
-        }
-    }
-
-    public function sendTemporaryPasswordEmail($toEmail, $toName, $tempPassword) {
-        $mail = $this->getMailer();
-        if (!$mail) return false;
-
-        try {
-            $mail->addAddress($toEmail, $toName);
-            $mail->isHTML(true);
-            $mail->Subject = 'Password Reset Request';
-            $mail->Body    = "
-                <h2>Hello {$toName},</h2>
-                <p>We received a request to reset your password. Your new temporary password is:</p>
-                <p><strong>{$tempPassword}</strong></p>
-                <p>Please log in using this temporary password and change your password immediately from your account settings.</p>
-                <br>
-                <p><strong>The ShopSwift Team</strong></p>
-            ";
-            $mail->AltBody = "Hello {$toName}, your temporary password is: {$tempPassword}. Please log in and change it immediately.";
-
-            return $mail->send();
-        } catch (Exception $e) {
-            error_log("Failed to send temporary password email to {$toEmail}: {$mail->ErrorInfo}");
             return false;
         }
     }

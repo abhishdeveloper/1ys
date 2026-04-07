@@ -82,7 +82,7 @@ foreach ($settingsRaw as $row) {
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS (CDN for simple deployment) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=aspect-ratio"></script>
 
     <!-- Configure Tailwind for Dark Mode -->
     <script>

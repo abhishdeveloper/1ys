@@ -232,15 +232,33 @@ class CheckoutController {
 
     private function getCartDetails() {
         $cartItems = [];
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
+        foreach ($_SESSION['cart'] as $cartKey => $quantity) {
+            $parts = explode('-', $cartKey);
+            $productId = (int)$parts[0];
+            $variantId = isset($parts[1]) ? (int)$parts[1] : null;
+
             $stmt = $this->db->prepare("SELECT id, name, slug, price, stock_quantity FROM products WHERE id = :id AND is_active = 1");
             $stmt->execute(['id' => $productId]);
             $product = $stmt->fetch();
 
             if ($product) {
-                // Ensure quantity doesn't exceed stock
+                if ($variantId) {
+                    $vStmt = $this->db->prepare("SELECT name, price, stock_quantity FROM product_variants WHERE id = :id AND product_id = :pid AND is_active = 1");
+                    $vStmt->execute(['id' => $variantId, 'pid' => $productId]);
+                    $variant = $vStmt->fetch();
+
+                    if ($variant) {
+                        $product['name'] = $product['name'] . ' - ' . $variant['name'];
+                        $product['price'] = $variant['price'];
+                        $product['stock_quantity'] = $variant['stock_quantity'];
+                    } else {
+                        continue;
+                    }
+                }
+
                 $qty = min($quantity, $product['stock_quantity']);
                 $cartItems[] = [
+                    'cartKey' => $cartKey,
                     'product' => $product,
                     'quantity' => $qty,
                     'total' => $product['price'] * $qty

@@ -49,6 +49,32 @@ require_once __DIR__ . '/partials/header.php';
         </div>
     </form>
 
+    <?php
+    $stmt = $db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_id'");
+    $clientId = $stmt->fetchColumn();
+    if (!empty($clientId)):
+        $redirectUri = urlencode(getBaseUrl() . '/auth/google/callback');
+        $googleLoginUrl = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={$clientId}&redirect_uri={$redirectUri}&scope=email%20profile";
+    ?>
+    <div class="mt-6">
+        <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white dark:bg-gray-800 text-gray-500">Or continue with</span>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <a href="<?php echo htmlspecialchars($googleLoginUrl); ?>" class="w-full flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                <img class="h-5 w-5 mr-2" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo">
+                Sign up with Google
+            </a>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <div class="mt-6 text-center">
         <p class="text-sm text-gray-600 dark:text-gray-400">
             Already have an account? <a href="/login" class="font-medium text-primary dark:text-accent hover:text-accent_hover dark:hover:text-white transition-colors">Log in</a>

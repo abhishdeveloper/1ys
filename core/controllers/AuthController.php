@@ -53,6 +53,103 @@ class AuthController {
     }
 
     /**
+     * Handle Google OAuth Callback
+     */
+    public function googleCallback() {
+        if (isset($_GET['code'])) {
+            $code = $_GET['code'];
+
+            // Get Google OAuth credentials from settings
+            $stmt = $this->db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_id'");
+            $clientId = $stmt->fetchColumn();
+
+            $stmt = $this->db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_secret'");
+            $clientSecret = $stmt->fetchColumn();
+
+            if (empty($clientId) || empty($clientSecret)) {
+                setFlashMessage('error', 'Google Sign-in is not configured properly.');
+                redirect('/login');
+            }
+
+            $redirectUri = getBaseUrl() . '/auth/google/callback';
+
+            // Exchange code for access token using cURL
+            $ch = curl_init('https://oauth2.googleapis.com/token');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+                'client_id' => $clientId,
+                'client_secret' => $clientSecret,
+                'redirect_uri' => $redirectUri,
+                'grant_type' => 'authorization_code',
+                'code' => $code,
+            ]));
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            $data = json_decode($response, true);
+
+            if (isset($data['access_token'])) {
+                $accessToken = $data['access_token'];
+
+                // Get user info
+                $ch = curl_init('https://www.googleapis.com/oauth2/v2/userinfo');
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $accessToken]);
+                $userResponse = curl_exec($ch);
+                curl_close($ch);
+
+                $googleUser = json_decode($userResponse, true);
+
+                if (isset($googleUser['email'])) {
+                    $email = $googleUser['email'];
+                    $name = $googleUser['name'] ?? 'Google User';
+
+                    // Check if user exists
+                    $user = $this->userModel->findByEmail($email);
+
+                    if (!$user) {
+                        // Create a random secure password for auto-registered users
+                        $randomPassword = bin2hex(random_bytes(16));
+                        $userId = $this->userModel->create($name, $email, $randomPassword);
+
+                        if ($userId) {
+                            $user = $this->userModel->findById($userId);
+
+                            require_once __DIR__ . '/../helpers/Mailer.php';
+                            $mailer = new Mailer();
+                            $mailer->sendAccountCreationEmail($email, $name);
+                        } else {
+                            setFlashMessage('error', 'Failed to create an account from Google profile.');
+                            redirect('/login');
+                        }
+                    }
+
+                    // Log the user in
+                    regenerateSession();
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['role'] = $user['role'];
+                    $_SESSION['name'] = $user['name'];
+
+                    setFlashMessage('success', 'Welcome, ' . $user['name'] . '!');
+
+                    if ($user['role'] === 'admin') {
+                        redirect('/admin');
+                    } else {
+                        redirect('/dashboard');
+                    }
+                }
+            } else {
+                setFlashMessage('error', 'Failed to authenticate with Google.');
+                redirect('/login');
+            }
+        }
+
+        // If we get here without a code or it failed
+        redirect('/login');
+    }
+
+    /**
      * Process user registration submission
      */
     public function register() {

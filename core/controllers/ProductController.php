@@ -155,5 +155,55 @@ class ProductController {
         echo json_encode($results);
         exit();
     }
+
+    public function submitReview() {
+        if (!isset($_SESSION['user_id'])) {
+            setFlashMessage('error', 'You must be logged in to submit a review.');
+            redirect('/login');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productId = (int)($_POST['product_id'] ?? 0);
+            $rating = (int)($_POST['rating'] ?? 5);
+            $comment = sanitize($_POST['comment'] ?? '');
+
+            // Basic validation
+            if ($rating < 1 || $rating > 5 || $productId === 0) {
+                setFlashMessage('error', 'Invalid rating or product.');
+                // Using JS back navigation if no HTTP_REFERER for robust fallback, but usually we just redirect to products
+                $referer = $_SERVER['HTTP_REFERER'] ?? '/products';
+                redirect($referer);
+            }
+
+            try {
+                $stmt = $this->db->prepare("
+                    INSERT INTO reviews (product_id, user_id, rating, comment, status)
+                    VALUES (:product_id, :user_id, :rating, :comment, 'pending')
+                ");
+                $stmt->execute([
+                    'product_id' => $productId,
+                    'user_id' => $_SESSION['user_id'],
+                    'rating' => $rating,
+                    'comment' => $comment
+                ]);
+
+                setFlashMessage('success', 'Thank you for your review. It will be published once approved.');
+            } catch (Exception $e) {
+                setFlashMessage('error', 'There was an error submitting your review. Please try again later.');
+            }
+
+            $stmt = $this->db->prepare("SELECT slug FROM products WHERE id = :id");
+            $stmt->execute(['id' => $productId]);
+            $slug = $stmt->fetchColumn();
+
+            if ($slug) {
+                redirect('/product/' . $slug);
+            } else {
+                redirect('/products');
+            }
+        } else {
+            redirect('/products');
+        }
+    }
 }
 ?>

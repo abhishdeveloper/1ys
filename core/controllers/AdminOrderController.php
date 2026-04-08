@@ -96,22 +96,23 @@ class AdminOrderController {
             $awbCode = sanitize($_POST['awb_code'] ?? '');
             $trackingUrl = sanitize($_POST['tracking_url'] ?? '');
 
-            // Generate Shiprocket tracking URL if AWB is provided and tracking URL is not
-            if (!empty($awbCode) && empty($trackingUrl)) {
-                require_once __DIR__ . '/../helpers/Shiprocket.php';
-                $shiprocket = new Shiprocket();
-                $generatedUrl = $shiprocket->getTrackingUrlByAwb($awbCode);
-                if ($generatedUrl) {
-                    $trackingUrl = $generatedUrl;
+            if (isset($_POST['push_to_shiprocket'])) {
+                require_once __DIR__ . '/../helpers/ShiprocketHelper.php';
+                $shiprocket = new ShiprocketHelper();
+                if ($shiprocket->createOrder($id)) {
+                    setFlashMessage('success', 'Order pushed to Shiprocket successfully.');
+                } else {
+                    setFlashMessage('error', 'Failed to push order to Shiprocket. Check your API credentials and ensure all products have valid weights.');
                 }
+                redirect('/admin/orders/show?id=' . $id);
+                exit;
             }
 
             try {
-                $stmt = $this->db->prepare("UPDATE orders SET order_status = :status, delivery_instructions = :instructions, awb_code = :awb, tracking_url = :track WHERE id = :id");
+                $stmt = $this->db->prepare("UPDATE orders SET order_status = :status, delivery_instructions = :instructions, tracking_url = :track WHERE id = :id");
                 $stmt->execute([
                     'status' => $status,
                     'instructions' => $instructions,
-                    'awb' => $awbCode,
                     'track' => $trackingUrl,
                     'id' => $id
                 ]);

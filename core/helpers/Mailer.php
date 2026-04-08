@@ -66,12 +66,12 @@ class Mailer {
             $mail->Subject = 'Security Alert: Password Changed';
             $mail->Body    = "
                 <h2>Hello {$toName},</h2>
-                <p>This is a security notification to confirm that your password for ShopSwift has been successfully changed.</p>
+                <p>This is a security notification to confirm that your password for AAYU CARE has been successfully changed.</p>
                 <p>If you did not initiate this change, please contact our support team immediately.</p>
                 <br>
-                <p><strong>The ShopSwift Team</strong></p>
+                <p><strong>The AAYU CARE Team</strong></p>
             ";
-            $mail->AltBody = "Hello {$toName}, your ShopSwift password has been successfully changed. If you did not initiate this, contact support immediately.";
+            $mail->AltBody = "Hello {$toName}, your AAYU CARE password has been successfully changed. If you did not initiate this, contact support immediately.";
 
             return $mail->send();
         } catch (Exception $e) {
@@ -87,16 +87,16 @@ class Mailer {
         try {
             $mail->addAddress($toEmail, $toName);
             $mail->isHTML(true);
-            $mail->Subject = 'Welcome to ShopSwift!';
+            $mail->Subject = 'Welcome to AAYU CARE!';
             $mail->Body    = "
-                <h2>Welcome to ShopSwift, {$toName}!</h2>
+                <h2>Welcome to AAYU CARE, {$toName}!</h2>
                 <p>Your account has been successfully created.</p>
                 <p>You can now browse our catalog, manage your orders, and track your shipments from your personalized dashboard.</p>
                 <br>
                 <p>Happy Shopping!</p>
-                <p><strong>The ShopSwift Team</strong></p>
+                <p><strong>The AAYU CARE Team</strong></p>
             ";
-            $mail->AltBody = "Welcome to ShopSwift, {$toName}! Your account has been successfully created. Happy Shopping!";
+            $mail->AltBody = "Welcome to AAYU CARE, {$toName}! Your account has been successfully created. Happy Shopping!";
 
             return $mail->send();
         } catch (Exception $e) {
@@ -193,7 +193,7 @@ class Mailer {
                 <p>The status of your order <strong>#{$orderNumber}</strong> has been updated to: <strong>{$statusText}</strong>.</p>
                 <p>You can check your dashboard for more details.</p>
                 <br>
-                <p><strong>The ShopSwift Team</strong></p>
+                <p><strong>The AAYU CARE Team</strong></p>
             ";
             $mail->AltBody = "Hello {$toName}, the status of your order #{$orderNumber} is now: {$statusText}.";
 

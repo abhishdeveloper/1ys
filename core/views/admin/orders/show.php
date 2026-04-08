@@ -50,6 +50,24 @@ require_once __DIR__ . '/../partials/header.php';
             </div>
         </div>
 
+        <!-- Shiprocket Integration -->
+        <?php if ($order['order_status'] === 'processing' || $order['order_status'] === 'pending'): ?>
+        <div class="bg-white shadow sm:rounded-lg mb-6 border border-blue-200">
+            <div class="px-4 py-5 sm:px-6 bg-blue-50 border-b border-blue-200 sm:rounded-t-lg flex justify-between items-center">
+                <h3 class="text-lg leading-6 font-medium text-blue-900">Shiprocket Automation</h3>
+                <img src="https://sr-website.shiprocket.in/wp-content/uploads/2023/11/shiprocket-logo.webp" alt="Shiprocket" class="h-6 object-contain">
+            </div>
+            <div class="px-4 py-5 sm:px-6">
+                <p class="text-sm text-gray-600 mb-4">Automatically create a shipment for this order in Shiprocket and generate an AWB & tracking URL.</p>
+                <form action="/admin/orders/show?id=<?php echo $order['id']; ?>" method="POST">
+                    <button type="submit" name="push_to_shiprocket" value="1" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Push to Shiprocket
+                    </button>
+                </form>
+            </div>
+        </div>
+        <?php endif; ?>
+
         <!-- Order Management Form -->
         <div class="bg-white shadow sm:rounded-lg">
             <div class="px-4 py-5 sm:px-6 border-b border-gray-200">
@@ -71,17 +89,11 @@ require_once __DIR__ . '/../partials/header.php';
                         </select>
                     </div>
 
-                    <div id="shipping_fields" class="space-y-6 <?php echo $order['order_status'] === 'shipped' ? '' : 'hidden'; ?>">
+                    <div id="shipping_fields" class="space-y-6 <?php echo ($order['order_status'] === 'shipped' || !empty($order['tracking_url'])) ? '' : 'hidden'; ?>">
                         <div>
-                            <label for="awb_code" class="block text-sm font-medium text-gray-700">AWB Code (For Shiprocket)</label>
-                            <input type="text" id="awb_code" name="awb_code" value="<?php echo sanitize($order['awb_code'] ?? ''); ?>" class="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="Enter AWB Code">
-                            <p class="mt-1 text-xs text-gray-500">If Shiprocket is configured, tracking URL will be generated automatically.</p>
-                        </div>
-
-                        <div>
-                            <label for="tracking_url" class="block text-sm font-medium text-gray-700">Manual Tracking URL</label>
+                            <label for="tracking_url" class="block text-sm font-medium text-gray-700">Tracking URL</label>
                             <input type="url" id="tracking_url" name="tracking_url" value="<?php echo sanitize($order['tracking_url'] ?? ''); ?>" class="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="https://...">
-                            <p class="mt-1 text-xs text-gray-500">Leave blank if using Shiprocket AWB.</p>
+                            <p class="mt-1 text-xs text-gray-500">Automatically populated if pushed to Shiprocket.</p>
                         </div>
                     </div>
 
@@ -90,15 +102,16 @@ require_once __DIR__ . '/../partials/header.php';
                         <textarea id="delivery_instructions" name="delivery_instructions" rows="4" class="mt-1 block w-full sm:text-sm border border-gray-300 rounded-md p-2 focus:ring-indigo-500 focus:border-indigo-500" placeholder="E.g., Leave package at back door..."><?php echo sanitize($order['delivery_instructions'] ?? ''); ?></textarea>
                     </div>
 
-                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none">
+                    <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary_hover focus:outline-none">
                         Update Order
                     </button>
 
                     <script>
                         function toggleShippingFields() {
                             const status = document.getElementById('order_status').value;
+                            const trackingUrl = document.getElementById('tracking_url').value;
                             const fields = document.getElementById('shipping_fields');
-                            if (status === 'shipped' || status === 'delivered') {
+                            if (status === 'shipped' || status === 'delivered' || trackingUrl !== '') {
                                 fields.classList.remove('hidden');
                             } else {
                                 fields.classList.add('hidden');

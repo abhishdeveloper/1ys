@@ -146,6 +146,7 @@ require_once __DIR__ . '/../partials/header.php';
                         ?>
                             <div class="grid grid-cols-5 gap-4 items-end border p-4 rounded bg-gray-50">
                                 <div class="col-span-1">
+                                    <input type="hidden" name="variant_id[]" value="<?php echo $variant['id']; ?>">
                                     <label class="block text-xs text-gray-500 mb-1">Name (e.g. 50g)</label>
                                     <input type="text" name="variant_name[]" value="<?php echo sanitize($variant['name']); ?>" required class="block w-full border-gray-300 rounded-md sm:text-sm p-2 border">
                                 </div>
@@ -254,6 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <input type="number" name="variant_stock[]" value="0" required class="block w-full border-gray-300 rounded-md sm:text-sm p-2 border">
             </div>
             <div class="col-span-1 flex justify-end pb-1">
+                <input type="hidden" name="variant_id[]" value="">
                 <button type="button" class="remove-btn text-red-600 hover:text-red-800 font-medium text-sm">Remove</button>
             </div>
         `;

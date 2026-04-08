@@ -5,14 +5,63 @@ require_once __DIR__ . '/partials/header.php';
 
 <div class="mb-16">
     <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
-        <div class="max-w-2xl mx-auto px-4 lg:max-w-4xl lg:px-0">
-            <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-3xl">Order history</h1>
-            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Check the status of recent orders, manage returns, and download invoices.</p>
+        <div class="max-w-2xl mx-auto px-4 lg:max-w-4xl lg:px-0 flex justify-between items-end">
+            <div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-gray-900 dark:text-white sm:text-3xl">My Dashboard</h1>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">Manage your orders and account settings.</p>
+            </div>
+            <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'seller'): ?>
+                <a href="/admin" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Go to <?php echo ucfirst($_SESSION['role']); ?> Panel
+                </a>
+            <?php endif; ?>
         </div>
     </div>
 
-    <div class="mt-16">
-        <h2 class="sr-only">Recent orders</h2>
+    <div class="mt-10 max-w-7xl mx-auto sm:px-2 lg:px-8">
+        <div class="max-w-2xl mx-auto px-4 lg:max-w-4xl lg:px-0">
+            <!-- Account Settings Form -->
+            <div class="bg-white dark:bg-gray-800 shadow sm:rounded-lg mb-10">
+                <div class="px-4 py-5 sm:p-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900 dark:text-white">Profile Information</h3>
+                    <div class="mt-2 max-w-xl text-sm text-gray-500 dark:text-gray-400">
+                        <p>Update your account details and password.</p>
+                    </div>
+                    <form class="mt-5 sm:flex sm:items-center" method="POST" action="/dashboard">
+                        <div class="w-full sm:max-w-xs space-y-4">
+                            <div>
+                                <label for="name" class="sr-only">Name</label>
+                                <input type="text" name="name" id="name" value="<?php echo htmlspecialchars($user['name'] ?? ''); ?>" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label for="email" class="sr-only">Email</label>
+                                <input type="email" name="email" id="email" value="<?php echo htmlspecialchars($user['email'] ?? ''); ?>" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="you@example.com" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="sr-only">Phone</label>
+                                <input type="text" name="phone" id="phone" value="<?php echo htmlspecialchars($user['phone'] ?? ''); ?>" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Phone Number">
+                            </div>
+                            <div>
+                                <label for="address" class="sr-only">Address</label>
+                                <textarea name="address" id="address" rows="2" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="Address"><?php echo htmlspecialchars($user['address'] ?? ''); ?></textarea>
+                            </div>
+                            <div>
+                                <label for="password" class="sr-only">New Password (leave blank to keep current)</label>
+                                <input type="password" name="password" id="password" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white" placeholder="New Password (Optional)">
+                            </div>
+                            <button type="submit" class="mt-3 w-full inline-flex items-center justify-center px-4 py-2 border border-transparent shadow-sm font-medium rounded-md text-white bg-primary hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:w-auto sm:text-sm">
+                                Save Settings
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <h2 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-2xl mb-6">Recent orders</h2>
+        </div>
+    </div>
+
+    <div class="mt-4">
         <div class="max-w-7xl mx-auto sm:px-2 lg:px-8">
             <div class="max-w-2xl mx-auto space-y-8 sm:px-4 lg:max-w-4xl lg:px-0">
                 <?php if (empty($orders)): ?>

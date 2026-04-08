@@ -4,6 +4,9 @@
  * Uses PDO for secure database access.
  */
 
+// Define environment: 'development' or 'production'
+define('ENVIRONMENT', 'production');
+
 // Define database credentials
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');

@@ -74,7 +74,7 @@ class ShiprocketHelper {
         if (!$order) return false;
 
         $itemsStmt = $this->db->prepare("
-            SELECT oi.*, p.name, p.sku, pv.weight_kg
+            SELECT oi.*, p.name, pv.sku, pv.weight_kg
             FROM order_items oi
             JOIN products p ON oi.product_id = p.id
             LEFT JOIN product_variants pv ON oi.variant_id = pv.id

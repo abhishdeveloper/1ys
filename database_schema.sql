@@ -56,6 +56,8 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('contact_email', 'info@aayucare.com'),
 ('smtp_host', 'smtp.gmail.com'),
 ('smtp_port', '587'),
+('google_client_id', ''),
+('google_client_secret', ''),
 ('smtp_user', ''),
 ('smtp_password', ''),
 ('smtp_encryption', 'tls'),

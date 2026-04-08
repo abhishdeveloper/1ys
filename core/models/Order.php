@@ -77,18 +77,19 @@ class Order {
             ");
 
             foreach ($cartItems as $item) {
+                // Determine if this is a variant from the cartKey
+                $parts = explode('-', $item['cartKey'] ?? (string)$item['product']['id']);
+                $variantId = isset($parts[1]) ? (int)$parts[1] : null;
+
                 $itemStmt->execute([
                     'order_id' => $orderId,
                     'product_id' => $item['product']['id'],
+                    'variant_id' => $variantId,
                     'product_name' => $item['product']['name'],
                     'quantity' => $item['quantity'],
                     'unit_price' => $item['product']['price'],
                     'total_price' => $item['total']
                 ]);
-
-                // Determine if this is a variant from the cartKey
-                $parts = explode('-', $item['cartKey'] ?? (string)$item['product']['id']);
-                $variantId = isset($parts[1]) ? (int)$parts[1] : null;
 
                 if ($variantId) {
                     $variantStockStmt->execute([

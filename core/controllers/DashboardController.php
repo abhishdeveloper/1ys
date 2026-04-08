@@ -33,6 +33,7 @@ class DashboardController {
             // Update details
             if ($userModel->update($userId, $name, $email, $phone, $address)) {
                 $_SESSION['user_name'] = $name;
+                $_SESSION['name'] = $name; // Sync with AuthController logic
                 setFlashMessage('success', 'Profile updated successfully.');
             } else {
                 setFlashMessage('error', 'Could not update profile.');

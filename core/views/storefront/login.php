@@ -53,11 +53,11 @@ require_once __DIR__ . '/partials/header.php';
     </form>
 
     <?php
+    $db = getDB();
     $stmt = $db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_id'");
     $clientId = $stmt->fetchColumn();
     if (!empty($clientId)):
-        $redirectUri = urlencode(getBaseUrl() . '/auth/google/callback');
-        $googleLoginUrl = "https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id={$clientId}&redirect_uri={$redirectUri}&scope=email%20profile";
+        $googleLoginUrl = getBaseUrl() . '/auth/google';
     ?>
     <div class="mt-6">
         <div class="relative">

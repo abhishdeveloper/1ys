@@ -53,9 +53,49 @@ class AuthController {
     }
 
     /**
+     * Handle Google OAuth Redirect
+     */
+    public function google() {
+        $stmt = $this->db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_id'");
+        $clientId = $stmt->fetchColumn();
+
+        if (empty($clientId)) {
+            setFlashMessage('error', 'Google Sign-in is not configured.');
+            redirect('/login');
+        }
+
+        $redirectUri = getBaseUrl() . '/auth/google/callback';
+
+        // Generate state for CSRF protection
+        $state = bin2hex(random_bytes(16));
+        $_SESSION['oauth2state'] = $state;
+
+        // Redirect to Google's OAuth 2.0 server
+        $authUrl = "https://accounts.google.com/o/oauth2/v2/auth?" . http_build_query([
+            'client_id' => $clientId,
+            'redirect_uri' => $redirectUri,
+            'response_type' => 'code',
+            'scope' => 'email profile',
+            'access_type' => 'online',
+            'state' => $state
+        ]);
+
+        header("Location: $authUrl");
+        exit;
+    }
+
+    /**
      * Handle Google OAuth Callback
      */
     public function googleCallback() {
+        // Verify state for CSRF protection
+        if (empty($_GET['state']) || (isset($_SESSION['oauth2state']) && $_GET['state'] !== $_SESSION['oauth2state'])) {
+            if (isset($_SESSION['oauth2state'])) {
+                unset($_SESSION['oauth2state']);
+            }
+            setFlashMessage('error', 'Invalid state parameter.');
+            redirect('/login');
+        }
         if (isset($_GET['code'])) {
             $code = $_GET['code'];
 

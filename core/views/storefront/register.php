@@ -50,6 +50,7 @@ require_once __DIR__ . '/partials/header.php';
     </form>
 
     <?php
+    $db = getDB();
     $stmt = $db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_id'");
     $clientId = $stmt->fetchColumn();
     if (!empty($clientId)):

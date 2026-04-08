@@ -43,7 +43,7 @@ require_once __DIR__ . '/partials/header.php';
 
         <div>
             <button type="submit"
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                 Register
             </button>
         </div>
@@ -51,7 +51,7 @@ require_once __DIR__ . '/partials/header.php';
 
     <div class="mt-6 text-center">
         <p class="text-sm text-gray-600 dark:text-gray-400">
-            Already have an account? <a href="/login" class="font-medium text-primary hover:text-indigo-500">Log in</a>
+            Already have an account? <a href="/login" class="font-medium text-primary dark:text-accent hover:text-accent_hover dark:hover:text-white transition-colors">Log in</a>
         </p>
     </div>
 </div>

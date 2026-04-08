@@ -20,11 +20,11 @@ class Order {
             $stmt = $this->db->prepare("
                 INSERT INTO orders (
                     user_id, order_number, total_amount, shipping_cost, discount_amount,
-                    coupon_id, payment_method, payment_status, order_status, shipping_address, delivery_instructions,
+                    coupon_id, payment_method, payment_status, order_status, shipping_address, latitude, longitude, delivery_instructions,
                     razorpay_order_id, razorpay_payment_id, razorpay_signature
                 ) VALUES (
                     :user_id, :order_number, :total_amount, :shipping_cost, :discount_amount,
-                    :coupon_id, :payment_method, :payment_status, :order_status, :shipping_address, :delivery_instructions,
+                    :coupon_id, :payment_method, :payment_status, :order_status, :shipping_address, :latitude, :longitude, :delivery_instructions,
                     :razorpay_order_id, :razorpay_payment_id, :razorpay_signature
                 )
             ");
@@ -44,6 +44,8 @@ class Order {
                 'payment_status' => $orderData['payment_status'] ?? 'pending',
                 'order_status' => 'pending',
                 'shipping_address' => $orderData['shipping_address'],
+                'latitude' => $orderData['latitude'] ?? null,
+                'longitude' => $orderData['longitude'] ?? null,
                 'delivery_instructions' => $orderData['delivery_instructions'] ?? null,
                 'razorpay_order_id' => $orderData['razorpay_order_id'] ?? null,
                 'razorpay_payment_id' => $orderData['razorpay_payment_id'] ?? null,

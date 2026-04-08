@@ -54,7 +54,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('promo_banner_3', '✨ 100% Natural, Cruelty-Free Ayurvedic Care ✨'),
 ('contact_whatsapp', '910000000000'),
 ('contact_email', 'info@aayucare.com'),
-('smtp_host', ''),
+('smtp_host', 'smtp.gmail.com'),
 ('smtp_port', '587'),
 ('smtp_user', ''),
 ('smtp_password', ''),
@@ -298,3 +298,11 @@ CREATE TABLE `reviews` (
   CONSTRAINT `fk_review_product` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_review_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+ALTER TABLE `order_items` ADD COLUMN `variant_id` INT NULL AFTER `product_id`;
+ALTER TABLE `order_items` ADD CONSTRAINT `fk_order_item_variant` FOREIGN KEY (`variant_id`) REFERENCES `product_variants`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- Note: In v1.3 we added `latitude` and `longitude` to `orders`
+ALTER TABLE `orders` ADD COLUMN `latitude` DECIMAL(10,8) NULL AFTER `shipping_address`;
+ALTER TABLE `orders` ADD COLUMN `longitude` DECIMAL(11,8) NULL AFTER `latitude`;

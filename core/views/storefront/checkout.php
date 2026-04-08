@@ -57,6 +57,13 @@ require_once __DIR__ . '/partials/header.php';
         <div class="lg:col-span-7 order-1 lg:order-2">
             <h1 class="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-8">Checkout</h1>
 
+            <!-- Map Styles & Scripts -->
+            <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+            <style>
+                #map { height: 300px; width: 100%; z-index: 10; }
+            </style>
+
             <!-- Coupon Code Section -->
             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm mb-8">
                 <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Have a Coupon?</h2>
@@ -88,11 +95,29 @@ require_once __DIR__ . '/partials/header.php';
                 <?php endif; ?>
             </div>
 
-            <form action="/checkout/process" method="POST" class="space-y-8">
+            <form action="/checkout/process" method="POST" id="checkout-form" class="space-y-8">
                 <!-- Shipping Details -->
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                     <h2 class="text-lg font-medium text-gray-900 dark:text-white mb-4">Shipping Information</h2>
                     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+
+                        <div class="sm:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Pinpoint Your Exact Location</label>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Drag the marker or click on the map to set your exact delivery location.</p>
+                            <div id="map" class="rounded-md border border-gray-300 dark:border-gray-600 shadow-sm mb-4"></div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label for="latitude" class="block text-xs font-medium text-gray-500 dark:text-gray-400">Latitude</label>
+                                    <input type="text" id="latitude" name="latitude" readonly class="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 rounded-md shadow-sm py-2 px-3 sm:text-xs focus:outline-none">
+                                </div>
+                                <div>
+                                    <label for="longitude" class="block text-xs font-medium text-gray-500 dark:text-gray-400">Longitude</label>
+                                    <input type="text" id="longitude" name="longitude" readonly class="mt-1 block w-full bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400 rounded-md shadow-sm py-2 px-3 sm:text-xs focus:outline-none">
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="sm:col-span-2">
                             <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Street Address</label>
                             <input type="text" id="address" name="address" required
@@ -112,6 +137,11 @@ require_once __DIR__ . '/partials/header.php';
                         </div>
                     </div>
                 </div>
+
+                <!-- Hidden inputs for Razorpay response -->
+                <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+                <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+                <input type="hidden" name="razorpay_signature" id="razorpay_signature">
 
                 <!-- Payment Info -->
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
@@ -144,6 +174,55 @@ require_once __DIR__ . '/partials/header.php';
         </div>
     </div>
 </div>
+
+<script>
+// Initialize Leaflet Map
+document.addEventListener('DOMContentLoaded', function() {
+    // Default coordinates (e.g. center of India)
+    let defaultLat = 20.5937;
+    let defaultLng = 78.9629;
+
+    // Try to get user's location, else use default
+    const map = L.map('map').setView([defaultLat, defaultLng], 4);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+
+    let marker = L.marker([defaultLat, defaultLng], {draggable: true}).addTo(map);
+
+    function updateInputs(lat, lng) {
+        document.getElementById('latitude').value = lat.toFixed(8);
+        document.getElementById('longitude').value = lng.toFixed(8);
+    }
+
+    // Set initial values
+    updateInputs(defaultLat, defaultLng);
+
+    // Update inputs on marker drag
+    marker.on('dragend', function (e) {
+        updateInputs(marker.getLatLng().lat, marker.getLatLng().lng);
+    });
+
+    // Update marker and inputs on map click
+    map.on('click', function(e) {
+        marker.setLatLng(e.latlng);
+        updateInputs(e.latlng.lat, e.latlng.lng);
+    });
+
+    // Ask for browser geolocation
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            const userLat = position.coords.latitude;
+            const userLng = position.coords.longitude;
+            map.setView([userLat, userLng], 13);
+            marker.setLatLng([userLat, userLng]);
+            updateInputs(userLat, userLng);
+        });
+    }
+});
+</script>
 
 <!-- Razorpay Checkout JS -->
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>

@@ -26,7 +26,7 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('promo_banner_3', '✨ 100% Natural, Cruelty-Free Ayurvedic Care ✨'),
 ('contact_whatsapp', '910000000000'),
 ('contact_email', 'info@aayucare.com'),
-('smtp_host', ''),
+('smtp_host', 'smtp.gmail.com'),
 ('smtp_port', '587'),
 ('smtp_user', ''),
 ('smtp_password', ''),

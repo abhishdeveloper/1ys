@@ -14,8 +14,8 @@ class Mailer {
         $mail = new PHPMailer(true);
 
         try {
-            // Fetch dynamic SMTP settings from the database
-            $db = new PDO('mysql:host=localhost;dbname=shopswift', 'root', '');
+            // Fetch dynamic SMTP settings from the database using centralized function
+            $db = getDB();
             $stmt = $db->query("SELECT setting_key, setting_value FROM settings WHERE setting_key LIKE 'smtp_%'");
             $settings = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
 
@@ -105,31 +105,65 @@ class Mailer {
         }
     }
 
-    public function sendOrderConfirmationEmail($toEmail, $toName, $orderData) {
+    public function sendOrderConfirmationEmail($toEmail, $toName, $orderData, $isSeller = false) {
         $mail = $this->getMailer();
         if (!$mail) return false;
 
         try {
             $mail->addAddress($toEmail, $toName);
             $mail->isHTML(true);
-            $mail->Subject = "Order Confirmation - #" . $orderData['order_number'];
 
-            $body = "<h2>Thank you for your order, {$toName}!</h2>";
-            $body .= "<p>We have received your order <strong>#{$orderData['order_number']}</strong> and it is currently being processed.</p>";
-            $body .= "<h3>Order Details:</h3>";
-            $body .= "<ul>";
-            $body .= "<li><strong>Total Amount:</strong> $" . number_format($orderData['total_amount'], 2) . "</li>";
-            $body .= "<li><strong>Shipping Address:</strong> {$orderData['shipping_address']}</li>";
-            if (!empty($orderData['delivery_instructions'])) {
-                $body .= "<li><strong>Delivery Instructions:</strong> {$orderData['delivery_instructions']}</li>";
+            if ($isSeller) {
+                $mail->Subject = "New Order Received - #" . $orderData['order_number'];
+                $greeting = "<h2>New Order Received!</h2><p>You have received a new order <strong>#{$orderData['order_number']}</strong> from {$orderData['customer_name']}.</p>";
+            } else {
+                $mail->Subject = "Order Confirmation - #" . $orderData['order_number'];
+                $greeting = "<h2>Thank you, {$toName}!</h2><p>Your order is confirmed.<br>You'll receive an email when your order is ready.</p>";
             }
-            $body .= "</ul>";
-            $body .= "<p>We have attached a copy of your invoice to this email for your records.</p>";
-            $body .= "<p>We will notify you once your order has shipped.</p>";
-            $body .= "<br><p><strong>The ShopSwift Team</strong></p>";
+
+            // Generate Map HTML if coordinates exist
+            $mapHtml = "";
+            if (!empty($orderData['latitude']) && !empty($orderData['longitude'])) {
+                $lat = $orderData['latitude'];
+                $lng = $orderData['longitude'];
+                // Use OpenStreetMap Static Map via MapQuest or a simple OSM embed link since true static requires an API key for most services.
+                // We'll use an iframe link for webmail clients that support it, and a fallback link.
+                $mapUrl = "https://www.openstreetmap.org/?mlat={$lat}&mlon={$lng}#map=15/{$lat}/{$lng}";
+                // Since email clients block iframes, we use a static map generator URL.
+                // Note: OSM doesn't have an official free high-traffic static map API, but MapQuest open provides one if registered.
+                // We will use a generic placeholder or a constructed link for this demo.
+                $staticMapUrl = "https://static-maps.yandex.ru/1.x/?lang=en-US&ll={$lng},{$lat}&z=14&l=map&size=600,300&pt={$lng},{$lat},pm2rdm";
+
+                $mapHtml = "
+                <div style='margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; overflow: hidden; font-family: sans-serif;'>
+                    <a href='{$mapUrl}' target='_blank'>
+                        <img src='{$staticMapUrl}' alt='Map Location' style='width: 100%; height: auto; display: block;' />
+                    </a>
+                    <div style='padding: 15px; background: #fff; text-align: center;'>
+                        <p style='margin: 0; font-size: 16px; font-weight: bold;'>Shipping Address</p>
+                        <p style='margin: 5px 0 0 0; color: #555;'>{$orderData['shipping_address']}</p>
+                    </div>
+                </div>";
+            }
+
+            $body = "<div style='max-w-xl mx-auto; font-family: Arial, sans-serif;'>";
+            $body .= $mapHtml;
+            $body .= $greeting;
+            $body .= "<hr style='border: none; border-top: 1px solid #eee; margin: 20px 0;'>";
+            $body .= "<h3>Order details</h3>";
+            $body .= "<p><strong>Contact information</strong><br>{$orderData['customer_email']}</p>";
+            $body .= "<p><strong>Shipping address</strong><br>" . nl2br(sanitize($orderData['shipping_address'])) . "</p>";
+            $body .= "<p><strong>Payment method</strong><br>" . ucfirst($orderData['payment_method']) . " - ₹" . number_format($orderData['total_amount'], 2) . "</p>";
+            if (!empty($orderData['delivery_instructions'])) {
+                $body .= "<p><strong>Delivery Instructions:</strong> {$orderData['delivery_instructions']}</p>";
+            }
+            if (!$isSeller) {
+                $body .= "<br><p style='text-align: center; color: #888;'>Need help? <a href='mailto:info@aayucare.com' style='color: #b89053;'>Contact us</a></p>";
+            }
+            $body .= "</div>";
 
             $mail->Body = $body;
-            $mail->AltBody = "Thank you for your order! Order number: {$orderData['order_number']}. Total: $" . number_format($orderData['total_amount'], 2);
+            $mail->AltBody = "Order details: " . strip_tags($body);
 
             // Generate and attach PDF invoice
             require_once __DIR__ . '/InvoiceGenerator.php';

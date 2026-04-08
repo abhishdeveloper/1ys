@@ -297,6 +297,37 @@ require_once __DIR__ . '/../partials/header.php';
                     <?php else: ?>
                         <p class="text-sm text-gray-500 dark:text-gray-400 font-light italic">No reviews yet. Be the first to review this product!</p>
                     <?php endif; ?>
+
+                    <!-- Write a Review Form -->
+                    <div class="mt-12 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 p-6 rounded-lg">
+                        <h3 class="text-lg font-medium text-primary dark:text-white mb-4">Write a Review</h3>
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <form action="/product/review" method="POST" class="space-y-4">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <div>
+                                    <label for="rating" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Rating</label>
+                                    <select id="rating" name="rating" required class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 dark:bg-gray-700 focus:outline-none focus:ring-accent focus:border-accent sm:text-sm rounded-md">
+                                        <option value="5">5 Stars - Excellent</option>
+                                        <option value="4">4 Stars - Good</option>
+                                        <option value="3">3 Stars - Average</option>
+                                        <option value="2">2 Stars - Poor</option>
+                                        <option value="1">1 Star - Terrible</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="comment" class="block text-sm font-medium text-gray-700 dark:text-gray-300">Comment</label>
+                                    <textarea id="comment" name="comment" rows="4" required class="shadow-sm focus:ring-accent focus:border-accent block w-full sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-md p-2 mt-1"></textarea>
+                                </div>
+                                <div>
+                                    <button type="submit" class="inline-flex justify-center items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent">
+                                        Submit Review
+                                    </button>
+                                </div>
+                            </form>
+                        <?php else: ?>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Please <a href="/login" class="text-accent hover:text-accent_hover font-medium">log in</a> to write a review.</p>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>

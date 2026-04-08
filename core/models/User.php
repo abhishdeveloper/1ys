@@ -50,6 +50,24 @@ class User {
         return $stmt->fetch();
     }
 
+    /**
+     * Update a user's details
+     */
+    public function update($id, $name, $email, $phone = null, $address = null) {
+        $stmt = $this->db->prepare("
+            UPDATE users
+            SET name = :name, email = :email, phone = :phone, address = :address
+            WHERE id = :id
+        ");
+        return $stmt->execute([
+            'id' => $id,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address
+        ]);
+    }
+
     public function create($name, $email, $password, $phone = null, $address = null) {
         // Hash the password securely using PHP's native function
         $hash = password_hash($password, PASSWORD_DEFAULT);

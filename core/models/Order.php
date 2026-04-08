@@ -20,11 +20,11 @@ class Order {
             $stmt = $this->db->prepare("
                 INSERT INTO orders (
                     user_id, order_number, total_amount, shipping_cost, discount_amount,
-                    coupon_id, payment_method, payment_status, order_status, shipping_address, delivery_instructions,
+                    coupon_id, payment_method, payment_status, order_status, shipping_address, latitude, longitude, delivery_instructions,
                     razorpay_order_id, razorpay_payment_id, razorpay_signature
                 ) VALUES (
                     :user_id, :order_number, :total_amount, :shipping_cost, :discount_amount,
-                    :coupon_id, :payment_method, :payment_status, :order_status, :shipping_address, :delivery_instructions,
+                    :coupon_id, :payment_method, :payment_status, :order_status, :shipping_address, :latitude, :longitude, :delivery_instructions,
                     :razorpay_order_id, :razorpay_payment_id, :razorpay_signature
                 )
             ");
@@ -44,6 +44,8 @@ class Order {
                 'payment_status' => $orderData['payment_status'] ?? 'pending',
                 'order_status' => 'pending',
                 'shipping_address' => $orderData['shipping_address'],
+                'latitude' => $orderData['latitude'] ?? null,
+                'longitude' => $orderData['longitude'] ?? null,
                 'delivery_instructions' => $orderData['delivery_instructions'] ?? null,
                 'razorpay_order_id' => $orderData['razorpay_order_id'] ?? null,
                 'razorpay_payment_id' => $orderData['razorpay_payment_id'] ?? null,
@@ -55,9 +57,9 @@ class Order {
             // Insert order items
             $itemStmt = $this->db->prepare("
                 INSERT INTO order_items (
-                    order_id, product_id, product_name, quantity, unit_price, total_price
+                    order_id, product_id, variant_id, product_name, quantity, unit_price, total_price
                 ) VALUES (
-                    :order_id, :product_id, :product_name, :quantity, :unit_price, :total_price
+                    :order_id, :product_id, :variant_id, :product_name, :quantity, :unit_price, :total_price
                 )
             ");
 
@@ -68,24 +70,45 @@ class Order {
                 WHERE id = :id AND stock_quantity >= :quantity2
             ");
 
+            $variantStockStmt = $this->db->prepare("
+                UPDATE product_variants
+                SET stock_quantity = stock_quantity - :quantity1
+                WHERE id = :id AND stock_quantity >= :quantity2
+            ");
+
             foreach ($cartItems as $item) {
+                // Determine if this is a variant from the cartKey
+                $parts = explode('-', $item['cartKey'] ?? (string)$item['product']['id']);
+                $variantId = isset($parts[1]) ? (int)$parts[1] : null;
+
                 $itemStmt->execute([
                     'order_id' => $orderId,
                     'product_id' => $item['product']['id'],
+                    'variant_id' => $variantId,
                     'product_name' => $item['product']['name'],
                     'quantity' => $item['quantity'],
                     'unit_price' => $item['product']['price'],
                     'total_price' => $item['total']
                 ]);
 
-                $stockStmt->execute([
-                    'quantity1' => $item['quantity'],
-                    'quantity2' => $item['quantity'],
-                    'id' => $item['product']['id']
-                ]);
-
-                if ($stockStmt->rowCount() === 0) {
-                    throw new Exception("Insufficient stock for product ID: " . $item['product']['id']);
+                if ($variantId) {
+                    $variantStockStmt->execute([
+                        'quantity1' => $item['quantity'],
+                        'quantity2' => $item['quantity'],
+                        'id' => $variantId
+                    ]);
+                    if ($variantStockStmt->rowCount() === 0) {
+                        throw new Exception("Insufficient stock for variant ID: " . $variantId);
+                    }
+                } else {
+                    $stockStmt->execute([
+                        'quantity1' => $item['quantity'],
+                        'quantity2' => $item['quantity'],
+                        'id' => $item['product']['id']
+                    ]);
+                    if ($stockStmt->rowCount() === 0) {
+                        throw new Exception("Insufficient stock for product ID: " . $item['product']['id']);
+                    }
                 }
             }
 

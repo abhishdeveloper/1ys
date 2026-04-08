@@ -38,7 +38,7 @@ require_once __DIR__ . '/partials/header.php';
             </div>
 
             <div class="text-sm">
-                <a href="/forgot-password" class="font-medium text-primary hover:text-indigo-500">
+                <a href="/forgot-password" class="font-medium text-primary dark:text-accent hover:text-accent_hover dark:hover:text-white transition-colors">
                     Forgot your password?
                 </a>
             </div>
@@ -46,15 +46,41 @@ require_once __DIR__ . '/partials/header.php';
 
         <div>
             <button type="submit"
-                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary_hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
                 Sign in
             </button>
         </div>
     </form>
 
+    <?php
+    $db = getDB();
+    $stmt = $db->query("SELECT setting_value FROM settings WHERE setting_key = 'google_client_id'");
+    $clientId = $stmt->fetchColumn();
+    if (!empty($clientId)):
+        $googleLoginUrl = getBaseUrl() . '/auth/google';
+    ?>
+    <div class="mt-6">
+        <div class="relative">
+            <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+                <span class="px-2 bg-white dark:bg-gray-800 text-gray-500">Or continue with</span>
+            </div>
+        </div>
+
+        <div class="mt-6">
+            <a href="<?php echo htmlspecialchars($googleLoginUrl); ?>" class="w-full flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors">
+                <img class="h-5 w-5 mr-2" src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google logo">
+                Sign in with Google
+            </a>
+        </div>
+    </div>
+    <?php endif; ?>
+
     <div class="mt-6 text-center">
         <p class="text-sm text-gray-600 dark:text-gray-400">
-            Don't have an account? <a href="/register" class="font-medium text-primary hover:text-indigo-500">Register here</a>
+            Don't have an account? <a href="/register" class="font-medium text-primary dark:text-accent hover:text-accent_hover dark:hover:text-white transition-colors">Register here</a>
         </p>
     </div>
 </div>

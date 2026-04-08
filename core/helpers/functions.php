@@ -2,6 +2,18 @@
 // helpers/functions.php - Global utility functions
 
 /**
+ * Get base URL
+ */
+function getBaseUrl() {
+    if (php_sapi_name() === 'cli') {
+        return 'http://localhost:8000'; // Fallback for CLI testing
+    }
+    $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) ? "https://" : "http://";
+    $domainName = $_SERVER['HTTP_HOST'] ?? 'localhost';
+    return $protocol . $domainName;
+}
+
+/**
  * Clean user input to prevent XSS
  */
 function sanitize($string) {

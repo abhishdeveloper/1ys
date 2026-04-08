@@ -117,6 +117,8 @@ class CheckoutController {
         $address = sanitize($_POST['address'] ?? '');
         $city = sanitize($_POST['city'] ?? '');
         $zip = sanitize($_POST['zip'] ?? '');
+        $lat = isset($_POST['latitude']) ? (float)$_POST['latitude'] : null;
+        $lng = isset($_POST['longitude']) ? (float)$_POST['longitude'] : null;
 
         if (empty($address) || empty($city) || empty($zip)) {
             setFlashMessage('error', 'Please complete all shipping address fields.');
@@ -175,6 +177,8 @@ class CheckoutController {
             'discount_amount' => $discountAmount,
             'coupon_id' => $couponId,
             'shipping_address' => $fullAddress,
+            'latitude' => $lat,
+            'longitude' => $lng,
             'payment_method' => 'razorpay',
             'payment_status' => 'paid',
             'razorpay_order_id' => $razorpayOrderId,
@@ -199,7 +203,19 @@ class CheckoutController {
             $user = $stmt->fetch();
 
             if ($user && $createdOrder) {
-                $mailer->sendOrderConfirmationEmail($user['email'], $user['name'], $createdOrder);
+                // Pass extra customer data to Mailer
+                $createdOrder['customer_name'] = $user['name'];
+                $createdOrder['customer_email'] = $user['email'];
+
+                // Send to Customer
+                $mailer->sendOrderConfirmationEmail($user['email'], $user['name'], $createdOrder, false);
+
+                // Send to Admin/Seller
+                // For simplicity, we fetch all admin/seller emails, but ideally you'd filter by the sellers of the items
+                $adminStmt = $this->db->query("SELECT email, name FROM users WHERE role IN ('admin', 'seller')");
+                while ($admin = $adminStmt->fetch()) {
+                    $mailer->sendOrderConfirmationEmail($admin['email'], $admin['name'], $createdOrder, true);
+                }
             }
 
             // Clear cart
@@ -232,15 +248,33 @@ class CheckoutController {
 
     private function getCartDetails() {
         $cartItems = [];
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
+        foreach ($_SESSION['cart'] as $cartKey => $quantity) {
+            $parts = explode('-', $cartKey);
+            $productId = (int)$parts[0];
+            $variantId = isset($parts[1]) ? (int)$parts[1] : null;
+
             $stmt = $this->db->prepare("SELECT id, name, slug, price, stock_quantity FROM products WHERE id = :id AND is_active = 1");
             $stmt->execute(['id' => $productId]);
             $product = $stmt->fetch();
 
             if ($product) {
-                // Ensure quantity doesn't exceed stock
+                if ($variantId) {
+                    $vStmt = $this->db->prepare("SELECT name, price, stock_quantity FROM product_variants WHERE id = :id AND product_id = :pid AND is_active = 1");
+                    $vStmt->execute(['id' => $variantId, 'pid' => $productId]);
+                    $variant = $vStmt->fetch();
+
+                    if ($variant) {
+                        $product['name'] = $product['name'] . ' - ' . $variant['name'];
+                        $product['price'] = $variant['price'];
+                        $product['stock_quantity'] = $variant['stock_quantity'];
+                    } else {
+                        continue;
+                    }
+                }
+
                 $qty = min($quantity, $product['stock_quantity']);
                 $cartItems[] = [
+                    'cartKey' => $cartKey,
                     'product' => $product,
                     'quantity' => $qty,
                     'total' => $product['price'] * $qty

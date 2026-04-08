@@ -24,32 +24,49 @@ class CartController {
         $cartItems = [];
         $subtotal = 0;
 
-        // Fetch current product details for items in cart
-        foreach ($_SESSION['cart'] as $productId => $quantity) {
-            // We use a direct query here since findBySlug requires slug.
-            // Let's add findById to Product model or just query it here.
+        foreach ($_SESSION['cart'] as $cartKey => $quantity) {
+            // Check if cart key contains a variant separator
+            $parts = explode('-', $cartKey);
+            $productId = (int)$parts[0];
+            $variantId = isset($parts[1]) ? (int)$parts[1] : null;
+
             $stmt = $this->db->prepare("SELECT id, name, slug, price, image_url, stock_quantity FROM products WHERE id = :id AND is_active = 1");
             $stmt->execute(['id' => $productId]);
             $product = $stmt->fetch();
 
             if ($product) {
-                // Adjust quantity if it exceeds stock
+                // Handle variant overrides
+                if ($variantId) {
+                    $vStmt = $this->db->prepare("SELECT name, price, stock_quantity FROM product_variants WHERE id = :id AND product_id = :pid AND is_active = 1");
+                    $vStmt->execute(['id' => $variantId, 'pid' => $productId]);
+                    $variant = $vStmt->fetch();
+
+                    if ($variant) {
+                        $product['name'] = $product['name'] . ' - ' . $variant['name'];
+                        $product['price'] = $variant['price'];
+                        $product['stock_quantity'] = $variant['stock_quantity'];
+                    } else {
+                        unset($_SESSION['cart'][$cartKey]);
+                        continue;
+                    }
+                }
+
                 $actualQuantity = min($quantity, $product['stock_quantity']);
                 if ($actualQuantity != $quantity) {
-                    $_SESSION['cart'][$productId] = $actualQuantity;
+                    $_SESSION['cart'][$cartKey] = $actualQuantity;
                 }
 
                 $itemTotal = $product['price'] * $actualQuantity;
                 $subtotal += $itemTotal;
 
                 $cartItems[] = [
+                    'cartKey' => $cartKey,
                     'product' => $product,
                     'quantity' => $actualQuantity,
                     'total' => $itemTotal
                 ];
             } else {
-                // Product no longer exists or is inactive, remove from cart
-                unset($_SESSION['cart'][$productId]);
+                unset($_SESSION['cart'][$cartKey]);
             }
         }
 
@@ -66,30 +83,46 @@ class CartController {
         }
 
         $productId = (int)($_POST['product_id'] ?? 0);
+        $variantId = !empty($_POST['variant_id']) ? (int)$_POST['variant_id'] : null;
         $quantity = (int)($_POST['quantity'] ?? 1);
 
         if ($productId > 0 && $quantity > 0) {
-            // Check if product exists and has stock
             $stmt = $this->db->prepare("SELECT stock_quantity, name FROM products WHERE id = :id AND is_active = 1");
             $stmt->execute(['id' => $productId]);
             $product = $stmt->fetch();
 
             if ($product) {
-                $currentQty = $_SESSION['cart'][$productId] ?? 0;
+                $stockAvailable = $product['stock_quantity'];
+                $productName = $product['name'];
+
+                if ($variantId) {
+                    $vStmt = $this->db->prepare("SELECT stock_quantity, name FROM product_variants WHERE id = :id AND product_id = :pid AND is_active = 1");
+                    $vStmt->execute(['id' => $variantId, 'pid' => $productId]);
+                    $variant = $vStmt->fetch();
+                    if ($variant) {
+                        $stockAvailable = $variant['stock_quantity'];
+                        $productName = $productName . ' - ' . $variant['name'];
+                    } else {
+                        setFlashMessage('error', 'Variant not found.');
+                        redirect(parse_url($_SERVER['HTTP_REFERER'] ?? '/cart', PHP_URL_PATH));
+                    }
+                }
+
+                $cartKey = $variantId ? "{$productId}-{$variantId}" : (string)$productId;
+                $currentQty = $_SESSION['cart'][$cartKey] ?? 0;
                 $newQty = $currentQty + $quantity;
 
-                if ($newQty > $product['stock_quantity']) {
-                    setFlashMessage('error', 'Cannot add more of ' . sanitize($product['name']) . '. Only ' . $product['stock_quantity'] . ' in stock.');
+                if ($newQty > $stockAvailable) {
+                    setFlashMessage('error', 'Cannot add more of ' . sanitize($productName) . '. Only ' . $stockAvailable . ' in stock.');
                 } else {
-                    $_SESSION['cart'][$productId] = $newQty;
-                    setFlashMessage('success', sanitize($product['name']) . ' added to your cart.');
+                    $_SESSION['cart'][$cartKey] = $newQty;
+                    setFlashMessage('success', sanitize($productName) . ' added to your cart.');
                 }
             } else {
                 setFlashMessage('error', 'Product not found or unavailable.');
             }
         }
 
-        // Redirect back to the referring page if possible, else cart
         $referer = $_SERVER['HTTP_REFERER'] ?? '/cart';
         redirect(parse_url($referer, PHP_URL_PATH));
     }
@@ -102,29 +135,46 @@ class CartController {
             redirect('/cart');
         }
 
-        $productId = (int)($_POST['product_id'] ?? 0);
-        $action = $_POST['action'] ?? ''; // 'increase' or 'decrease'
+        $cartKey = $_POST['cart_key'] ?? '';
+        // Fallback for old forms without cart_key
+        if (empty($cartKey) && isset($_POST['product_id'])) {
+            $cartKey = (string)$_POST['product_id'];
+        }
 
-        if ($productId > 0 && isset($_SESSION['cart'][$productId])) {
+        $action = $_POST['action'] ?? '';
+
+        if (!empty($cartKey) && isset($_SESSION['cart'][$cartKey])) {
+            $parts = explode('-', $cartKey);
+            $productId = (int)$parts[0];
+            $variantId = isset($parts[1]) ? (int)$parts[1] : null;
+
             $stmt = $this->db->prepare("SELECT stock_quantity FROM products WHERE id = :id AND is_active = 1");
             $stmt->execute(['id' => $productId]);
             $product = $stmt->fetch();
 
             if ($product) {
-                $currentQty = $_SESSION['cart'][$productId];
+                $stockAvailable = $product['stock_quantity'];
+
+                if ($variantId) {
+                    $vStmt = $this->db->prepare("SELECT stock_quantity FROM product_variants WHERE id = :id AND product_id = :pid AND is_active = 1");
+                    $vStmt->execute(['id' => $variantId, 'pid' => $productId]);
+                    $variant = $vStmt->fetch();
+                    if ($variant) $stockAvailable = $variant['stock_quantity'];
+                }
+
+                $currentQty = $_SESSION['cart'][$cartKey];
 
                 if ($action === 'increase') {
-                    if ($currentQty < $product['stock_quantity']) {
-                        $_SESSION['cart'][$productId]++;
+                    if ($currentQty < $stockAvailable) {
+                        $_SESSION['cart'][$cartKey]++;
                     } else {
                         setFlashMessage('error', 'Maximum stock reached.');
                     }
                 } elseif ($action === 'decrease') {
                     if ($currentQty > 1) {
-                        $_SESSION['cart'][$productId]--;
+                        $_SESSION['cart'][$cartKey]--;
                     } else {
-                        // Remove if decreased below 1
-                        unset($_SESSION['cart'][$productId]);
+                        unset($_SESSION['cart'][$cartKey]);
                     }
                 }
             }
@@ -137,9 +187,14 @@ class CartController {
      */
     public function remove() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $productId = (int)($_POST['product_id'] ?? 0);
-            if ($productId > 0 && isset($_SESSION['cart'][$productId])) {
-                unset($_SESSION['cart'][$productId]);
+            $cartKey = $_POST['cart_key'] ?? '';
+            // Fallback for old forms
+            if (empty($cartKey) && isset($_POST['product_id'])) {
+                $cartKey = (string)$_POST['product_id'];
+            }
+
+            if (!empty($cartKey) && isset($_SESSION['cart'][$cartKey])) {
+                unset($_SESSION['cart'][$cartKey]);
                 setFlashMessage('success', 'Item removed from cart.');
             }
         }

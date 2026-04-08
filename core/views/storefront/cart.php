@@ -49,7 +49,7 @@ require_once __DIR__ . '/partials/header.php';
                                         <!-- Quantity Controls -->
                                         <div class="flex items-center border border-gray-300 dark:border-gray-600 rounded-md w-24">
                                             <form action="/cart/update" method="POST" class="w-1/3">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                                <input type="hidden" name="cart_key" value="<?php echo htmlspecialchars($item['cartKey']); ?>">
                                                 <input type="hidden" name="action" value="decrease">
                                                 <button type="submit" class="w-full h-full text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white px-2 py-1 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary rounded-l-md">
                                                     -
@@ -59,7 +59,7 @@ require_once __DIR__ . '/partials/header.php';
                                                 <?php echo $item['quantity']; ?>
                                             </div>
                                             <form action="/cart/update" method="POST" class="w-1/3">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                                <input type="hidden" name="cart_key" value="<?php echo htmlspecialchars($item['cartKey']); ?>">
                                                 <input type="hidden" name="action" value="increase">
                                                 <button type="submit" class="w-full h-full text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-white px-2 py-1 flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary rounded-r-md">
                                                     +
@@ -69,7 +69,7 @@ require_once __DIR__ . '/partials/header.php';
 
                                         <div class="absolute top-0 right-0">
                                             <form action="/cart/remove" method="POST">
-                                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                                <input type="hidden" name="cart_key" value="<?php echo htmlspecialchars($item['cartKey']); ?>">
                                                 <button type="submit" class="-m-2 p-2 inline-flex text-gray-400 hover:text-gray-500">
                                                     <span class="sr-only">Remove</span>
                                                     <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">

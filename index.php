@@ -4,12 +4,24 @@
  * Handles all requests, routing, and initialization.
  */
 
-// Initialize standard environment
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 // Load required configuration and helper functions
 require_once __DIR__ . '/core/config/database.php';
+
+// Production Error Handling
+$isDev = defined('ENVIRONMENT') && ENVIRONMENT === 'development';
+ini_set('display_errors', $isDev ? 1 : 0);
+ini_set('display_startup_errors', $isDev ? 1 : 0);
+error_reporting($isDev ? E_ALL : E_ALL & ~E_DEPRECATED & ~E_STRICT);
+
+// Set up error logging
+$logFile = __DIR__ . '/core/logs/app.log';
+if (!is_dir(dirname($logFile))) {
+    mkdir(dirname($logFile), 0755, true);
+}
+ini_set('log_errors', 1);
+ini_set('error_log', $logFile);
+
+// Load helper functions
 require_once __DIR__ . '/core/helpers/functions.php';
 require_once __DIR__ . '/core/helpers/Analytics.php';
 
@@ -109,6 +121,12 @@ try {
             $checkoutCtrl->initPayment();
             break;
 
+        case 'product/review':
+            require_once __DIR__ . '/core/controllers/ProductController.php';
+            $productCtrl = new ProductController($db);
+            $productCtrl->submitReview();
+            break;
+
         case 'checkout/process':
             require_once __DIR__ . '/core/controllers/CheckoutController.php';
             $checkoutCtrl = new CheckoutController($db);
@@ -191,6 +209,20 @@ try {
             require_once __DIR__ . '/core/controllers/AuthController.php';
             $auth = new AuthController($db);
             $auth->changePassword();
+            break;
+
+        case 'auth/google':
+            require_once __DIR__ . '/core/models/User.php';
+            require_once __DIR__ . '/core/controllers/AuthController.php';
+            $auth = new AuthController($db);
+            $auth->google();
+            break;
+
+        case 'auth/google/callback':
+            require_once __DIR__ . '/core/models/User.php';
+            require_once __DIR__ . '/core/controllers/AuthController.php';
+            $auth = new AuthController($db);
+            $auth->googleCallback();
             break;
 
         case 'dashboard':
